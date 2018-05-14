@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuBarComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+  	
+  }
 
   ngOnInit() {
   	this.createElement();
@@ -17,15 +19,19 @@ export class MenuBarComponent implements OnInit {
 		let menuItems = [
 			{
 				label: "Account",
+				href: "#"
 			},
 			{
 				label: "Browse",
+				href: "#"
 			},
 			{
 				label: "My courses",
+				href: "#"
 			},
 			{
 				label: "Log out",
+				href: "#"
 			},
 		];
 		let ul_item = document.createElement("ul");
@@ -36,18 +42,14 @@ export class MenuBarComponent implements OnInit {
 			let li_item = document.createElement("li");
 			li_item.className = "nav-item";
 
-			console.log(li_item);
-
 			let a_item = document.createElement("a");
 			a_item.innerText = item.label;
+			a_item.href = item.href;
+			a_item.onclick = () => alert(item.label);
 			a_item.className = "nav-link";
-
-			console.log(a_item);
 
 			li_item.appendChild(a_item);
 			ul_item.appendChild(li_item);
-			//btn.onclick( console.log("test"));
-			//btn.innerText = item.label;
 			document.getElementById('menuBar').appendChild(ul_item);
 		}
 	}
