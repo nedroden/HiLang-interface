@@ -8,10 +8,3 @@ body {
 	font-family: "Noto Sans", Helvetica, Arial;
 }
 
-#menuBar {
-	position: fixed;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	width: 10%;
-}
