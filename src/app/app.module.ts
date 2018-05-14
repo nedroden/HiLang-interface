@@ -6,6 +6,7 @@ import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { GrammarComponent } from './exercises/grammar/grammar.component';
 import { FlashcardsComponent } from './exercises/flashcards/flashcards.component';
 import { LessonviewComponent } from './lessonview/lessonview.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { LessonviewComponent } from './lessonview/lessonview.component';
     MenuBarComponent,
     GrammarComponent,
     FlashcardsComponent,
-    LessonviewComponent
+    LessonviewComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule
