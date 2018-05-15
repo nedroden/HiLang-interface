@@ -1,10 +1,20 @@
+#enterLabel {
+	text-align: center;
+	margin-top: 2%;
+	font-size: 200%;
+    color: #c62828;
+    font-family: Arial, Verdana;
+}
+
 #input_field {
-	margin-left: 30%;
+	margin-left: auto;
+	margin-right: auto;
 	margin-top: 2%;
 }
 
-#button {
-	margin-top: 2%
+#addRowsButton {
+	margin-left: 40%;
+	margin-top: 2%;
 }
 
 .inputs {

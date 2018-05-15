@@ -8,37 +8,36 @@ import * as $ from 'jquery';
 })
 export class CreateWordListComponent implements OnInit {
 
+
     constructor() { }
 
     ngOnInit() {
-    	this.createElement;
+    	this.createElement();
+    	this.createRows();
     }
 
-	createElement(){
-	  	var i = $('table tr').length;
+    createElement(){
+       	var addRowsButton = document.getElementById("addRowsButton");
+    	addRowsButton.onclick = this.createRows;
 
-		$(document).on('keyup', '.lst', function(e) {
-		  	var code = (e.keyCode ? e.keyCode : e.which);
-			if (code == 13) {
-				console.log("hoi");
-				var newLine = '<tr>';
-			    newLine += '<td>' + i + '</td>';
-			    newLine += '<td><input type="text" class="inputs" name="left_input' + i + '" id="left_input' + i + '" /></td>';
-			    newLine += '<td><input type="text" class="inputs" name="right_input' + i + '" id="left_input' + i + '" /></td>';
-			    newLine += '</tr>';
-			    $('table').append(newLine);
-			    $(this).focus().select();
-				i++;
-		 	}
-		});
+    }
 
-		$(document).on('keydown', '.inputs', function(e) {
-		    var code = (e.keyCode ? e.keyCode : e.which);
-		    if (code == 13) {
-		        var index = $('.inputs').index(this) + 1;
-		    	$('.inputs').eq(index).focus();
-		  	}
-		});
-	  }
+	createRows(){
+		for(let x = 0; x < 5; x ++){			
+			var table = document.getElementById("input_field");
+			var i = table.getElementsByTagName("tr").length;
+			var row = table.insertRow(table.length);	
+			var cell1 = row.insertCell(0);
+			cell1.innerHTML = i;
+			
+			var cell2 = row.insertCell(1);
+			var cell2_input = document.createElement("input");
+			cell2.appendChild(cell2_input);
+			
+			var cell3 = row.insertCell(2);
+			var cell3_input = document.createElement("input");
+			cell3.appendChild(cell3_input);
 
+		}
+	}
 }
