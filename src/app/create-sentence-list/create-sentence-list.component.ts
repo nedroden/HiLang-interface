@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 
 @Component({
-  selector: 'app-create-word-list',
-  templateUrl: './create-word-list.component.html',
-  styleUrls: ['./create-word-list.component.css']
+  selector: 'app-create-sentence-list',
+  templateUrl: './create-sentence-list.component.html',
+  styleUrls: ['./create-sentence-list.component.css']
 })
-export class CreateWordListComponent implements OnInit {
+export class CreateSentenceListComponent implements OnInit {
 
 
     constructor() { }
@@ -19,6 +19,9 @@ export class CreateWordListComponent implements OnInit {
     createElement(){
        	var addRowsButton = document.getElementById("addRowsButton");
     	addRowsButton.onclick = this.createRows;
+
+    	var saveButton = document.getElementById("saveButton");
+    	saveButton.onclick = this.saveList();
 
     }
 
@@ -37,6 +40,11 @@ export class CreateWordListComponent implements OnInit {
 			var cell3 = row.insertCell(2);
 			var cell3_input = document.createElement("input");
 			cell3.appendChild(cell3_input);
+
 		}
+	}
+
+	saveList(){
+		console.log("Saved your file");
 	}
 }
