@@ -10,19 +10,22 @@ import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MenuBarComponent,
-    GrammarComponent,
-    FlashcardsComponent,
-    LessonviewComponent,
-    HeaderComponent,
-    ContentComponent
-  ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        MenuBarComponent,
+        GrammarComponent,
+        FlashcardsComponent,
+        LessonviewComponent,
+        HeaderComponent,
+        ContentComponent
+    ],
+    entryComponents: [
+        HeaderComponent
+    ],
+    imports: [
+        BrowserModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

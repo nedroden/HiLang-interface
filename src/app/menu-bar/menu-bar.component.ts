@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { dispatch } from '../../scripts/dispatch';
+import { Dispatch } from '../../scripts/Dispatch';
 
 @Component({
   selector: 'app-menu-bar',
@@ -8,7 +8,7 @@ import { dispatch } from '../../scripts/dispatch';
 })
 export class MenuBarComponent implements OnInit {
 
-  constructor() { }
+    constructor() { }
 
     ngOnInit() {
         this.createElement();
@@ -44,8 +44,8 @@ export class MenuBarComponent implements OnInit {
 
         for(let item of menuItems) {
             let li_item = document.createElement("li");
+            li_item.id = item.component;
             li_item.className = "nav-item";
-            li_item.onclick = (() => dispatch(item.component));
 
             let icon = document.createElement("i");
             icon.className = 'fa fa-' + item.icon + ' menu-icon';
