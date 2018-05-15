@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { dispatch } from '../../scripts/dispatch';
 
 @Component({
   selector: 'app-menu-bar',
@@ -17,20 +18,24 @@ export class MenuBarComponent implements OnInit {
         let menuItems = [
             {
                 label: "Account",
-                icon: "user"
+                icon: "user",
+                component: "app-header"
             },
             {
                 label: "Browse",
-                icon: "folder"
+                icon: "folder",
+                component: "app-header"
             },
             {
                 label: "My courses",
-                icon: "save"
+                icon: "save",
+                component: "app-header"
 
             },
             {
                 label: "Log out",
-                icon: "sign-out"
+                icon: "sign-out",
+                component: "app-header"
             },
         ];
 
@@ -40,6 +45,7 @@ export class MenuBarComponent implements OnInit {
         for(let item of menuItems) {
             let li_item = document.createElement("li");
             li_item.className = "nav-item";
+            li_item.onclick = (() => dispatch(item.component));
 
             let icon = document.createElement("i");
             icon.className = 'fa fa-' + item.icon + ' menu-icon';
