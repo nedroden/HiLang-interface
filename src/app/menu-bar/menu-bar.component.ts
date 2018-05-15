@@ -36,8 +36,7 @@ export class MenuBarComponent implements OnInit {
 		];
 		let ul_item = document.createElement("ul");
 		ul_item.className = "nav flex-column";
-		console.log(ul_item.className);
-
+		   
 		for(let item of menuItems) {
 			let li_item = document.createElement("li");
 			li_item.className = "nav-item";
