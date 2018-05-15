@@ -1,8 +1,12 @@
 #menuBar {
-	position: fixed;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	width: 10%;
-	background-color: #E1E2E1;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 120px;
+    padding: 30px 10px 10px 10px;
+    background: #263238;
+    color: #ffffff;
+    font-size: 90%;
+    letter-spacing: -1px;
 }
