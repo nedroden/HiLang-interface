@@ -7,6 +7,7 @@ import { GrammarComponent } from './exercises/grammar/grammar.component';
 import { FlashcardsComponent } from './exercises/flashcards/flashcards.component';
 import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
+import { CreateWordListComponent } from './create-word-list/create-word-list.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HeaderComponent } from './header/header.component';
     GrammarComponent,
     FlashcardsComponent,
     LessonviewComponent,
-    HeaderComponent
+    HeaderComponent,
+    CreateWordListComponent
   ],
   imports: [
     BrowserModule
