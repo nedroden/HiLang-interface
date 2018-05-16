@@ -9,6 +9,8 @@ import { GrammarComponent } from './exercises/grammar/grammar.component';
 import { FlashcardsComponent } from './exercises/flashcards/flashcards.component';
 import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
+import { SentenceStructueComponentComponent } from './sentence-structue-component/sentence-structue-component.component';
+import { SentenceStructureComponentComponent } from './sentence-structure-component/sentence-structure-component.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { HeaderComponent } from './header/header.component';
     FlashcardsComponent,
     LessonviewComponent,
     HeaderComponent,
+    SentenceStructueComponentComponent,
+    SentenceStructureComponentComponent,
   ],
   imports: [
     BrowserModule
