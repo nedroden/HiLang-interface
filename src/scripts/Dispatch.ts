@@ -6,6 +6,7 @@ import { LessonviewComponent } from '../app/lessonview/lessonview.component';
 import { GrammarComponent } from '../app/exercises/grammar/grammar.component';
 import { FlashcardsComponent } from '../app/exercises/flashcards/flashcards.component';
 import { CreateWordListComponent } from '../app/create-word-list/create-word-list.component';
+import { MultipleChoiseComponent } from '../app/exercises/multiplechoise/multiplechoise.component';
 
 export class Dispatch {
 
@@ -41,7 +42,7 @@ export class Dispatch {
                 component = CreateWordListComponent;
                 break;
             case 'flashcards':
-                component = FlashcardsComponent;
+                component = MultipleChoiseComponent;
                 break;
             default:
                 console.log('Attempting to load component ' + href + ', but it does not exist.');

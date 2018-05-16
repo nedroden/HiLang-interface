@@ -1,10 +1,8 @@
-#enterLabel {
-	text-align: center;
-	margin-left: 40%;
-	margin-top: 2%;
-	font-size: 200%;
-    color: #c62828;
-    font-family: Arial, Verdana;
+#context {
+	background-color: #edf2f9;
+	width: 40%;
+	margin-left: 30%;
+	padding: 30px;
 }
 
 #input_field {
@@ -14,7 +12,7 @@
 }
 
 #addRowsButton {
-	margin-left: 40%;
+	margin-left: 30%;
 	margin-top: 2%;
 }
 

@@ -13,7 +13,7 @@ import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
 import { CreateWordListComponent} from './create-word-list/create-word-list.component';
 import { SentenceStructureExerciseComponent } from './sentence-structure-exercise/sentence-structure-exercise.component';
-import { MultiplechoiseComponent } from './exercises/multiplechoise/multiplechoise.component';
+import { MultipleChoiseComponent } from './exercises/multiplechoise/multiplechoise.component';
 
 
 @NgModule({
@@ -31,12 +31,12 @@ import { MultiplechoiseComponent } from './exercises/multiplechoise/multiplechoi
         LandingpageComponent,
         LoginComponent,
         SentenceStructureExerciseComponent,
-        MultiplechoiseComponent,
+        MultipleChoiseComponent,
     ],
     entryComponents: [
         HeaderComponent,
         LessonviewComponent,
-        FlashcardsComponent,
+        MultipleChoiseComponent,
         CreateWordListComponent
     ],
     imports: [

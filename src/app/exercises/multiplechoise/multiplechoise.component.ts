@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './multiplechoise.component.html',
   styleUrls: ['./multiplechoise.component.css']
 })
-export class MultiplechoiseComponent implements OnInit {
+export class MultipleChoiseComponent implements OnInit {
 
   constructor() { }
 
