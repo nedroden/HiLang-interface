@@ -24,7 +24,7 @@ export class MenuBarComponent implements OnInit {
             {
                 label: "Browse",
                 icon: "folder",
-                component: "app-header"
+                component: "lessonview"
             },
             {
                 label: "My courses",

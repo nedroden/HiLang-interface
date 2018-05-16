@@ -2,6 +2,7 @@ import { Type } from '@angular/core';
 import { ContentComponent } from '../app/content/content.component'
 
 import { HeaderComponent } from '../app/header/header.component';
+import { LessonviewComponent } from '../app/lessonview/lessonview.component';
 
 export class Dispatch {
 
@@ -23,15 +24,17 @@ export class Dispatch {
         return this.instance;
     }
 
-    public do(href: String):void {
+    public do(href: String): void {
         let component;
 
         switch (href) {
             case 'header':
                 component = HeaderComponent;
                 break;
+            case 'lessonview':
+                component = LessonviewComponent;
+                break;
             default:
-                alert('hi');
                 component = HeaderComponent;
         }
 

@@ -20,7 +20,8 @@ import { ContentComponent } from './content/content.component';
         ContentComponent
     ],
     entryComponents: [
-        HeaderComponent
+        HeaderComponent,
+        LessonviewComponent
     ],
     imports: [
         BrowserModule
