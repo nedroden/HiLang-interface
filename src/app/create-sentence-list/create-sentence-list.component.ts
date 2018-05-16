@@ -12,16 +12,16 @@ export class CreateSentenceListComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-    	this.createElement();
+    	this.addOnClick();
     	this.createRows();
     }
 
-    createElement(){
+    addOnClick(){
        	var addRowsButton = document.getElementById("addRowsButton");
     	addRowsButton.onclick = this.createRows;
 
     	var saveButton = document.getElementById("saveButton");
-    	saveButton.onclick = this.saveList();
+    	saveButton.onclick = this.saveList;
 
     }
 

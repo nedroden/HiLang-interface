@@ -12,13 +12,16 @@ export class CreateWordListComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-    	this.createElement();
+    	this.addOnClick();
     	this.createRows();
     }
 
-    createElement(){
+    addOnClick(){
        	var addRowsButton = document.getElementById("addRowsButton");
     	addRowsButton.onclick = this.createRows;
+
+    	var saveButton = document.getElementById("saveButton");
+    	saveButton.onclick = this.saveList;
 
     }
 
@@ -37,6 +40,11 @@ export class CreateWordListComponent implements OnInit {
 			var cell3 = row.insertCell(2);
 			var cell3_input = document.createElement("input");
 			cell3.appendChild(cell3_input);
+
 		}
+	}
+
+	saveList(){
+		console.log("Saved your file");
 	}
 }

@@ -8,6 +8,7 @@ import { FlashcardsComponent } from './exercises/flashcards/flashcards.component
 import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
+import { CreateWordListComponent} from './create-word-list/create-word-list.component';
 
 @NgModule({
     declarations: [
@@ -17,13 +18,15 @@ import { ContentComponent } from './content/content.component';
         FlashcardsComponent,
         LessonviewComponent,
         HeaderComponent,
-        ContentComponent
+        ContentComponent,
+        CreateWordListComponent
+
     ],
     entryComponents: [
         HeaderComponent,
         LessonviewComponent,
         FlashcardsComponent,
-        GrammarComponent
+        CreateWordListComponent
     ],
     imports: [
         BrowserModule

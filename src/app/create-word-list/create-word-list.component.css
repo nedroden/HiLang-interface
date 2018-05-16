@@ -1,5 +1,6 @@
 #enterLabel {
 	text-align: center;
+	margin-left: 40%;
 	margin-top: 2%;
 	font-size: 200%;
     color: #c62828;
@@ -14,6 +15,11 @@
 
 #addRowsButton {
 	margin-left: 40%;
+	margin-top: 2%;
+}
+
+#saveButton {
+	margin-left: 20px;
 	margin-top: 2%;
 }
 

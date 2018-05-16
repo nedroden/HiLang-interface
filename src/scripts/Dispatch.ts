@@ -5,6 +5,7 @@ import { HeaderComponent } from '../app/header/header.component';
 import { LessonviewComponent } from '../app/lessonview/lessonview.component';
 import { GrammarComponent } from '../app/exercises/grammar/grammar.component';
 import { FlashcardsComponent } from '../app/exercises/flashcards/flashcards.component';
+import { CreateWordListComponent } from '../app/create-word-list/create-word-list.component';
 
 export class Dispatch {
 
@@ -37,7 +38,7 @@ export class Dispatch {
                 component = LessonviewComponent;
                 break;
             case 'grammar':
-                component = GrammarComponent;
+                component = CreateWordListComponent;
                 break;
             case 'flashcards':
                 component = FlashcardsComponent;
