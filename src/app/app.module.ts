@@ -7,22 +7,29 @@ import { GrammarComponent } from './exercises/grammar/grammar.component';
 import { FlashcardsComponent } from './exercises/flashcards/flashcards.component';
 import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
+import { ContentComponent } from './content/content.component';
 import { MyCoursesComponent } from './my-courses/my-courses.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MenuBarComponent,
-    GrammarComponent,
-    FlashcardsComponent,
-    LessonviewComponent,
-    HeaderComponent,
-    MyCoursesComponent
-  ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        MenuBarComponent,
+        GrammarComponent,
+        FlashcardsComponent,
+        LessonviewComponent,
+        HeaderComponent,
+        ContentComponent
+    ],
+    entryComponents: [
+        HeaderComponent,
+        LessonviewComponent,
+        FlashcardsComponent,
+        GrammarComponent
+    ],
+    imports: [
+        BrowserModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
