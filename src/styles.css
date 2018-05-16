@@ -39,6 +39,11 @@ br.clear {
     text-align: center;
 }
 
+/* Padding and margin */
+.action_buttons {
+    margin-top: 50px;
+}
+
 /* Responsiveness */
 @media only screen and (max-width: 900px) {
     #menuBar a {
