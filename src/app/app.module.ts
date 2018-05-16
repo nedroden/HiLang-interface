@@ -24,6 +24,8 @@ import { SentenceStructureExerciseComponent } from './sentence-structure-exercis
         LessonviewComponent,
         HeaderComponent,
         ContentComponent,
+        LandingpageComponent,
+        LoginComponent,
         SentenceStructureExerciseComponent,
     ],
     entryComponents: [
