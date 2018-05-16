@@ -28,3 +28,11 @@ h2 {
 h1, h2, h3 {
     letter-spacing: -1px;
 }
+
+/* Responsiveness */
+@media only screen and (max-width: 900px) {
+    #wrapper, #content {
+        width: 100%;
+        margin-left: 0;
+    }
+}

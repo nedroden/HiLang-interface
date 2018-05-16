@@ -27,3 +27,16 @@ br.clear {
 .nav-item, .nav-link {
     text-align: center;
 }
+
+/* Responsiveness */
+@media only screen and (max-width: 900px) {
+    #menuBar a {
+        font-size: 200%;
+        font-family: Arial, Helvetica;
+        text-align: left;
+    }
+
+    #menuBar i {
+        display: none!important;
+    }
+}
