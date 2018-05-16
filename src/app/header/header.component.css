@@ -1,3 +1,4 @@
+/* General header styles */
 #header {
     background: #efefef url('src/assets/header-bg1.jpg') repeat-x;
     background-size: 100% auto;
@@ -11,6 +12,15 @@
     font-family: Arial, Verdana;
     letter-spacing: -1px;
     text-shadow: 2px 2px #545454;
+}
+
+/* The search bar */
+#header input, #header button {
+    opacity: 0.85;
+}
+
+#header input {
+    min-width: 350px;
 }
 
 #searchBar {

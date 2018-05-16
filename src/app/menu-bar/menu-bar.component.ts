@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Dispatch } from '../../scripts/Dispatch';
 
 @Component({
   selector: 'app-menu-bar',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuBarComponent implements OnInit {
 
-  constructor() { }
+    constructor() { }
 
     ngOnInit() {
         this.createElement();
@@ -17,20 +18,24 @@ export class MenuBarComponent implements OnInit {
         let menuItems = [
             {
                 label: "Account",
-                icon: "user"
+                icon: "user",
+                component: "header"
             },
             {
                 label: "Browse",
-                icon: "folder"
+                icon: "folder",
+                component: "lessonview"
             },
             {
                 label: "My courses",
-                icon: "save"
+                icon: "save",
+                component: "grammar"
 
             },
             {
                 label: "Log out",
-                icon: "sign-out"
+                icon: "sign-out",
+                component: "flashcards"
             },
         ];
 
@@ -39,6 +44,7 @@ export class MenuBarComponent implements OnInit {
 
         for(let item of menuItems) {
             let li_item = document.createElement("li");
+            li_item.id = item.component;
             li_item.className = "nav-item";
 
             let icon = document.createElement("i");
@@ -51,8 +57,7 @@ export class MenuBarComponent implements OnInit {
             li_item.appendChild(icon);
             li_item.appendChild(a_item);
             ul_item.appendChild(li_item);
-            //btn.onclick( console.log("test"));
-            //btn.innerText = item.label;
+
             document.getElementById('menuBar').appendChild(ul_item);
         }
     }

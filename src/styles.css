@@ -16,14 +16,38 @@ br.clear {
     clear: both;
 }
 
-.nav-link {
-    margin-bottom: 20px;
-}
-
 .menu-icon {
     font-size: 300%;
 }
 
+.nav-item {
+    opacity: 0.9;
+    text-shadow: 2px 2px #000;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.nav-item:hover, .nav-item-active {
+    background: #c62828;
+}
+
+.nav-item:hover {
+    cursor: pointer;
+}
+
 .nav-item, .nav-link {
     text-align: center;
+}
+
+/* Responsiveness */
+@media only screen and (max-width: 900px) {
+    #menuBar a {
+        font-size: 200%;
+        font-family: Arial, Helvetica;
+        text-align: left;
+    }
+
+    #menuBar i {
+        display: none!important;
+    }
 }
