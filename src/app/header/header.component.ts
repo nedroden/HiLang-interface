@@ -8,7 +8,9 @@ import { Dispatch } from '../../scripts/Dispatch'
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  	
+  }
 
   ngOnInit() {
   }

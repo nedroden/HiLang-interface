@@ -8,6 +8,7 @@ import { FlashcardsComponent } from './exercises/flashcards/flashcards.component
 import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
+import { MyCoursesComponent } from './my-courses/my-courses.component';
 
 @NgModule({
     declarations: [
