@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { ContentComponent } from './content/content.component';
+import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { AppComponent } from './app.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { LoginComponent } from './login/login.component';
@@ -9,12 +11,13 @@ import { GrammarComponent } from './exercises/grammar/grammar.component';
 import { FlashcardsComponent } from './exercises/flashcards/flashcards.component';
 import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
-import { ContentComponent } from './content/content.component';
-import { MyCoursesComponent } from './my-courses/my-courses.component';
+import { SentenceStructureExerciseComponent } from './sentence-structure-exercise/sentence-structure-exercise.component';
 
 @NgModule({
     declarations: [
         AppComponent,
+        LandingpageComponent,
+        LoginComponent,
         MenuBarComponent,
         GrammarComponent,
         FlashcardsComponent,
@@ -22,7 +25,8 @@ import { MyCoursesComponent } from './my-courses/my-courses.component';
         HeaderComponent,
         ContentComponent,
         LandingpageComponent,
-        LoginComponent
+        LoginComponent,
+        SentenceStructureExerciseComponent,
     ],
     entryComponents: [
         HeaderComponent,
