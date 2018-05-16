@@ -1,5 +1,4 @@
 import { AfterContentInit, Component, ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
 import { Dispatch } from '../../scripts/Dispatch';
 
 @Component({
@@ -19,7 +18,7 @@ export class ContentComponent {
 
     update(component:any) {
         setTimeout(() => {
-            const cmpFactory = this._componentFactoryResolver.resolveComponentFactory(HeaderComponent);
+            const cmpFactory = this._componentFactoryResolver.resolveComponentFactory(component);
             this.container.clear();
             this.container.createComponent(cmpFactory);
         });
@@ -28,10 +27,14 @@ export class ContentComponent {
     updateMenuItems(dispatch: Dispatch) {
         document.addEventListener("DOMContentLoaded", function(e) {
             const items = document.getElementsByClassName('nav-item');
-            Array.from(items).forEach((item) => item.onclick = function() {
-                let dispatcher = Dispatch.getInstance();
-                dispatcher.do(item.id);
-            });
+            for (let i = 0; i < items.length; i++) {
+                let item: HTMLElement = <HTMLElement>items[i];
+
+                item.onclick = function() {
+                    let dispatcher = Dispatch.getInstance();
+                    dispatcher.do(item.id);
+                }
+            };
         });
     }
 }

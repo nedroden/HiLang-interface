@@ -1,6 +1,8 @@
 import { Type } from '@angular/core';
 import { ContentComponent } from '../app/content/content.component'
 
+import { HeaderComponent } from '../app/header/header.component';
+
 export class Dispatch {
 
     private static func;
@@ -21,7 +23,18 @@ export class Dispatch {
         return this.instance;
     }
 
-    public do(component: String):void {
+    public do(href: String):void {
+        let component;
+
+        switch (href) {
+            case 'header':
+                component = HeaderComponent;
+                break;
+            default:
+                alert('hi');
+                component = HeaderComponent;
+        }
+
         this._contentComponent.update(component);
     }
 }
