@@ -3,6 +3,8 @@ import { ContentComponent } from '../app/content/content.component'
 
 import { HeaderComponent } from '../app/header/header.component';
 import { LessonviewComponent } from '../app/lessonview/lessonview.component';
+import { GrammarComponent } from '../app/exercises/grammar/grammar.component';
+import { FlashcardsComponent } from '../app/exercises/flashcards/flashcards.component';
 
 export class Dispatch {
 
@@ -34,8 +36,15 @@ export class Dispatch {
             case 'lessonview':
                 component = LessonviewComponent;
                 break;
+            case 'grammar':
+                component = GrammarComponent;
+                break;
+            case 'flashcards':
+                component = FlashcardsComponent;
+                break;
             default:
-                component = HeaderComponent;
+                console.log('Attempting to load component ' + href + ', but it does not exist.');
+                return;
         }
 
         this._contentComponent.update(component);

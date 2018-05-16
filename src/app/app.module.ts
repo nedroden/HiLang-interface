@@ -21,7 +21,9 @@ import { ContentComponent } from './content/content.component';
     ],
     entryComponents: [
         HeaderComponent,
-        LessonviewComponent
+        LessonviewComponent,
+        FlashcardsComponent,
+        GrammarComponent
     ],
     imports: [
         BrowserModule

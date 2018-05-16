@@ -19,7 +19,7 @@ export class MenuBarComponent implements OnInit {
             {
                 label: "Account",
                 icon: "user",
-                component: "app-header"
+                component: "header"
             },
             {
                 label: "Browse",
@@ -29,13 +29,13 @@ export class MenuBarComponent implements OnInit {
             {
                 label: "My courses",
                 icon: "save",
-                component: "app-header"
+                component: "grammar"
 
             },
             {
                 label: "Log out",
                 icon: "sign-out",
-                component: "app-header"
+                component: "flashcards"
             },
         ];
 
