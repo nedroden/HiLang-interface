@@ -38,20 +38,18 @@ export class MyCoursesComponent implements OnInit {
   		course_btn_link.innerText = course.name + " by " + course.author;
         course_btn_link.className = "nav-link active";
         course_btn_link.href = "#";
-
-        course_btn.onclick = this.goTo;
         course_btn.setAttribute("name",course.name + ":" + course.author);
+
+        course_btn.onclick = (e) => {
+            console.log(e);
+            let nameVals = e.originalTarget.parentNode.attributes['name'].value.split(":");
+            console.log("Going to " + nameVals[0] + " from user: " + nameVals[1]);
+        };
+        
 
         course_btn.appendChild(course_btn_link);
   		ul_item.appendChild(course_btn);
   	}
     document.getElementById('courses').appendChild(ul_item);
-  	//console.log(document.getElementById('courses'));
-  	//
-  }
-
-  goTo() {
-    let nameVals = this.getAttribute("name").split(":");
-    console.log("Going to " + nameVals[0] + " of user: " + nameVals[1]);
   }
 }
