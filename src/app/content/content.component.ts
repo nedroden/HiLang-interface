@@ -28,7 +28,7 @@ export class ContentComponent {
     updateMenuItems(dispatch: Dispatch) {
         document.addEventListener("DOMContentLoaded", function(e) {
             const items = document.getElementsByClassName('nav-item');
-            Array.from(items).forEach((item) => this.onclick = function() {
+            Array.from(items).forEach((item) => item.onclick = function() {
                 let dispatcher = Dispatch.getInstance();
                 dispatcher.do(item.id);
             });
