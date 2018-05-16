@@ -16,7 +16,7 @@ export class ContentComponent {
         this.updateMenuItems(Dispatch.createInstance(this));
     }
 
-    update(component:any) {
+    public update(component:any): void {
         setTimeout(() => {
             const cmpFactory = this._componentFactoryResolver.resolveComponentFactory(component);
             this.container.clear();
@@ -24,7 +24,7 @@ export class ContentComponent {
         });
     }
 
-    updateMenuItems(dispatch: Dispatch) {
+    public updateMenuItems(dispatch: Dispatch): void {
         document.addEventListener("DOMContentLoaded", function(e) {
             const items = document.getElementsByClassName('nav-item');
             for (let i = 0; i < items.length; i++) {

@@ -1,0 +1,85 @@
+body {
+    background-color: #e1e2e1 !important;
+}
+
+#register {
+    height: 600px;
+}
+
+.navbar {
+    color: #ffffff;
+    background-color: #c62828;
+    height: 72px;
+}
+
+#image-shadow {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#title {
+    color: #e1e2e1;
+}
+
+#login-button {
+    color: #ffffff;
+    border-color: #ffffff;
+    border-width: medium;
+    font-weight: bold;
+}
+
+#login-button:hover {
+    background: #ffffff;
+    color: #263238;
+}
+
+#register-field .form-control {
+    margin-top: 15px;
+}
+
+#register-field .btn {
+    margin-top: 15px
+}
+
+#register-form {
+    background-color: #e1e2e1;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+#register-button {
+    background-color: #263238;
+}
+
+#offer {
+    background-color: #ffffff;
+}
+
+#offer-title {
+    margin: 25px 0;
+}
+
+.flag {
+    margin: 20px 0;
+}
+
+#browse-button {
+    margin: 25px 0;
+}
+
+#footer {
+    background-color: #c62828;
+    height: 400px;
+}
+
+#coll-button {
+    color: #ffffff;
+    border-color: #ffffff;
+    border-width: medium;
+    font-weight: bold;
+}
+
+#coll-button:hover {
+    background: #ffffff;
+    color: #263238;
+}

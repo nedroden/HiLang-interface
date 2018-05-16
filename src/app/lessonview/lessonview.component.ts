@@ -7,9 +7,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LessonviewComponent implements OnInit {
 
-  constructor() { }
+    vocabulary = [
+        {
+            index: 0,
+            native: "Would you like to dance with me?",
+            foreign: "L'omelette du fromage?"
+        },
+        {
+            index: 1,
+            native: "You are a nice person.",
+            foreign: "Je pense que tu es très gros."
+        },
+        {
+            index: 2,
+            native: "Intelligent",
+            foreign: "Stupide"
+        },
+        {
+            index: 3,
+            native: "The son",
+            foreign: "Le bâtard"
+        },
+        {
+            index: 4,
+            native: "The girl",
+            foreign: "La poisson"
+        }
+    ]
 
-  ngOnInit() {
-  }
+    constructor() { }
 
+    ngOnInit() {
+    }
 }

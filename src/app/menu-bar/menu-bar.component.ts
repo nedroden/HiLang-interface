@@ -24,7 +24,7 @@ export class MenuBarComponent implements OnInit {
             {
                 label: "Browse",
                 icon: "folder",
-                component: "lessonview"
+                component: "flashcards"
             },
             {
                 label: "My courses",
@@ -35,7 +35,7 @@ export class MenuBarComponent implements OnInit {
             {
                 label: "Log out",
                 icon: "sign-out",
-                component: "flashcards"
+                component: "lessonview"
             },
         ];
 
@@ -57,8 +57,7 @@ export class MenuBarComponent implements OnInit {
             li_item.appendChild(icon);
             li_item.appendChild(a_item);
             ul_item.appendChild(li_item);
-            //btn.onclick( console.log("test"));
-            //btn.innerText = item.label;
+
             document.getElementById('menuBar').appendChild(ul_item);
         }
     }
