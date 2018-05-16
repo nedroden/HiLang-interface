@@ -11,9 +11,9 @@ import { GrammarComponent } from './exercises/grammar/grammar.component';
 import { FlashcardsComponent } from './exercises/flashcards/flashcards.component';
 import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
-import { ContentComponent } from './content/content.component';
 import { CreateWordListComponent} from './create-word-list/create-word-list.component';
 import { SentenceStructureExerciseComponent } from './sentence-structure-exercise/sentence-structure-exercise.component';
+import { MultiplechoiseComponent } from './exercises/multiplechoise/multiplechoise.component';
 
 
 @NgModule({
@@ -27,10 +27,11 @@ import { SentenceStructureExerciseComponent } from './sentence-structure-exercis
         LessonviewComponent,
         HeaderComponent,
         ContentComponent,
-        CreateWordListComponent
+        CreateWordListComponent,
         LandingpageComponent,
         LoginComponent,
         SentenceStructureExerciseComponent,
+        MultiplechoiseComponent,
     ],
     entryComponents: [
         HeaderComponent,
