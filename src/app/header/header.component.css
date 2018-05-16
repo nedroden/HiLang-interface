@@ -1,0 +1,20 @@
+#header {
+    background: #efefef url('src/assets/header-bg1.jpg') repeat-x;
+    background-size: 100% auto;
+    background-position: 0% 25%;
+    padding: 20px 50px 20px 50px;
+}
+
+#site-title {
+    font-size: 200%;
+    color: #efefef;
+    font-family: Arial, Verdana;
+    letter-spacing: -1px;
+    text-shadow: 2px 2px #545454;
+}
+
+#searchBar {
+	text-align: right;
+	color: #fff;
+	font-size: 200%;
+}

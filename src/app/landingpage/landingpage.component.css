@@ -60,8 +60,7 @@ body {
 }
 
 .flag {
-    background-color: blue;
-    height: 200px;
+    margin: 20px 0;
 }
 
 #browse-button {
