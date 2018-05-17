@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 import { ContentComponent } from './content/content.component';
 import { MyCoursesComponent } from './my-courses/my-courses.component';
@@ -11,12 +12,49 @@ import { GrammarComponent } from './exercises/grammar/grammar.component';
 import { FlashcardsComponent } from './exercises/flashcards/flashcards.component';
 import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
-import { ContentComponent } from './content/content.component';
-import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { BrowseComponent } from './browse/browse.component';
 import { CreateWordListComponent} from './create-word-list/create-word-list.component';
+
 import { SentenceStructureComponent } from './exercises/sentencestructure/sentencestructure.component';
 import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoice.component';
+import { FooterComponent } from './footer/footer.component';
+
+const appRoutes: Routes = [
+    {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+    },
+    {
+        path: 'home',
+        component: LandingpageComponent,
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'user',
+        children: [
+            {
+                path: 'flashcards',
+                component: FlashcardsComponent
+            },
+            {
+                path: 'grammar',
+                component: GrammarComponent
+            },
+            {
+                path: 'lesson',
+                component: LessonviewComponent
+            },
+            {
+                path: 'mc',
+                component: MultipleChoiceComponent
+            },
+        ]
+    }
+];
 
 @NgModule({
     declarations: [
@@ -34,8 +72,9 @@ import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoi
         CreateWordListComponent,
         LandingpageComponent,
         LoginComponent,
+        FooterComponent,
         SentenceStructureComponent,
-        MultipleChoiceComponent,
+        MultipleChoiceComponent
     ],
     entryComponents: [
         HeaderComponent,
@@ -44,11 +83,17 @@ import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoi
         GrammarComponent,
         MyCoursesComponent,
         BrowseComponent,
-        MultipleChoiseComponent,
+        MultipleChoiceComponent,
         CreateWordListComponent
     ],
     imports: [
-        BrowserModule
+        BrowserModule,
+        RouterModule.forRoot(
+            appRoutes,
+            {
+                enableTracing: true
+            }
+        )
     ],
     providers: [],
     bootstrap: [AppComponent]

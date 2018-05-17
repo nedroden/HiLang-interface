@@ -7,9 +7,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GrammarComponent implements OnInit {
 
-  constructor() { }
+    question_local = 'I want to ride my bicycle.';
+    question_target = 'Ik wil graag...';
 
-  ngOnInit() {
-  }
+    answers = [
+        {
+            index: 1,
+            value: 'Fiets'
+        },
+        {
+            index: 2,
+            value: 'Fietsen'
+        },
+        {
+            index: 3,
+            value: 'Fietst'
+        },
+        {
+            index: 4,
+            value: 'Fietshaha'
+        }
+    ];
 
+    constructor() { }
+
+    ngOnInit() {
+    }
 }
