@@ -42,8 +42,8 @@ export class MyCoursesComponent implements OnInit {
 
         course_btn.onclick = (e) => {
             console.log(e);
-            let nameVals = e.originalTarget.parentNode.attributes['name'].value.split(":");
-            console.log("Going to " + nameVals[0] + " from user: " + nameVals[1]);
+            //let nameVals = e.originalTarget.parentNode.attributes['name'].value.split(":");
+            //console.log("Going to " + nameVals[0] + " from user: " + nameVals[1]);
         };
         
 
