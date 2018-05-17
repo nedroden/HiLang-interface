@@ -11,15 +11,15 @@
 <div id='courses'>
 	<ul id='subCourses' style="display: none;" class="nav flex-column courseItem">
 		<li *ngFor="let course of subCourses" class="nav-item">
-			<a class="nav-link active">
-				{{ course.name }} by {{course.auhtor}}
+			<a class="nav-link active" href="/user/course-details/{{course.id}}">
+				{{ course.name }} by {{course.author}}
 			</a>
 		</li>
 	</ul>
 
 	<ul id='myCourses' style="display: none;" class="nav flex-column courseItem">
 		<li *ngFor="let course of myCourses" class="nav-item">
-			<a class="nav-link active">
+			<a class="nav-link active" href="/user/course-detail/{{course.id}}">
 				{{ course.name }} by {{course.author}}
 			</a>
 		</li>
@@ -28,7 +28,7 @@
 
 	<ul id='favCourses' style="display: none;" class="nav flex-column courseItem">
 		<li *ngFor="let course of favCourses" class="nav-item">
-			<a class="nav-link active">
+			<a class="nav-link active" href="/user/course-details/{{course.id}}">
 				{{ course.name }} by {{course.author}}
 			</a>
 		</li>

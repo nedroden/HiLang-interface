@@ -23,24 +23,24 @@ export class MyCoursesComponent implements OnInit {
         {name: "Favourite Courses", function: () => this.showFavCourses()},
     ];
     this.subCourses = [
-        {name: "English",    author: "Learning.co"},
-        {name: "Spanish",    author: "Learning.co"},
-        {name: "Hongarian",  author: "Learning.co"},
-        {name: "Slovac",     author: "Learning.co"},
+        {id: 0, name: "English",    author: "Learning.co"},
+        {id: 1, name: "Spanish",    author: "Learning.co"},
+        {id: 2, name: "Hongarian",  author: "Learning.co"},
+        {id: 3, name: "Slovac",     author: "Learning.co"},
     ];
 
     this.myCourses = [
-        {name: "Dutch",      author: "Jelmer"},
-        {name: "French",     author: "Jelmer"},
-        {name: "German",     author: "Jelmer"},
-        {name: "English",    author: "Jelmer"},
+        {id: 4, name: "Dutch",      author: "Jelmer"},
+        {id: 5, name: "French",     author: "Jelmer"},
+        {id: 6, name: "German",     author: "Jelmer"},
+        {id: 7, name: "English",    author: "Jelmer"},
     ];
 
     this.favCourses = [
-        {name: "Dutch",      author: "Jelmer"},
-        {name: "French",     author: "Jelmer"},
-        {name: "Hongarian",  author: "Learning.co"},
-        {name: "Slovac",     author: "Learning.co"},
+        {id: 4, name: "Dutch",      author: "Jelmer"},
+        {id: 5, name: "French",     author: "Jelmer"},
+        {id: 2, name: "Hongarian",  author: "Learning.co"},
+        {id: 3, name: "Slovac",     author: "Learning.co"},
     ];
   }
 
@@ -74,6 +74,9 @@ export class MyCoursesComponent implements OnInit {
     if(event.keyCode === 13) {
         let newCourse = {name: courseInput.value, author: "Jelmer"}
         this.myCourses.push(newCourse);
+        courseInput.value = "";
+        courseInput.style.display = 'none';
+
     }
     }.bind(this);
   }
