@@ -1,11 +1,17 @@
-#options-field {
+#options-field, #answer-field {
     background-color: #ffffff;
+    min-height: 30px;
+}
+
+#answer-field {
+    margin-bottom: 15px;
 }
 
 .answer {
     border-radius: 30px;
     background-color: #e1e2e1;
     margin: 5px;
+    float: left;
 }
 
 .answer:hover {
