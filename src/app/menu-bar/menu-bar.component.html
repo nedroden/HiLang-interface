@@ -1,1 +1,7 @@
-<div id="menuBar"></div>
+<div id="menuBar">
+    <ul class="nav flex-column">
+        <li *ngFor="let item of items" id="header" class="nav-item" routerLink="{{ item.href }}">
+            <i class="fa fa-{{ item.icon }} menu-icon"></i> <a class="nav-link">{{ item.label }}</a>
+        </li>
+    </ul>
+</div>

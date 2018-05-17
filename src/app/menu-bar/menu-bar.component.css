@@ -6,9 +6,12 @@
     width: 120px;
     padding: 30px 0 10px 0;
     background: #263238;
-    color: #fcfcfc;
     font-size: 90%;
     letter-spacing: -1px;
+}
+
+#menuBar, #menuBar a {
+    color: #fcfcfc;
 }
 
 /* Responsiveness */

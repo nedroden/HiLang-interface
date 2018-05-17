@@ -1,18 +1,13 @@
-<div style="text-align:center">
-    <app-menu-bar></app-menu-bar>
-    
+<div *ngIf="_router.url.includes('user'); else other">
     <div id="wrapper">
         <app-header></app-header>
-        <!-- <app-login></app-login>
-            <app-landingpage></app-landingpage>
-            <app-menu-bar></app-menu-bar>-->
 
         <div id="content">
-            <app-content></app-content>
+            <router-outlet></router-outlet>
         </div>
-        <div id="copyright">
-            Powered by <a href="https://github.com/Team-Aeros/HiLang-interface" target="_blank">HiLang</a>
-        </div>
-    </div>
 
+        <app-footer></app-footer>
+    </div>
 </div>
+
+<ng-template #other><router-outlet></router-outlet></ng-template>

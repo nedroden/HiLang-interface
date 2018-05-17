@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 import { ContentComponent } from './content/content.component';
 import { MyCoursesComponent } from './my-courses/my-courses.component';
@@ -14,7 +15,40 @@ import { HeaderComponent } from './header/header.component';
 import { CreateWordListComponent} from './create-word-list/create-word-list.component';
 import { SentenceStructureExerciseComponent } from './sentence-structure-exercise/sentence-structure-exercise.component';
 import { MultipleChoiseComponent } from './exercises/multiplechoise/multiplechoise.component';
+import { FooterComponent } from './footer/footer.component';
 
+const appRoutes: Routes = [
+    {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+    },
+    {
+        path: 'home',
+        component: LandingpageComponent,
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'user',
+        children: [
+            {
+                path: 'flashcards',
+                component: FlashcardsComponent
+            },
+            {
+                path: 'grammar',
+                component: GrammarComponent
+            },
+            {
+                path: 'lesson',
+                component: LessonviewComponent
+            }
+        ]
+    }
+];
 
 @NgModule({
     declarations: [
@@ -32,6 +66,7 @@ import { MultipleChoiseComponent } from './exercises/multiplechoise/multiplechoi
         LoginComponent,
         SentenceStructureExerciseComponent,
         MultipleChoiseComponent,
+        FooterComponent,
     ],
     entryComponents: [
         HeaderComponent,
@@ -40,7 +75,13 @@ import { MultipleChoiseComponent } from './exercises/multiplechoise/multiplechoi
         CreateWordListComponent
     ],
     imports: [
-        BrowserModule
+        BrowserModule,
+        RouterModule.forRoot(
+            appRoutes,
+            {
+                enableTracing: true
+            }
+        )
     ],
     providers: [],
     bootstrap: [AppComponent]
