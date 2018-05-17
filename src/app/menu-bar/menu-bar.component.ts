@@ -35,7 +35,7 @@ export class MenuBarComponent implements OnInit {
             {
                 label: "Log out",
                 icon: "sign-out",
-                component: "flashcards"
+                component: "lessonview"
             },
         ];
 

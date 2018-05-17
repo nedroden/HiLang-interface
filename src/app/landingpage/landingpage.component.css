@@ -1,0 +1,108 @@
+body {
+    background-color: #e1e2e1 !important;
+}
+
+#register {
+    height: 600px;
+}
+
+.navbar {
+    color: #ffffff;
+    background-color: #c62828;
+    height: 72px;
+}
+
+#image-shadow {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#title {
+    color: #e1e2e1;
+}
+
+#login-button {
+    color: #ffffff;
+    border-color: #ffffff;
+    border-width: medium;
+    font-weight: bold;
+}
+
+#login-button:hover {
+    background: #ffffff;
+    color: #263238;
+}
+
+#register-field .form-control {
+    margin-top: 15px;
+}
+
+#register-field .btn {
+    margin-top: 15px
+}
+
+#register-form {
+    background-color: #e1e2e1;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+#register-button {
+    background-color: #263238;
+    -webkit-transition: background-color 100ms;
+    -moz-transition: background-color 100ms;
+    -o-transition: background-color 100ms;
+    transition: background-color 100ms;
+}
+
+#register-button:hover {
+    background: #4f5b62;
+}
+
+#offer {
+    background-color: #ffffff;
+}
+
+#offer-title {
+    margin: 25px 0;
+}
+
+.flag {
+    margin: 20px 0;
+}
+
+.flag h5 {
+    text-align: center;
+    margin-top: 12px;
+}
+
+#browse-button {
+    margin: 25px 0;
+}
+
+#copyright {
+    background-color: #263238;
+    color: #ffffff;
+}
+
+#coll-button {
+    color: #ffffff;
+    border-color: #ffffff;
+    border-width: medium;
+    font-weight: bold;
+}
+
+#coll-button:hover {
+    background: #ffffff;
+    color: #263238;
+}
+
+#copyright-list {
+    margin: 0;
+    list-style-type: none;
+    padding: 15px 0;
+}
+
+#copyright-app {
+    padding: 15px 0;
+}

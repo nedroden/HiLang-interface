@@ -1,0 +1,52 @@
+<div class="container-fluid">
+    <h1><strong>Lesson 1</strong> Sentence Structure</h1>
+    <hr />
+    <div class="col-sm-8">
+        <form>
+            <div class="form-group">
+                <div class="pull-left col-sm-5">
+                    <label for="local_language">English:</label>
+                    <h3 id="local_language">Ik wil op mijn fiets rijden</h3>
+                </div>
+                <div class="pull-right col-sm-5">
+                    <label for="translation">Translation:</label>
+
+                    <div class="row" id="answer-field">
+                        <div *ngFor="let answer of placedAnswers; index as i"
+                             class="answer"
+                             (click)="toAvailable(i)">
+                            <span class="answer-number">{{ answer.id }}</span>
+                            <span class="answer-content">{{ answer.value }}</span>
+                            <br class="clear" />
+                        </div>
+                    </div>
+
+                    <div class="row" id="options-field">
+                        <div *ngFor="let answer of availableAnswers; index as i"
+                             class="answer"
+                             (click)="toPlaced(i)">
+                            <span class="answer-number">{{ answer.id }}</span>
+                            <span class="answer-content">{{ answer.value }}</span>
+                            <br class="clear" />
+                        </div>
+                    </div>
+                </div>
+                <br class="clear" />
+            </div>
+        </form>
+
+        <div class="container-fluid action_buttons">
+            <div class="row">
+                <div class="col-sm align-left">
+                    <div class="btn-group pull-left" role="group">
+                        <button type="button" class="btn btn-light">End lesson</button>
+                        <button type="button" class="btn btn-light">Grammar</button>
+                        <button type="button" class="btn btn-danger">Report error</button>
+                    </div>
+                </div>
+
+                <br class="clear" />
+            </div>
+        </div>
+    </div>
+</div>
