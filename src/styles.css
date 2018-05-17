@@ -39,8 +39,18 @@ br.clear {
     width: 10%;
 }
 
-#detials {
+#addLesson {
+    width: 130px;
+}
 
+#addCourse {
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 8%;
+}
+
+#courseInput {
+    margin-left: 23%;
 }
 
 #courses .nav-item  {

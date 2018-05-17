@@ -12,6 +12,7 @@ export class MyCoursesComponent implements OnInit {
   subCourses;
   myCourses;
   favCourses;
+  currentId: number;
   constructor() {
 
   }
@@ -42,6 +43,7 @@ export class MyCoursesComponent implements OnInit {
         {id: 2, name: "Hongarian",  author: "Learning.co"},
         {id: 3, name: "Slovac",     author: "Learning.co"},
     ];
+    this.currentId = 8;
   }
 
   showSubCourses() {
@@ -72,7 +74,8 @@ export class MyCoursesComponent implements OnInit {
     let courseInput = (<HTMLInputElement>document.getElementById('courseInput'));
     courseInput.onkeypress = function(event) {
     if(event.keyCode === 13) {
-        let newCourse = {name: courseInput.value, author: "Jelmer"}
+        let newCourse = {id: this.currentId, name: courseInput.value, author: "Jelmer"}
+        this.currentId++;
         this.myCourses.push(newCourse);
         courseInput.value = "";
         courseInput.style.display = 'none';
