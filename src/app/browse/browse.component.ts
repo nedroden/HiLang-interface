@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from 'Course.ts'
+import { Course } from './Course'
 
 @Component({
   selector: 'app-browse',

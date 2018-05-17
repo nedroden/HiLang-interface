@@ -19,10 +19,7 @@
                     <hr />
 
                     <div id="mc-buttons">
-                        <button type="button" class="btn btn-primary btn-lg btn-block text-left"><strong>1 -</strong> fiets</button>
-                        <button type="button" class="btn btn-primary btn-lg btn-block text-left"><strong>2 -</strong> fietst</button>
-                        <button type="button" class="btn btn-primary btn-lg btn-block text-left"><strong>3 -</strong> fietsen</button>
-                        <button type="button" class="btn btn-primary btn-lg btn-block text-left"><strong>4 -</strong> fietshaha</button>
+                        <button *ngFor="let answer of answers" type="button" class="btn btn-primary btn-lg btn-block text-left"><strong>{{ answer.index }} -</strong> {{ answer.value  }}</button>
                     </div>
                 </div>
 

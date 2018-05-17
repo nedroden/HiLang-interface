@@ -20,18 +20,18 @@ export class MenuBarComponent implements OnInit {
         {
             label: "Browse",
             icon: "folder",
-            href: "/user/flashcards"
+            href: "/user/grammar"
         },
         {
             label: "My courses",
             icon: "save",
-            href: "/user/grammar"
+            href: "/user/mc"
 
         },
         {
             label: "Log out",
             icon: "sign-out",
-            href: "/user/lesson"
+            href: "/home"
         }
     ];
 }

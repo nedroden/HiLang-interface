@@ -12,8 +12,6 @@ import { GrammarComponent } from './exercises/grammar/grammar.component';
 import { FlashcardsComponent } from './exercises/flashcards/flashcards.component';
 import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
-import { ContentComponent } from './content/content.component';
-import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { BrowseComponent } from './browse/browse.component';
 import { CreateWordListComponent} from './create-word-list/create-word-list.component';
 
@@ -49,7 +47,11 @@ const appRoutes: Routes = [
             {
                 path: 'lesson',
                 component: LessonviewComponent
-            }
+            },
+            {
+                path: 'mc',
+                component: MultipleChoiceComponent
+            },
         ]
     }
 ];
@@ -81,7 +83,7 @@ const appRoutes: Routes = [
         GrammarComponent,
         MyCoursesComponent,
         BrowseComponent,
-        MultipleChoiseComponent,
+        MultipleChoiceComponent,
         CreateWordListComponent
     ],
     imports: [

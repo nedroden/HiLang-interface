@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MiniMenuItems } from './MiniMenuItems';
+import { Course } from './Course';
 
 @Component({
     selector: 'app-my-courses',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyCoursesComponent implements OnInit {
   miniMenu: MiniMenuItems[];
-  subCourses: Course[];
+
+  subCourses;
+  myCourses;
+  favCourses;
 
   constructor() {
 
@@ -15,29 +20,29 @@ export class MyCoursesComponent implements OnInit {
 
   ngOnInit() {
     this.miniMenu = [
-        {name: "Subsribed courses", function: () => this.showSubCourses()},
-        {name: "My courses",        function: () => this.showUserCourses()},
-        {name: "Favourite Courses", function: () => this.showFavCourses()},
+        {name: "Subsribed courses", func: () => this.showSubCourses()},
+        {name: "My courses",        func: () => this.showUserCourses()},
+        {name: "Favourite Courses", func: () => this.showFavCourses()},
     ];
     this.subCourses = [
-        {name: "English",    auhtor: "Learning.co"},
-        {name: "Spanish",    auhtor: "Learning.co"},
-        {name: "Hongarian",  auhtor: "Learning.co"},
-        {name: "Slovac",     auhtor: "Learning.co"},
+        {name: "English",    author: "Learning.co"},
+        {name: "Spanish",    author: "Learning.co"},
+        {name: "Hongarian",  author: "Learning.co"},
+        {name: "Slovac",     author: "Learning.co"},
     ];
 
     this.myCourses = [
-        {name: "Dutch",      auhtor: "Jelmer"},
-        {name: "French",     auhtor: "Jelmer"},
-        {name: "German",     auhtor: "Jelmer"},
-        {name: "English",   auhtor: "Jelmer"},
+        {name: "Dutch",      author: "Jelmer"},
+        {name: "French",     author: "Jelmer"},
+        {name: "German",     author: "Jelmer"},
+        {name: "English",   author: "Jelmer"},
     ];
 
     this.favCourses = [
-        {name: "Dutch",      auhtor: "Jelmer"},
-        {name: "French",     auhtor: "Jelmer"},
-        {name: "Hongarian",  auhtor: "Learning.co"},
-        {name: "Slovac",     auhtor: "Learning.co"},
+        {name: "Dutch",      author: "Jelmer"},
+        {name: "French",     author: "Jelmer"},
+        {name: "Hongarian",  author: "Learning.co"},
+        {name: "Slovac",     author: "Learning.co"},
     ];
   }
 
@@ -63,3 +68,4 @@ export class MyCoursesComponent implements OnInit {
     document.getElementById('myCourses').style.display = 'none'
     document.getElementById('favCourses').style.display = 'none'
   }
+}

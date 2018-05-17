@@ -7,9 +7,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MultipleChoiceComponent implements OnInit {
 
-  constructor() { }
+    answers = [
+        {
+            index: 1,
+            value: 'Fiets'
+        },
+        {
+            index: 2,
+            value: 'Fietsen'
+        },
+        {
+            index: 3,
+            value: 'Fietst'
+        },
+        {
+            index: 4,
+            value: 'Fietshaha'
+        }
+    ]
 
-  ngOnInit() {
-  }
+    constructor() { }
 
+    ngOnInit() {
+    }
 }
