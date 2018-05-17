@@ -6,6 +6,7 @@ import { SentenceStructureAnswer } from '../SentenceStructureAnswer';
   templateUrl: './sentence-structure-exercise.component.html',
   styleUrls: ['./sentence-structure-exercise.component.css']
 })
+
 export class SentenceStructureExerciseComponent implements OnInit {
   placedAnswers: SentenceStructureAnswer[];
   availableAnswers: SentenceStructureAnswer[];
