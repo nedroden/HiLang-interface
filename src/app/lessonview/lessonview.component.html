@@ -1,14 +1,14 @@
-<h1><strong>Lesson 1</strong> Welcome to France </h1>
+<h1><strong>Lesson {{ lesson.number }}</strong> {{ lesson.title }} </h1>
 <hr />
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm align-left">
             <div class="jumbotron">
                 <h1 class="display-4">
-                    Lesson 1
+                    Lesson {{ lesson.number }}
                 </h1>
                 <p class="lead">
-                    Welcome to France
+                    {{ lesson.title }}
                 </p>
 
                 <hr class="my-4" />
@@ -23,10 +23,10 @@
             <hr />
 
             <div class="card" style="width: 45%;">
-                <img class="card-img-top" src="http://cdn.guardian.ng/wp-content/uploads/2016/05/Vladimir-Putin.jpg" alt="Card image cap">
+                <img class="card-img-top" src="{{ lesson.author.avatar }}" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">About the author</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">{{ lesson.author.about }}</p>
                     <button class="btn btn-primary">Contact author</button>
                 </div>
             </div>
@@ -37,12 +37,12 @@
                 <thead class="thead-light">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">English</th>
-                        <th scope="col">French</th>
+                        <th scope="col">{{ lesson.source_language }}</th>
+                        <th scope="col">{{ lesson.target_language }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let word of vocabulary">
+                    <tr *ngFor="let word of lesson.vocabulary">
                         <th scope="row">{{ word.index }}</th>
                         <td>{{ word.native }}</td>
                         <td>{{ word.foreign }}</td>

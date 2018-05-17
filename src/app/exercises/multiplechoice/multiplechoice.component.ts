@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MultipleChoiceComponent implements OnInit {
 
+    question = 'I want to ride my bicycle.';
+
     answers = [
         {
             index: 1,
