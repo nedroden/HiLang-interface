@@ -25,10 +25,14 @@ br.clear {
     text-shadow: 2px 2px #000;
     margin-bottom: 20px;
     padding: 10px;
+    -webkit-transition: background-color 100ms;
+    -moz-transition: background-color 100ms;
+    -o-transition: background-color 100ms;
+    transition: background-color 100ms;
 }
 
 .nav-item:hover, .nav-item-active {
-    background: #c62828;
+    background: #4f5b62;
 }
 
 .nav-item:hover {
@@ -37,6 +41,17 @@ br.clear {
 
 .nav-item, .nav-link {
     text-align: center;
+}
+
+/* Padding and margin */
+.action_buttons {
+    margin-top: 50px;
+}
+
+/* Exercises */
+#mc-buttons button {
+    background: #1e80ff;
+    border-color: #fff;
 }
 
 /* Responsiveness */
