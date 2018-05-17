@@ -24,12 +24,12 @@ export class MenuBarComponent implements OnInit {
             {
                 label: "Browse",
                 icon: "folder",
-                component: "flashcards"
+                component: "browse"
             },
             {
                 label: "My courses",
                 icon: "save",
-                component: "grammar"
+                component: "mycourses"
 
             },
             {

@@ -11,10 +11,12 @@ import { GrammarComponent } from './exercises/grammar/grammar.component';
 import { FlashcardsComponent } from './exercises/flashcards/flashcards.component';
 import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
+import { ContentComponent } from './content/content.component';
+import { MyCoursesComponent } from './my-courses/my-courses.component';
+import { BrowseComponent } from './browse/browse.component';
 import { CreateWordListComponent} from './create-word-list/create-word-list.component';
 import { SentenceStructureComponent } from './exercises/sentencestructure/sentencestructure.component';
 import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoice.component';
-
 
 @NgModule({
     declarations: [
@@ -27,6 +29,8 @@ import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoi
         LessonviewComponent,
         HeaderComponent,
         ContentComponent,
+        MyCoursesComponent,
+        BrowseComponent,
         CreateWordListComponent,
         LandingpageComponent,
         LoginComponent,
@@ -36,7 +40,11 @@ import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoi
     entryComponents: [
         HeaderComponent,
         LessonviewComponent,
-        MultipleChoiceComponent,
+        FlashcardsComponent,
+        GrammarComponent,
+        MyCoursesComponent,
+        BrowseComponent,
+        MultipleChoiseComponent,
         CreateWordListComponent
     ],
     imports: [

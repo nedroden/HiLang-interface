@@ -6,51 +6,60 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./my-courses.component.css']
 })
 export class MyCoursesComponent implements OnInit {
+  miniMenu: MiniMenuItems[];
+  subCourses: Course[];
 
   constructor() {
-  	
+
   }
 
   ngOnInit() {
-  	this.getCourses()
+    this.miniMenu = [
+        {name: "Subsribed courses", function: () => this.showSubCourses()},
+        {name: "My courses",        function: () => this.showUserCourses()},
+        {name: "Favourite Courses", function: () => this.showFavCourses()},
+    ];
+    this.subCourses = [
+        {name: "English",    auhtor: "Learning.co"},
+        {name: "Spanish",    auhtor: "Learning.co"},
+        {name: "Hongarian",  auhtor: "Learning.co"},
+        {name: "Slovac",     auhtor: "Learning.co"},
+    ];
+
+    this.myCourses = [
+        {name: "Dutch",      auhtor: "Jelmer"},
+        {name: "French",     auhtor: "Jelmer"},
+        {name: "German",     auhtor: "Jelmer"},
+        {name: "English",   auhtor: "Jelmer"},
+    ];
+
+    this.favCourses = [
+        {name: "Dutch",      auhtor: "Jelmer"},
+        {name: "French",     auhtor: "Jelmer"},
+        {name: "Hongarian",  auhtor: "Learning.co"},
+        {name: "Slovac",     auhtor: "Learning.co"},
+    ];
   }
 
-  getCourses() {
-  	var courses = [
-  		{
-  			name: "French",
-  			author: "some french fuck"
-  		},
-  		{
-  			name: "German",
-  			author: "not hitler"
-  		},
-  	];
-
-    let ul_item = document.createElement("ul");
-    ul_item.className = "nav flex-column";
-
-  	for(let course of courses) {
-  		  let course_btn = document.createElement('li');
-        let course_btn_link = document.createElement('a')
-        course_btn.className = "nav-item";
-
-  		  course_btn_link.innerText = course.name + " by " + course.author;
-        course_btn_link.className = "nav-link active";
-        course_btn_link.href = "#";
-        course_btn.setAttribute("name",course.name + ":" + course.author);
-
-        course_btn.onclick = (e) => {
-            console.log(e);
-
-            //let nameVals = e.originalTarget.parentNode.attributes['name'].value.split(":") as MouseEvent;
-            //console.log("Going to " + nameVals[0] + " from user: " + nameVals[1]);
-        };
-        
-
-        course_btn.appendChild(course_btn_link);
-  		  ul_item.appendChild(course_btn);
-  	}
-    document.getElementById('courses').appendChild(ul_item);
+  showSubCourses() {
+    this.hideAll();
+    document.getElementById('subCourses').style.display = 'block'
   }
-}
+
+  showUserCourses() {
+    this.hideAll();
+    document.getElementById('myCourses').style.display = 'block'
+    document.getElementById('addCourse').style.display = 'block'
+  }
+
+  showFavCourses() {
+    this.hideAll();
+    document.getElementById('favCourses').style.display = 'block'
+  }
+
+  hideAll() {
+    document.getElementById('addCourse').style.display = 'none'
+    document.getElementById('subCourses').style.display = 'none'
+    document.getElementById('myCourses').style.display = 'none'
+    document.getElementById('favCourses').style.display = 'none'
+  }
