@@ -1,7 +1,44 @@
 <div id='miniMenu'>
+	<ul class="nav flex-column courseItem">
+		<li *ngFor="let item of miniMenu" class="nav-item">
+			<a class="nav-link active" (click)="item.function()">
+				{{ item.name }}
+			</a>
+		</li>
+	</ul>
 </div>
 
-<div id='courses'> 
+<div id='courses'>
+	<ul id='subCourses' style="display: none;" class="nav flex-column courseItem">
+		<li *ngFor="let course of subCourses" class="nav-item">
+			<a class="nav-link active">
+				{{ course.name }} by {{course.auhtor}}
+			</a>
+		</li>
+	</ul>
+
+	<ul id='myCourses' style="display: none;" class="nav flex-column courseItem">
+		<li *ngFor="let course of myCourses" class="nav-item">
+			<button style="display: block;">
+				edit course
+			</button>
+			<a class="nav-link active">
+				{{ course.name }} by {{course.auhtor}}
+			</a>
+		</li>
+	</ul>
+
+	<ul id='favCourses' style="display: none;" class="nav flex-column courseItem">
+		<li *ngFor="let course of favCourses" class="nav-item">
+			<a class="nav-link active">
+				{{ course.name }} by {{course.auhtor}}
+			</a>
+		</li>
+	</ul>
+
+	<button id='addCourse' style="display: none;">
+		add a course
+	</button>
 </div>
 
 <br class="clear">

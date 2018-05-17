@@ -9,6 +9,7 @@ import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
 import { MyCoursesComponent } from './my-courses/my-courses.component';
+import { BrowseComponent } from './browse/browse.component';
 
 @NgModule({
     declarations: [
@@ -18,13 +19,17 @@ import { MyCoursesComponent } from './my-courses/my-courses.component';
         FlashcardsComponent,
         LessonviewComponent,
         HeaderComponent,
-        ContentComponent
+        ContentComponent,
+        MyCoursesComponent,
+        BrowseComponent,
     ],
     entryComponents: [
         HeaderComponent,
         LessonviewComponent,
         FlashcardsComponent,
-        GrammarComponent
+        GrammarComponent,
+        MyCoursesComponent,
+        BrowseComponent,
     ],
     imports: [
         BrowserModule
