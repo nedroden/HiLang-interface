@@ -49,6 +49,14 @@ body {
 
 #register-button {
     background-color: #263238;
+    -webkit-transition: background-color 100ms;
+    -moz-transition: background-color 100ms;
+    -o-transition: background-color 100ms;
+    transition: background-color 100ms;
+}
+
+#register-button:hover {
+    background: #4f5b62;
 }
 
 #offer {
@@ -63,13 +71,18 @@ body {
     margin: 20px 0;
 }
 
+.flag h5 {
+    text-align: center;
+    margin-top: 12px;
+}
+
 #browse-button {
     margin: 25px 0;
 }
 
-#footer {
-    background-color: #c62828;
-    height: 400px;
+#copyright {
+    background-color: #263238;
+    color: #ffffff;
 }
 
 #coll-button {
@@ -82,4 +95,14 @@ body {
 #coll-button:hover {
     background: #ffffff;
     color: #263238;
+}
+
+#copyright-list {
+    margin: 0;
+    list-style-type: none;
+    padding: 15px 0;
+}
+
+#copyright-app {
+    padding: 15px 0;
 }

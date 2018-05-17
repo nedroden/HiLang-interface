@@ -12,9 +12,13 @@ import { GrammarComponent } from './exercises/grammar/grammar.component';
 import { FlashcardsComponent } from './exercises/flashcards/flashcards.component';
 import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
+import { ContentComponent } from './content/content.component';
+import { MyCoursesComponent } from './my-courses/my-courses.component';
+import { BrowseComponent } from './browse/browse.component';
 import { CreateWordListComponent} from './create-word-list/create-word-list.component';
-import { SentenceStructureExerciseComponent } from './sentence-structure-exercise/sentence-structure-exercise.component';
-import { MultipleChoiseComponent } from './exercises/multiplechoise/multiplechoise.component';
+
+import { SentenceStructureComponent } from './exercises/sentencestructure/sentencestructure.component';
+import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoice.component';
 import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes = [
@@ -61,16 +65,22 @@ const appRoutes: Routes = [
         LessonviewComponent,
         HeaderComponent,
         ContentComponent,
+        MyCoursesComponent,
+        BrowseComponent,
         CreateWordListComponent,
         LandingpageComponent,
         LoginComponent,
-        SentenceStructureExerciseComponent,
-        MultipleChoiseComponent,
         FooterComponent,
+        SentenceStructureComponent,
+        MultipleChoiceComponent
     ],
     entryComponents: [
         HeaderComponent,
         LessonviewComponent,
+        FlashcardsComponent,
+        GrammarComponent,
+        MyCoursesComponent,
+        BrowseComponent,
         MultipleChoiseComponent,
         CreateWordListComponent
     ],
