@@ -9,20 +9,17 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="local_language">English:</label>
-                    <h3 id="local_language">I want to ride my bicycle</h3>
+                    <h3 id="local_language">{{ question_local }}</h3>
                 </div>
 
                 <div class="form-group">
                     <label for="local_language">Dutch:</label>
-                    <h4 id="local_language">Ik wil graag lekker...</h4>
+                    <h4 id="local_language">{{ question_target }}</h4>
 
                     <hr />
 
                     <div id="mc-buttons">
-                        <button type="button" class="btn btn-primary btn-lg btn-block text-left"><strong>1 -</strong> fiets</button>
-                        <button type="button" class="btn btn-primary btn-lg btn-block text-left"><strong>2 -</strong> fietst</button>
-                        <button type="button" class="btn btn-primary btn-lg btn-block text-left"><strong>3 -</strong> fietsen</button>
-                        <button type="button" class="btn btn-primary btn-lg btn-block text-left"><strong>4 -</strong> fietshaha</button>
+                        <button *ngFor="let answer of answers" type="button" class="btn btn-primary btn-lg btn-block text-left"><strong>{{ answer.index }} -</strong> {{ answer.value  }}</button>
                     </div>
                 </div>
 
