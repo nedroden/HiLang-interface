@@ -24,7 +24,7 @@ export class MenuBarComponent implements OnInit {
             {
                 label: "Browse",
                 icon: "folder",
-                component: "lessonview"
+                component: "flashcards"
             },
             {
                 label: "My courses",
@@ -35,7 +35,7 @@ export class MenuBarComponent implements OnInit {
             {
                 label: "Log out",
                 icon: "sign-out",
-                component: "flashcards"
+                component: "lessonview"
             },
         ];
 
