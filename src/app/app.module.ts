@@ -12,8 +12,8 @@ import { FlashcardsComponent } from './exercises/flashcards/flashcards.component
 import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
 import { CreateWordListComponent} from './create-word-list/create-word-list.component';
-import { SentenceStructureExerciseComponent } from './sentence-structure-exercise/sentence-structure-exercise.component';
-import { MultipleChoiseComponent } from './exercises/multiplechoise/multiplechoise.component';
+import { SentenceStructureComponent } from './exercises/sentencestructure/sentencestructure.component';
+import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoice.component';
 
 
 @NgModule({
@@ -30,13 +30,13 @@ import { MultipleChoiseComponent } from './exercises/multiplechoise/multiplechoi
         CreateWordListComponent,
         LandingpageComponent,
         LoginComponent,
-        SentenceStructureExerciseComponent,
-        MultipleChoiseComponent,
+        SentenceStructureComponent,
+        MultipleChoiceComponent,
     ],
     entryComponents: [
         HeaderComponent,
         LessonviewComponent,
-        MultipleChoiseComponent,
+        MultipleChoiceComponent,
         CreateWordListComponent
     ],
     imports: [
