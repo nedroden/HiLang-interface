@@ -19,24 +19,22 @@
 
 	<ul id='myCourses' style="display: none;" class="nav flex-column courseItem">
 		<li *ngFor="let course of myCourses" class="nav-item">
-			<button style="display: block;">
-				edit course
-			</button>
 			<a class="nav-link active">
-				{{ course.name }} by {{course.auhtor}}
+				{{ course.name }} by {{course.author}}
 			</a>
 		</li>
+		<input id="courseInput" type="text" placeholder="Enter a name here" style="display: none">
 	</ul>
 
 	<ul id='favCourses' style="display: none;" class="nav flex-column courseItem">
 		<li *ngFor="let course of favCourses" class="nav-item">
 			<a class="nav-link active">
-				{{ course.name }} by {{course.auhtor}}
+				{{ course.name }} by {{course.author}}
 			</a>
 		</li>
 	</ul>
 
-	<button id='addCourse' style="display: none;">
+	<button id='addCourse' style="display: none;" (click)="addCourseInput()">
 		add a course
 	</button>
 </div>

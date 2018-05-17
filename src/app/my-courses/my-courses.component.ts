@@ -8,21 +8,19 @@ import { Course } from './Course';
     styleUrls: ['./my-courses.component.css']
 })
 export class MyCoursesComponent implements OnInit {
-  miniMenu: MiniMenuItems[];
-
+  miniMenu;
   subCourses;
   myCourses;
   favCourses;
-
   constructor() {
 
   }
 
   ngOnInit() {
     this.miniMenu = [
-        {name: "Subsribed courses", func: () => this.showSubCourses()},
-        {name: "My courses",        func: () => this.showUserCourses()},
-        {name: "Favourite Courses", func: () => this.showFavCourses()},
+        {name: "Subsribed courses", function: () => this.showSubCourses()},
+        {name: "My courses",        function: () => this.showUserCourses()},
+        {name: "Favourite Courses", function: () => this.showFavCourses()},
     ];
     this.subCourses = [
         {name: "English",    author: "Learning.co"},
@@ -35,7 +33,7 @@ export class MyCoursesComponent implements OnInit {
         {name: "Dutch",      author: "Jelmer"},
         {name: "French",     author: "Jelmer"},
         {name: "German",     author: "Jelmer"},
-        {name: "English",   author: "Jelmer"},
+        {name: "English",    author: "Jelmer"},
     ];
 
     this.favCourses = [
@@ -68,4 +66,16 @@ export class MyCoursesComponent implements OnInit {
     document.getElementById('myCourses').style.display = 'none'
     document.getElementById('favCourses').style.display = 'none'
   }
+
+  addCourseInput() {
+    document.getElementById('courseInput').style.display = 'block';
+    let courseInput = (<HTMLInputElement>document.getElementById('courseInput'));
+    courseInput.onkeypress = function(event) {
+    if(event.keyCode === 13) {
+        let newCourse = {name: courseInput.value, author: "Jelmer"}
+        this.myCourses.push(newCourse);
+    }
+    }.bind(this);
+  }
+
 }
