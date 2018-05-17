@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Answer } from '../answer';
+import { SentenceStructureAnswer } from '../SentenceStructureAnswer';
 
 @Component({
   selector: 'app-sentence-structure-exercise',
@@ -7,8 +7,8 @@ import { Answer } from '../answer';
   styleUrls: ['./sentence-structure-exercise.component.css']
 })
 export class SentenceStructureExerciseComponent implements OnInit {
-  placedAnswers: Answer[];
-  availableAnswers: Answer[];
+  placedAnswers: SentenceStructureAnswer[];
+  availableAnswers: SentenceStructureAnswer[];
 
   constructor() { }
 
