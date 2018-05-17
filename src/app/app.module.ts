@@ -15,8 +15,8 @@ import { ContentComponent } from './content/content.component';
 import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { BrowseComponent } from './browse/browse.component';
 import { CreateWordListComponent} from './create-word-list/create-word-list.component';
-import { SentenceStructureExerciseComponent } from './sentence-structure-exercise/sentence-structure-exercise.component';
-import { MultipleChoiseComponent } from './exercises/multiplechoise/multiplechoise.component';
+import { SentenceStructureComponent } from './exercises/sentencestructure/sentencestructure.component';
+import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoice.component';
 
 @NgModule({
     declarations: [
@@ -34,8 +34,8 @@ import { MultipleChoiseComponent } from './exercises/multiplechoise/multiplechoi
         CreateWordListComponent,
         LandingpageComponent,
         LoginComponent,
-        SentenceStructureExerciseComponent,
-        MultipleChoiseComponent,
+        SentenceStructureComponent,
+        MultipleChoiceComponent,
     ],
     entryComponents: [
         HeaderComponent,
