@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MiniMenuItems } from './MiniMenuItems';
 import { Course } from './Course';
+import { DialogComponent } from '../dialog/dialog.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
     selector: 'app-my-courses',
@@ -44,6 +46,10 @@ export class MyCoursesComponent implements OnInit {
         {id: 3, name: "Slovac",     author: "Learning.co"},
     ];
     this.currentId = 8;
+    let dialogRef = dialog.open(DialogComponent, {
+      height: '400px',
+      width: '600px',
+    });
   }
 
   showSubCourses() {

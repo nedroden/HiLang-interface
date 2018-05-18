@@ -20,6 +20,7 @@ import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoi
 import { FooterComponent } from './footer/footer.component';
 
 import { CourseDetailsComponent } from './course-details/course-details.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 const appRoutes: Routes = [
     {
@@ -34,6 +35,10 @@ const appRoutes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'dialog',
+        component: DialogComponent
     },
     {
         path: 'user',
@@ -94,7 +99,8 @@ const appRoutes: Routes = [
         FooterComponent,
         SentenceStructureComponent,
         MultipleChoiceComponent,
-        CourseDetailsComponent
+        CourseDetailsComponent,
+        DialogComponent
     ],
     entryComponents: [
         HeaderComponent,
