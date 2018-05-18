@@ -49,7 +49,7 @@ export class CourseDetailsComponent implements OnInit {
 
 		for(let item of this.myCourses) {
 			if(item.id === id) {
-		sdf		this.courseName = item.name;
+		    this.courseName = item.name;
 				this.courseAuthor = item.author;
 				document.getElementById('addLesson').style.display = "block";
 			}
