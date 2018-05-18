@@ -65,6 +65,10 @@ const appRoutes: Routes = [
             {
                 path: 'course-details/:id',
                 component: CourseDetailsComponent
+            },
+            {
+                path: 'create-list',
+                component: CreateWordListComponent
             }
 
         ]

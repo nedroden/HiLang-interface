@@ -19,7 +19,7 @@
 
 	<ul id='myCourses' style="display: none;" class="nav flex-column courseItem">
 		<li *ngFor="let course of myCourses" class="nav-item">
-			<a class="nav-link active" href="/user/course-detail/{{course.id}}">
+			<a class="nav-link active" href="/user/course-details/{{course.id}}">
 				{{ course.name }} by {{course.author}}
 			</a>
 		</li>
