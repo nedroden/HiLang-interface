@@ -1,0 +1,29 @@
+<div id='details'>
+	<h2>{{courseName}} by {{ courseAuthor }}</h2>
+	<hr>
+	<ul class="nav flex-column courseItem">
+		<li class="nav-item">
+			<a class="nav-link active">
+				Lesson 1
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link active">
+				Lesson 2
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link active">
+				Lesson 3
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link active">
+				Lesson 4
+			</a>
+		</li>
+		<button id="addLesson" style="display: none" (click)="addLessonLink()" class="btn btn-primary">
+			add a lesson
+		</button>
+	</ul>
+</div>

@@ -19,6 +19,8 @@ import { SentenceStructureComponent } from './exercises/sentencestructure/senten
 import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoice.component';
 import { FooterComponent } from './footer/footer.component';
 
+import { CourseDetailsComponent } from './course-details/course-details.component';
+
 const appRoutes: Routes = [
     {
         path: '',
@@ -52,8 +54,21 @@ const appRoutes: Routes = [
                 path: 'mc',
                 component: MultipleChoiceComponent
             },
+            {
+                path: 'browse',
+                component: BrowseComponent
+            },
+            {
+                path: 'courses',
+                component: MyCoursesComponent
+            },
+            {
+                path: 'course-details/:id',
+                component: CourseDetailsComponent
+            }
+
         ]
-    }
+    },
 ];
 
 @NgModule({
@@ -74,7 +89,8 @@ const appRoutes: Routes = [
         LoginComponent,
         FooterComponent,
         SentenceStructureComponent,
-        MultipleChoiceComponent
+        MultipleChoiceComponent,
+        CourseDetailsComponent
     ],
     entryComponents: [
         HeaderComponent,

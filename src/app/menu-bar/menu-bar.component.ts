@@ -20,12 +20,12 @@ export class MenuBarComponent implements OnInit {
         {
             label: "Browse",
             icon: "folder",
-            href: "/user/lesson"
+            href: "/user/browse"
         },
         {
             label: "My courses",
             icon: "save",
-            href: "/user/mc"
+            href: "/user/courses"
 
         },
         {

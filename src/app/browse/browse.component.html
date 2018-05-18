@@ -1,4 +1,11 @@
-<div id="browser" *ngFor="let course of courses" class="course">
+<div id="browseBar">
+        <form class="form-inline">
+            <input type="text" class="form-control mr-sm-2" id="search" placeholder="Search for...">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+<div id="browser" *ngFor="let course of courses">
 	<ul class="nav flex-column courseItem">
 		<li class="nav-item">
 			<a class="nav-link active">
@@ -6,5 +13,6 @@
 			</a>
 		</li>
 	</ul>
-	<br class="clear">
 </div>
+
+<br class="clear">

@@ -30,6 +30,65 @@ br.clear {
     -o-transition: background-color 100ms;
     transition: background-color 100ms;
 }
+#miniMenu .nav-item  {
+    text-shadow: none;
+}
+
+#details .nav-item  {
+    text-shadow: none;
+    width: 10%;
+}
+
+#addLesson {
+    width: 130px;
+}
+
+#addCourse {
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 8%;
+}
+
+#courseInput {
+    margin-left: 23%;
+}
+
+#courses .nav-item  {
+    text-shadow: none;
+}
+
+#myCourses .nav-item  {
+    text-shadow: none;
+}
+
+#browser .nav-item  {
+    align-self: center;
+    text-shadow: none;
+}
+
+#browseBar {
+    float: left;
+    width: 30%;
+}
+
+#browser {
+    float: right;
+    width: 60%;
+}
+#miniMenu {
+    float: left;
+    width: 30%;
+}
+
+#courses {
+    float: right;
+    margin-right: 15%;
+    width: 30%;
+}
+
+#favCourses .nav-item  {
+    text-shadow: none;
+}
 
 .nav-item:hover, .nav-item-active {
     background: #4f5b62;
