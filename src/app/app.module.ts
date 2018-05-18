@@ -20,6 +20,7 @@ import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoi
 import { FooterComponent } from './footer/footer.component';
 
 import { CourseDetailsComponent } from './course-details/course-details.component';
+import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
 
 const appRoutes: Routes = [
     {
@@ -38,6 +39,10 @@ const appRoutes: Routes = [
     {
         path: 'user',
         children: [
+            {
+                path: '',
+                component: UserwelcomeComponent
+            },
             {
                 path: 'flashcards',
                 component: FlashcardsComponent
@@ -90,7 +95,8 @@ const appRoutes: Routes = [
         FooterComponent,
         SentenceStructureComponent,
         MultipleChoiceComponent,
-        CourseDetailsComponent
+        CourseDetailsComponent,
+        UserwelcomeComponent
     ],
     entryComponents: [
         HeaderComponent,
