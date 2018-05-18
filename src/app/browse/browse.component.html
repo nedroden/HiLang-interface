@@ -8,7 +8,7 @@
 <div id="browser" *ngFor="let course of courses">
 	<ul class="nav flex-column courseItem">
 		<li class="nav-item">
-			<a class="nav-link active">
+			<a class="nav-link active" href="/user/course-details/{{course.id}}">
 				{{ course.name }} by {{ course.author }}
 			</a>
 		</li>
