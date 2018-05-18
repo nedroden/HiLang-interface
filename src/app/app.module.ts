@@ -21,6 +21,8 @@ import { FooterComponent } from './footer/footer.component';
 
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
+import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
+import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component';
 
 const appRoutes: Routes = [
     {
@@ -74,8 +76,11 @@ const appRoutes: Routes = [
             {
                 path: 'create-list',
                 component: CreateWordListComponent
+            },
+            {
+                path: "settings",
+                component: AccountsettingsComponent
             }
-
         ]
     },
 ];
@@ -100,7 +105,9 @@ const appRoutes: Routes = [
         SentenceStructureComponent,
         MultipleChoiceComponent,
         CourseDetailsComponent,
-        UserwelcomeComponent
+        UserwelcomeComponent,
+        AccountsettingsComponent,
+        UserinfoblockComponent
     ],
     entryComponents: [
         HeaderComponent,
