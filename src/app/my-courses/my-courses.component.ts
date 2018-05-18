@@ -19,15 +19,15 @@ export class MyCoursesComponent implements OnInit {
 
   ngOnInit() {
     this.miniMenu = [
-        {name: "Subsribed courses", function: () => this.showSubCourses()},
+        {name: "Subscribed courses", function: () => this.showSubCourses()},
         {name: "My courses",        function: () => this.showUserCourses()},
         {name: "Favourite Courses", function: () => this.showFavCourses()},
     ];
     this.subCourses = [
         {id: 0, name: "English",    author: "Learning.co"},
         {id: 1, name: "Spanish",    author: "Learning.co"},
-        {id: 2, name: "Hongarian",  author: "Learning.co"},
-        {id: 3, name: "Slovac",     author: "Learning.co"},
+        {id: 2, name: "Hungarian",  author: "Learning.co"},
+        {id: 3, name: "Slovak",     author: "Learning.co"},
     ];
 
     this.myCourses = [
@@ -40,8 +40,8 @@ export class MyCoursesComponent implements OnInit {
     this.favCourses = [
         {id: 4, name: "Dutch",      author: "Jelmer"},
         {id: 5, name: "French",     author: "Jelmer"},
-        {id: 2, name: "Hongarian",  author: "Learning.co"},
-        {id: 3, name: "Slovac",     author: "Learning.co"},
+        {id: 2, name: "Hungarian",  author: "Learning.co"},
+        {id: 3, name: "Slovak",     author: "Learning.co"},
     ];
     this.currentId = 8;
   }
