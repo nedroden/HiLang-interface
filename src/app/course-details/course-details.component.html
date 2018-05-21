@@ -1,29 +1,82 @@
-<div id='details'>
-	<h2>{{courseName}} by {{ courseAuthor }}</h2>
-	<hr>
-	<ul class="nav flex-column courseItem">
-		<li class="nav-item">
-			<a class="nav-link active">
-				Lesson 1
+<h1>{{courseName}} by {{ courseAuthor }}</h1>
+<hr>
+<div class="container-fluid">
+	<div class="col-sm-5 pull-left">
+		<div class="card">
+			<div class="card-body">
+				<div class="pull-left col-sm-2 mr-sm-3">
+					<img class="course-img" src="https://4.bp.blogspot.com/-O5q3YjRkago/UI9JEEXttiI/AAAAAAAAK8E/IijPhTpQJCw/s1600/Statue+of+Liberty+NY+%282%29.jpg" alt="Course image">
+				</div>
+				<div class="pull-left col-sm-8">
+					<h2 class="display-5">{{ courseName }}</h2>
+					<p class="lead">Taught by {{ courseAuthor }}</p>
+				</div>
+
+				<br class="clear" />
+				<hr class="my-4" />
+
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed nisl sit amet neque imperdiet hendrerit vel id urna. Duis dapibus dui interdum est venenatis sollicitudin. Morbi nec commodo neque, sed scelerisque velit. Pellentesque consequat eget ligula sed venenatis. Fusce venenatis vehicula tempus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce tellus nisl, mollis nec neque vel, rutrum venenatis purus.</p>
+			</div>
+
+			<div class="card-footer">
+				<small>Created on <strong>May 21, 2018</strong></small>
+			</div>
+		</div>
+
+		<div class="col-sm-6 mt-sm-4">
+			<h3>About the author</h3>
+			<div class="card">
+			    <img class="card-img-top" src="{{ author.avatar }}" alt="Card image cap">
+			    <div class="card-body">
+			        <h5 class="card-title">{{ courseAuthor }}</h5>
+			        <p class="card-text">{{ author.about }}</p>
+			        <button class="btn btn-primary">Contact author</button>
+			    </div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-5 pull-right">
+		<h2>Lesson overview</h2>
+		<div class="list-group">
+			<a routerLink="/user/lesson" class="list-group-item list-group-item-action flex-column align-items-start">
+				<div class="d-flex w-100 justify-content-between">
+					<h5 class="mb-1">Lesson 1. Welcome to New York</h5>
+					<small class="success">100%</small>
+				</div>
+				<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+				<small>Donec id elit non mi porta.</small>
 			</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link active">
-				Lesson 2
+			<a routerLink="/user/lesson" class="list-group-item list-group-item-action flex-column align-items-start">
+				<div class="d-flex w-100 justify-content-between">
+					<h5 class="mb-1">Lesson 2. Visiting family</h5>
+					<small class="text-warning">65%</small>
+				</div>
+				<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+				<small>Donec id elit non mi porta.</small>
 			</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link active">
-				Lesson 3
+			<a routerLink="/user/lesson" class="list-group-item list-group-item-action flex-column align-items-start">
+				<div class="d-flex w-100 justify-content-between">
+					<h5 class="mb-1">Lesson 3. Meeting new friends</h5>
+					<small class="text-danger">0%</small>
+				</div>
+				<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+				<small>Donec id elit non mi porta.</small>
 			</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link active">
-				Lesson 4
-			</a>
-		</li>
+		</div>
+
+        <br />
+
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-light">Report error</button>
+            <button type="button" class="btn btn-light">Rate course</button>
+            <button type="button" class="btn btn-danger">Unsubscribe</button>
+        </div>
+
 		<a id="addLesson" style="display: none" routerLink="/user/create-list" class="btn btn-primary">
 			add a lesson
 		</a>
-	</ul>
+	</div>
+
+	<br class="clear" />
 </div>
