@@ -13,9 +13,9 @@ export class MenuBarComponent implements OnInit {
 
     items = [
         {
-            label: "Account",
-            icon: "user",
-            href: "/user/header"
+            label: "Dashboard",
+            icon: "home",
+            href: "/user"
         },
         {
             label: "Browse",
@@ -27,6 +27,11 @@ export class MenuBarComponent implements OnInit {
             icon: "save",
             href: "/user/courses"
 
+        },
+        {
+            label: "Settings",
+            icon: "wrench",
+            href: "/user/settings"
         },
         {
             label: "Log out",

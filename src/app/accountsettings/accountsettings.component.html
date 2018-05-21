@@ -1,0 +1,67 @@
+<h1>Account settings</h1>
+<hr />
+<div class="container-fluid">
+    <div class="col-sm-7 pull-left">
+        <form>
+            <h3>Account information</h3>
+            <div class="container">
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-form-label col-form-label-lg">Email address</label>
+                    <input type="text" class="form-control" id="inputEmail" value="email@example.com">
+                    <small id="usernameHelpBlock" class="form-text text-muted">
+                        Your email address is used for logging in.
+                    </small>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputUsername" class="col-form-label col-form-label-lg">Username</label>
+                    <input type="email" class="form-control" id="inputUsername" placeholder="Username">
+                    <small id="usernameHelpBlock" class="form-text text-muted">
+                        Your username must be 6-20 characters long and must not contain non-alphanumeric characters.
+                    </small>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-form-label col-form-label-lg">Password</label>
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    <small id="passwordHelpBlock" class="form-text text-muted">
+                        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                    </small>
+                </div>
+            </div>
+
+            <h3 class="mt-sm-4">About me</h3>
+            <div class="container">
+                <div class="col-5 pull-left">
+                    <div class="form-group row">
+                        <label for="selectInterfaceLanguage" class="col-form-label col-form-label-lg">Interface language</label>
+                        <select class="custom-select">
+                            <option value="nl_NL">Dutch</option>
+                            <option value="en_US" selected>English (United States)</option>
+                            <option value="fr_FR">French</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-5 pull-right">
+                    <div class="form-group row">
+                        <label for="selectLanguage" class="col-form-label col-form-label-lg">Native language</label>
+                        <select class="custom-select">
+                            <option value="nl_NL">Dutch</option>
+                            <option value="en_US" selected>English (United States)</option>
+                            <option value="fr_FR">French</option>
+                        </select>
+                    </div>
+                </div>
+
+                <br class="clear" />
+            </div>
+        </form>
+    </div>
+
+    <div class="col-sm-3 pull-right">
+        <app-userinfoblock></app-userinfoblock>
+    </div>
+
+    <br class="clear" />
+</div>

@@ -40,7 +40,7 @@ export class LessonviewComponent implements OnInit {
             }
         ],
         author: {
-            avatar: "http://cdn.guardian.ng/wp-content/uploads/2016/05/Vladimir-Putin.jpg",
+            avatar: "https://4.bp.blogspot.com/-O5q3YjRkago/UI9JEEXttiI/AAAAAAAAK8E/IijPhTpQJCw/s1600/Statue+of+Liberty+NY+%282%29.jpg",
             about: "Some quick example text to build on the card title and make up the bulk of the card's content."
         }
     }

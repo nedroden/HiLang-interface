@@ -1,0 +1,20 @@
+            <div class="col-sm-10">
+                <div class="card">
+                    <img class="card-img-top" src="{{ user.avatar }}" alt="Avatar">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ user.name }}</h5>
+                        <p class="card-text">Here I can tell something about myself. This information is also shown in other places.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Access level:</strong> {{ user.type }}</li>
+                        <li class="list-group-item"><strong>Native language:</strong> {{ user.nativeLanguage }}</li>
+                        <li class="list-group-item"><strong>Level:</strong> {{ user.level }}</li>
+                        <li class="list-group-item"><strong>Subscribed courses:</strong> {{ user.subscribedCourses }}</li>
+                        <li class="list-group-item"><strong>Completed courses:</strong> {{ user.completedCourses }}</li>
+                        <li class="list-group-item"><strong>Member since:</strong> {{ user.memberSince }}</li>
+                    </ul>
+                    <div class="card-body">
+                        <a routerLink="/user/courses" class="card-link">View my courses</a>
+                    </div>
+                </div>
+            </div>
