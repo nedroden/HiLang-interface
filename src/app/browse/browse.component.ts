@@ -7,7 +7,7 @@ import { Course } from './Course'
   styleUrls: ['./browse.component.css']
 })
 export class BrowseComponent implements OnInit {
-    courses: Course[];
+    courses;
 
     constructor() { }
 
