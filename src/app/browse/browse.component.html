@@ -1,18 +1,46 @@
-<div id="browseBar">
-        <form class="form-inline">
-            <input type="text" class="form-control mr-sm-2" id="search" placeholder="Search for...">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+<h1>Browse courses</h1>
+<hr />
+<div id="browser" class="col-sm-8">
+    <form class="form-inline">
+        <input type="text" class="form-control form-control-lg mr-sm-2 col-sm-10" id="search" placeholder="Search for...">
+        <button type="submit" class="btn btn-lg btn-danger">Submit</button>
+    </form>
 
-<div id="browser" *ngFor="let course of courses">
-	<ul class="nav flex-column courseItem">
-		<li class="nav-item">
-			<a class="nav-link active" href="/user/course-details/{{course.id}}">
-				{{ course.name }} by {{ course.author }}
-			</a>
-		</li>
-	</ul>
+    <br />
+
+    <div *ngFor="let courseGroup of courses" class="mb-sm-4">
+        <h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.language }}</h3>
+        <div class="card mb-sm-2" *ngFor="let course of courseGroup.courses">
+            <div class="card-body">
+                <div class="pull-left col-sm-2">
+                    <img class="course-img" src="{{ course.image }}" alt="Course image">
+                </div>
+                <div class="pull-left col-sm-8">
+                    <h5 class="card-title">
+                        {{ course.name }}
+                    </h5>
+                    <p class="card-text">
+                        {{ course.description }}
+                    </p>
+                </div>
+
+                <br class="clear" />
+            </div>
+
+            <div class="card-footer">
+                <div class="pull-left">
+                    <i class="fa fa-users"></i> {{ course.subscribers }} subscribers
+                </div>
+
+                <div class="pull-right">
+                    Taught by {{ course.author }} |
+                    <a routerLink="/user/course-details/{{course.id}}">
+                        Subscribe to course
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <br class="clear">

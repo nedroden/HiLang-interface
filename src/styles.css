@@ -77,7 +77,7 @@ br.clear {
     text-align: left;
 }
 
-#courses h3 img {
+#browser h3 img, #courses h3 img {
     height: 20px;
     width: 20px;
 }
@@ -96,16 +96,6 @@ br.clear {
 #browser .nav-item  {
     align-self: center;
     text-shadow: none;
-}
-
-#browseBar {
-    float: left;
-    width: 30%;
-}
-
-#browser {
-    float: right;
-    width: 60%;
 }
 
 /* Mini menu */
