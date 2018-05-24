@@ -24,6 +24,9 @@ import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
 import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
 import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component';
 
+import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
+
+
 const appRoutes: Routes = [
     {
         path: '',
@@ -80,6 +83,10 @@ const appRoutes: Routes = [
             {
                 path: "settings",
                 component: AccountsettingsComponent
+            },
+            {
+                path: "exercise-result",
+                component: ExerciseResultComponent
             }
         ]
     },
@@ -107,7 +114,8 @@ const appRoutes: Routes = [
         CourseDetailsComponent,
         UserwelcomeComponent,
         AccountsettingsComponent,
-        UserinfoblockComponent
+        UserinfoblockComponent,
+        ExerciseResultComponent
     ],
     entryComponents: [
         HeaderComponent,
