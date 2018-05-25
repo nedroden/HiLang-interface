@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { MiniMenuItems } from './MiniMenuItems';
 import { Course } from './Course';
+import { CourseService } from '../course.service';
+
 @Component({
     selector: 'app-my-courses',
     templateUrl: './my-courses.component.html',
     styleUrls: ['./my-courses.component.css']
 })
+
 export class MyCoursesComponent implements OnInit {
   miniMenu;
   subCourses;
   myCourses;
   favCourses;
   currentId: number;
-  constructor() {
+  data = [];
+  constructor(private _courses: CourseService) {
 
   }
 
@@ -23,31 +27,34 @@ export class MyCoursesComponent implements OnInit {
         {name: "Favourite Courses", function: () => this.showFavCourses()},
     ];
     this.subCourses = [
-        {id: 0, name: "English",    author: "Learning.co"},
-        {id: 1, name: "Spanish",    author: "Learning.co"},
-        {id: 2, name: "Hongarian",  author: "Learning.co"},
-        {id: 3, name: "Slovac",     author: "Learning.co"},
+        {id: 0, name: "English",    user: "Learning.co"},
+        {id: 1, name: "Spanish",    user: "Learning.co"},
+        {id: 2, name: "Hongarian",  user: "Learning.co"},
+        {id: 3, name: "Slovac",     user: "Learning.co"},
     ];
 
     this.myCourses = [
-        {id: 4, name: "Dutch",      author: "Jelmer"},
-        {id: 5, name: "French",     author: "Jelmer"},
-        {id: 6, name: "German",     author: "Jelmer"},
-        {id: 7, name: "English",    author: "Jelmer"},
+        {id: 4, name: "Dutch",      user: "Jelmer"},
+        {id: 5, name: "French",     user: "Jelmer"},
+        {id: 6, name: "German",     user: "Jelmer"},
+        {id: 7, name: "English",    user: "Jelmer"},
     ];
 
     this.favCourses = [
-        {id: 4, name: "Dutch",      author: "Jelmer"},
-        {id: 5, name: "French",     author: "Jelmer"},
-        {id: 2, name: "Hongarian",  author: "Learning.co"},
-        {id: 3, name: "Slovac",     author: "Learning.co"},
+        {id: 4, name: "Dutch",      user: "Jelmer"},
+        {id: 5, name: "French",     user: "Jelmer"},
+        {id: 2, name: "Hongarian",  user: "Learning.co"},
+        {id: 3, name: "Slovac",     user: "Learning.co"},
     ];
     this.currentId = 8;
+
+    this._courses.getCourses().subscribe(res => this.data = res)
   }
 
   showSubCourses() {
     this.hideAll();
     document.getElementById('subCourses').style.display = 'block'
+    console.log(this._courses.getCourses())
   }
 
   showUserCourses() {
@@ -73,7 +80,7 @@ export class MyCoursesComponent implements OnInit {
     let courseInput = (<HTMLInputElement>document.getElementById('courseInput'));
     courseInput.onkeypress = function(event) {
     if(event.keyCode === 13) {
-        let newCourse = {id: this.currentId, name: courseInput.value, author: "Jelmer"}
+        let newCourse = {id: this.currentId, name: courseInput.value, user: "Jelmer"}
         this.currentId++;
         this.myCourses.push(newCourse);
         courseInput.value = "";

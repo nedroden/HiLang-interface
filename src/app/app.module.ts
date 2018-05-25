@@ -22,6 +22,10 @@ import { FooterComponent } from './footer/footer.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { DialogComponent } from './dialog/dialog.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
+import { CourseService } from './course.service';
+
 const appRoutes: Routes = [
     {
         path: '',
@@ -89,9 +93,9 @@ const appRoutes: Routes = [
         GrammarComponent,
         FlashcardsComponent,
         LessonviewComponent,
+        MyCoursesComponent,
         HeaderComponent,
         ContentComponent,
-        MyCoursesComponent,
         BrowseComponent,
         CreateWordListComponent,
         LandingpageComponent,
@@ -100,20 +104,21 @@ const appRoutes: Routes = [
         SentenceStructureComponent,
         MultipleChoiceComponent,
         CourseDetailsComponent,
-        DialogComponent
+        DialogComponent,
     ],
     entryComponents: [
         HeaderComponent,
         LessonviewComponent,
+        MyCoursesComponent,
         FlashcardsComponent,
         GrammarComponent,
-        MyCoursesComponent,
         BrowseComponent,
         MultipleChoiceComponent,
         CreateWordListComponent
     ],
     imports: [
         BrowserModule,
+        HttpClientModule,
         RouterModule.forRoot(
             appRoutes,
             {
@@ -121,7 +126,7 @@ const appRoutes: Routes = [
             }
         )
     ],
-    providers: [],
+    providers: [CourseService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
