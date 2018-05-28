@@ -123,7 +123,8 @@ const appRoutes: Routes = [
         UserwelcomeComponent,
         AccountsettingsComponent,
         UserinfoblockComponent,
-        ExerciseResultComponent
+        ExerciseResultComponent,
+        DialogComponent
     ],
     entryComponents: [
         HeaderComponent,
@@ -133,7 +134,8 @@ const appRoutes: Routes = [
         GrammarComponent,
         BrowseComponent,
         MultipleChoiceComponent,
-        CreateWordListComponent
+        CreateWordListComponent,
+        DialogComponent
     ],
     imports: [
         BrowserModule,
