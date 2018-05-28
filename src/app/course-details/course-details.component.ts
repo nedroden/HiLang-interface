@@ -14,9 +14,14 @@ export class CourseDetailsComponent implements OnInit {
   	courseAuthor;
 	constructor() { }
 
+    author = {
+        avatar: "http://cdn.guardian.ng/wp-content/uploads/2016/05/Vladimir-Putin.jpg",
+        about: "Some quick example text to build on the card title and make up the bulk of the card's content."
+    }
+
 	ngOnInit() {
     this.subCourses = [
-        {id: 0, name: "English",    author: "Learning.co"},
+        {id: 0, name: "English for beginners",    author: "Learning.co"},
         {id: 1, name: "Spanish",    author: "Learning.co"},
         {id: 2, name: "Hongarian",  author: "Learning.co"},
         {id: 3, name: "Slovac",     author: "Learning.co"},

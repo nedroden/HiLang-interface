@@ -16,6 +16,7 @@ br.clear {
     clear: both;
 }
 
+/* Navigation */
 .menu-icon {
     font-size: 300%;
 }
@@ -30,64 +31,10 @@ br.clear {
     -o-transition: background-color 100ms;
     transition: background-color 100ms;
 }
-#miniMenu .nav-item  {
-    text-shadow: none;
-}
 
-#details .nav-item  {
-    text-shadow: none;
-    width: 10%;
-}
-
-#addLesson {
-    width: 130px;
-}
-
-#addCourse {
-    margin-left: 35%;
-    margin-right: 35%;
-    margin-top: 8%;
-}
-
-#courseInput {
-    margin-left: 23%;
-}
-
-#courses .nav-item  {
-    text-shadow: none;
-}
-
-#myCourses .nav-item  {
-    text-shadow: none;
-}
-
-#browser .nav-item  {
-    align-self: center;
-    text-shadow: none;
-}
-
-#browseBar {
-    float: left;
-    width: 30%;
-}
-
-#browser {
-    float: right;
-    width: 60%;
-}
-#miniMenu {
-    float: left;
-    width: 30%;
-}
-
-#courses {
-    float: right;
-    margin-right: 15%;
-    width: 30%;
-}
-
-#favCourses .nav-item  {
-    text-shadow: none;
+#menuBar .nav-item:first-child, #menuBar .nav-item:first-child a.nav-link {
+    color: #ff5f52;
+    text-shadow: 1px 1px #962116;
 }
 
 .nav-item:hover, .nav-item-active {
@@ -102,6 +49,65 @@ br.clear {
     text-align: center;
 }
 
+#miniMenu .nav-item  {
+    text-shadow: none;
+}
+
+#details .nav-item  {
+    text-shadow: none;
+    width: 10%;
+}
+
+#addLesson {
+    width: 130px;
+}
+
+/* Courses */
+#addCourse {
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 8%;
+}
+
+#courseInput {
+    margin-left: 23%;
+}
+
+#courses {
+    text-align: left;
+}
+
+#browser h3 img, #courses h3 img {
+    height: 20px;
+    width: 20px;
+}
+
+.course-img {
+    max-height: 100px;
+    max-width: 100px;
+    border-radius: 8px;
+}
+
+#courses .nav-item, #myCourses .nav-item {
+    text-shadow: none;
+}
+
+/* All courses */
+#browser .nav-item  {
+    align-self: center;
+    text-shadow: none;
+}
+
+/* Mini menu */
+#miniMenu {
+    float: left;
+    width: 30%;
+}
+
+#favCourses .nav-item  {
+    text-shadow: none;
+}
+
 #input_field td{
     padding-top: 5px;
 }
@@ -109,6 +115,7 @@ br.clear {
 #input_field td:last-child {
     padding-left: 5px;
 }
+
 /* Padding and margin */
 .action_buttons {
     margin-top: 50px;

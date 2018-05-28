@@ -1,0 +1,37 @@
+<div class="container-fluid">
+    <div class="jumbotron bg-danger">
+        <h1 class="text-white display-4">Hi, {{ user.name }}!</h1>
+        <p class="lead text-white">
+            This is your dashboard.
+        </p>
+    </div>
+
+    <div class="col-sm-3 pull-left">
+        <app-userinfoblock></app-userinfoblock>
+    </div>
+
+    <div class="col-sm-5 pull-right">
+        <h2>Quick navigation</h2>
+        <ul class="list-group">
+            <li *ngFor="let link of links" class="list-group-item"><a routerLink="{{ link.href }}">{{ link.label }}</a></li>
+        </ul>
+
+        <hr />
+
+        <h2>Recent courses</h2>
+        <div class="list-group">
+            <a *ngFor="let course of courses" routerLink="{{ course.href }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ course.title }}</h5>
+                    <small>last practiced: <strong>{{ course.lastPracticed }}</strong></small>
+                </div>
+                <p class="mb-1">{{ course.description }}</p>
+                <small>Created by {{ course.author }}</small>
+            </a>
+        </div>
+
+        <button type="button" class="btn btn-danger mt-sm-3" routerLink="/user/browse">Add new course</button>
+    </div>
+
+    <br class="clear" />
+</div>

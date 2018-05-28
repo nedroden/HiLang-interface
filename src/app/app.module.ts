@@ -25,6 +25,11 @@ import { DialogComponent } from './dialog/dialog.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CourseService } from './course.service';
+import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
+import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
+import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component';
+
+import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
 
 const appRoutes: Routes = [
     {
@@ -47,6 +52,10 @@ const appRoutes: Routes = [
     {
         path: 'user',
         children: [
+            {
+                path: '',
+                component: UserwelcomeComponent
+            },
             {
                 path: 'flashcards',
                 component: FlashcardsComponent
@@ -78,8 +87,15 @@ const appRoutes: Routes = [
             {
                 path: 'create-list',
                 component: CreateWordListComponent
+            },
+            {
+                path: "settings",
+                component: AccountsettingsComponent
+            },
+            {
+                path: "exercise-result",
+                component: ExerciseResultComponent
             }
-
         ]
     },
 ];
@@ -104,7 +120,10 @@ const appRoutes: Routes = [
         SentenceStructureComponent,
         MultipleChoiceComponent,
         CourseDetailsComponent,
-        DialogComponent,
+        UserwelcomeComponent,
+        AccountsettingsComponent,
+        UserinfoblockComponent,
+        ExerciseResultComponent
     ],
     entryComponents: [
         HeaderComponent,
