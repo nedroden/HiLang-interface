@@ -9,6 +9,7 @@ export class UserinfoblockComponent implements OnInit {
 
     user = {
         name: "Lang",
+        bio: "Here I can tell something about myself. This information is also shown in other places.",
         avatar: "http://www.mindingthecampus.com/originals/GOldmanprof.jpg",
         nativeLanguage: "Dutch",
         level: 3,

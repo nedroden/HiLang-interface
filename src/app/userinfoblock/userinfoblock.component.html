@@ -3,7 +3,7 @@
                     <img class="card-img-top" src="{{ user.avatar }}" alt="Avatar">
                     <div class="card-body">
                         <h5 class="card-title">{{ user.name }}</h5>
-                        <p class="card-text">Here I can tell something about myself. This information is also shown in other places.</p>
+                        <p class="card-text">{{ user.bio }}</p>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Access level:</strong> {{ user.type }}</li>

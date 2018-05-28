@@ -7,7 +7,7 @@
             <div class="container">
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-form-label col-form-label-lg">Email address</label>
-                    <input type="text" class="form-control" id="inputEmail" value="email@example.com">
+                    <input type="text" class="form-control" id="inputEmail" value="{{ user.email }}">
                     <small id="usernameHelpBlock" class="form-text text-muted">
                         Your email address is used for logging in.
                     </small>
@@ -15,7 +15,7 @@
 
                 <div class="form-group row">
                     <label for="inputUsername" class="col-form-label col-form-label-lg">Username</label>
-                    <input type="email" class="form-control" id="inputUsername" placeholder="Username">
+                    <input type="email" class="form-control" id="inputUsername" placeholder="{{user.username}}">
                     <small id="usernameHelpBlock" class="form-text text-muted">
                         Your username must be 6-20 characters long and must not contain non-alphanumeric characters.
                     </small>
@@ -36,10 +36,13 @@
                     <div class="form-group row">
                         <label for="selectInterfaceLanguage" class="col-form-label col-form-label-lg">Interface language</label>
                         <select class="custom-select">
-                            <option value="nl_NL">Dutch</option>
-                            <option value="en_US" selected>English (United States)</option>
-                            <option value="fr_FR">French</option>
+                            <option value="-1" selected>Change language</option>
+                            <option *ngFor="let language of interface_languages" value="{{language.id}}">{{language.name}}
+                            </option>
                         </select>
+                        <small id="passwordHelpBlock" class="form-text text-muted">
+                        Selected language: {{interface_languages[user.interface_lang].name}}
+                        </small>
                     </div>
                 </div>
 
@@ -47,17 +50,22 @@
                     <div class="form-group row">
                         <label for="selectLanguage" class="col-form-label col-form-label-lg">Native language</label>
                         <select class="custom-select">
-                            <option value="nl_NL">Dutch</option>
-                            <option value="en_US" selected>English (United States)</option>
-                            <option value="fr_FR">French</option>
+                            <option value="-1" selected>Change language</option>
+                            <option *ngFor="let language of native_languages" value="{{language.id}}">{{language.name}}
+                            </option>
                         </select>
+                        <small id="passwordHelpBlock" class="form-text text-muted">
+                        Selected language: {{native_languages[user.native_lang].name}}
+                        </small>
                     </div>
                 </div>
 
                 <br class="clear" />
             </div>
         </form>
+        <button class="btn btn-danger mt-sm-4">Save configurations</button>
     </div>
+
 
     <div class="col-sm-3 pull-right">
         <app-userinfoblock></app-userinfoblock>
