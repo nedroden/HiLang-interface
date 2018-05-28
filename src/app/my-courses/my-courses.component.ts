@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MiniMenuItems } from './MiniMenuItems';
-import { Course } from './Course';
 
 @Component({
     selector: 'app-my-courses',
