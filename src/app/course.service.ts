@@ -11,7 +11,14 @@ export class CourseService {
   constructor(private http: HttpClient) { }
 
   getCourses() {
-  	console.log(this.http.get('http://localhost:8000/api/courses'));
   	return this.http.get('http://localhost:8000/api/courses');
+  }
+
+  getCourseByLang(id: number) {
+  	return this.http.get('http://localhost:8000/api/course/language/' + id);
+  }
+
+  getLangDetails() {
+  	return this.http.get('http://localhost:8000/api/languages/');
   }
 }
