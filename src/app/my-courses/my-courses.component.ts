@@ -1,22 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { MiniMenuItems } from './MiniMenuItems';
+import { Course } from './Course';
+import { CourseService } from '../course.service';
+
 
 @Component({
     selector: 'app-my-courses',
     templateUrl: './my-courses.component.html',
     styleUrls: ['./my-courses.component.css']
 })
+
 export class MyCoursesComponent implements OnInit {
     miniMenu;
     subCourses;
     myCourses;
     favCourses;
     currentId: number;
+    constructor(private _courses: CourseService) {  
+    }
 
-    constructor() {
+    getCourses() {
+        this._courses.getCourses().subscribe( 
+            data => {this.doWithData(data)},
+            err => console.error(err),
+            () => console.log('Done loading courses')
+        );
+    }
 
+    doWithData(data) {
+        //if data is subcourse: this.subCourses.push(data[0,1,2,3,etc...])
+        //if data is mycourse: this.myCourses.push(data[0,1,2,3,etc...])
+        //if data is favcourse: this.favCourses.push(data[0,1,2,3,etc...])
+        for(let i=0; i<data.length; i++) {
+            console.log(data[i]);
+        }
     }
 
     ngOnInit() {
+        this.getCourses();
         this.miniMenu = [
             {name: "Subscribed courses", function: () => this.showSubCourses()},
             {name: "Created by me",        function: () => this.showUserCourses()},
@@ -207,8 +228,6 @@ export class MyCoursesComponent implements OnInit {
                 ]
             }
         ];
-
-        this.currentId = 8;
     }
 
     showSubCourses() {
@@ -249,5 +268,4 @@ export class MyCoursesComponent implements OnInit {
             }
         }.bind(this);
     }
-
 }

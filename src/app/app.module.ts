@@ -20,12 +20,16 @@ import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoi
 import { FooterComponent } from './footer/footer.component';
 
 import { CourseDetailsComponent } from './course-details/course-details.component';
+import { DialogComponent } from './dialog/dialog.component';
+
+import { HttpClientModule } from '@angular/common/http';
+
+import { CourseService } from './course.service';
 import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
 import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
 import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component';
 
 import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
-
 
 const appRoutes: Routes = [
     {
@@ -40,6 +44,10 @@ const appRoutes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'dialog',
+        component: DialogComponent
     },
     {
         path: 'user',
@@ -101,9 +109,9 @@ const appRoutes: Routes = [
         GrammarComponent,
         FlashcardsComponent,
         LessonviewComponent,
+        MyCoursesComponent,
         HeaderComponent,
         ContentComponent,
-        MyCoursesComponent,
         BrowseComponent,
         CreateWordListComponent,
         LandingpageComponent,
@@ -115,20 +123,23 @@ const appRoutes: Routes = [
         UserwelcomeComponent,
         AccountsettingsComponent,
         UserinfoblockComponent,
-        ExerciseResultComponent
+        ExerciseResultComponent,
+        DialogComponent
     ],
     entryComponents: [
         HeaderComponent,
         LessonviewComponent,
+        MyCoursesComponent,
         FlashcardsComponent,
         GrammarComponent,
-        MyCoursesComponent,
         BrowseComponent,
         MultipleChoiceComponent,
-        CreateWordListComponent
+        CreateWordListComponent,
+        DialogComponent
     ],
     imports: [
         BrowserModule,
+        HttpClientModule,
         RouterModule.forRoot(
             appRoutes,
             {
@@ -136,7 +147,7 @@ const appRoutes: Routes = [
             }
         )
     ],
-    providers: [],
+    providers: [CourseService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
