@@ -3,6 +3,7 @@ import { MiniMenuItems } from './MiniMenuItems';
 import { Course } from './Course';
 import { CourseService } from '../course.service';
 
+
 @Component({
     selector: 'app-my-courses',
     templateUrl: './my-courses.component.html',
