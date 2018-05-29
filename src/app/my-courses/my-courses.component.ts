@@ -60,17 +60,27 @@ export class MyCoursesComponent implements OnInit {
     }
 
     handleLangDetails(data) {
-        this.languages = [];
+        this.subCourses = [];
         for(let i=0; i<data.length; i++) {
-            this.languages.push({
+            let flag = "";
+            if(data[i].pk -1 === 0) {
+                flag = "united-states-of-america";
+            } else if (data[i].pk -1 === 1) {
+                flag = "hungary";
+            } else if (data[i].pk -1 === 2) {
+                flag = "spain";
+            } else if (data[i].pk -1 === 3) {
+                flag = "slovakia";
+            }
+            this.subCourses.push({
                 id: data[i].pk -1,
                 language: data[i].fields.name,
+                flag: flag,
                 courses: []
             });
         }
-        for(let index=0; index<this.languages.length; index++) {
-            console.log(this.languages[index].id+1);
-            this.getCourseByLang(this.languages[index].id+1);
+        for(let index=0; index<this.subCourses.length; index++) {
+            this.getCourseByLang(this.subCourses[index].id+1);
         }
     }
 
@@ -82,46 +92,7 @@ export class MyCoursesComponent implements OnInit {
             {name: "Favourite Courses", function: () => this.showFavCourses()},
         ];
 
-        this.subCourses = [
-            {
-                language: "English",
-                flag: "united-states-of-america",
-                courses: []
-            },
-            {
-                language: "Hungarian",
-                flag: "hungary",
-                courses: []
-            },
-            {
-                language: "Spanish",
-                flag: "spain",
-                courses: [
-                    {
-                        id: 2, 
-                        name: "Spanish for beginners",    
-                        author: "Learning.co",
-                        subscribers: 28935,
-                        image: "http://www.strangertickets.com/imager/b/original/36163974/7f89/Oleaje-Flamenco-042816-264-3-e1462950771638.jpg",
-                        description: "Ut elementum urna at est mollis, venenatis efficitur diam eleifend. Nullam nec commodo dui, in iaculis dolor. Nullam vitae suscipit ante. Duis ac lobortis risus, eu sagittis felis. Donec accumsan odio quis magna pretium cursus. Sed faucibus tincidunt purus, id iaculis nisl iaculis nec. "
-                    }
-                ]
-            },
-            {
-                language: "Slovak",
-                flag: "slovakia",
-                courses: [
-                    {
-                        id: 3, 
-                        name: "My holiday to Slovakia",     
-                        author: "Learning.co",
-                        subscribers: 983,
-                        image: "http://sacr3-files.s3-website-eu-west-1.amazonaws.com/_processed_/csm_Bratislava%2520mesto%2520okt%252010_243a1a482b.jpg",
-                        description: "Vivamus eleifend vel lacus vestibulum finibus. Cras vestibulum suscipit convallis. Pellentesque ullamcorper eget velit eu eleifend. Vestibulum molestie, felis eu tincidunt maximus, nisi nisi convallis nisl, eget vulputate dui magna at dui. Nulla facilisi. Curabitur molestie erat eget velit semper, quis fermentum dolor viverra. Nam sit amet elementum neque. Curabitur sit amet ultrices nisi, vitae semper ipsum."
-                    }
-                ]
-            }
-        ];
+        this.subCourses = [];
 
         this.myCourses = [
             {
