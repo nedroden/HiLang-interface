@@ -15,8 +15,10 @@ export class MyCoursesComponent implements OnInit {
     subCourses;
     myCourses;
     favCourses;
+    languages;
     currentId: number;
-    constructor(private _courses: CourseService) {  
+    constructor(private _courses: CourseService) {
+        this.languages =[];
     }
 
     getCourses() {
@@ -27,89 +29,71 @@ export class MyCoursesComponent implements OnInit {
         );
     }
 
+    getCourseByLang(id: number) {
+        this._courses.getCourseByLang(id).subscribe(
+            data => { this.handleCourseByLang(data, id)},
+            err => console.error(err),
+            () => console.log('Done loading courses by language')
+        );
+    }
+
+    getLanguages() {
+        this._courses.getLangDetails().subscribe(
+            data => { this.handleLangDetails(data) },
+            err => console.error(err),
+            () => console.log('Done loading languages')
+        );
+    }
+
+    //for debug no other use
     doWithData(data) {
-        //if data is subcourse: this.subCourses.push(data[0,1,2,3,etc...])
-        //if data is mycourse: this.myCourses.push(data[0,1,2,3,etc...])
-        //if data is favcourse: this.favCourses.push(data[0,1,2,3,etc...])
         for(let i=0; i<data.length; i++) {
-            console.log(data[i]);
+            this.subCourses[0].courses.push(data[i].fields);
+        }
+        console.log(this.subCourses);
+    }
+
+    handleCourseByLang(data, id) {
+        for(let i=0; i<data.length; i++) {
+            this.subCourses[id-1].courses.push(data[i].fields);
+            console.log(this.subCourses);
         }
     }
 
+    handleLangDetails(data) {
+        this.subCourses = [];
+        for(let i=0; i<data.length; i++) {
+            let flag = "";
+            if(data[i].pk -1 === 0) {
+                flag = "united-states-of-america";
+            } else if (data[i].pk -1 === 1) {
+                flag = "hungary";
+            } else if (data[i].pk -1 === 2) {
+                flag = "spain";
+            } else if (data[i].pk -1 === 3) {
+                flag = "slovakia";
+            }
+            this.subCourses.push({
+                id: data[i].pk -1,
+                language: data[i].fields.name,
+                flag: flag,
+                courses: []
+            });
+        }
+        for(let index=0; index<this.subCourses.length; index++) {
+            this.getCourseByLang(this.subCourses[index].id+1);
+        }
+    }
+
+
     ngOnInit() {
-        this.getCourses();
         this.miniMenu = [
             {name: "Subscribed courses", function: () => this.showSubCourses()},
             {name: "Created by me",        function: () => this.showUserCourses()},
             {name: "Favourite Courses", function: () => this.showFavCourses()},
         ];
 
-        this.subCourses = [
-            {
-                language: "English",
-                flag: "united-states-of-america",
-                courses: [
-                    {
-                        id: 0,
-                        name: "English for beginners",
-                        author: "Learning.co",
-                        subscribers: 53200,
-                        image: "https://4.bp.blogspot.com/-O5q3YjRkago/UI9JEEXttiI/AAAAAAAAK8E/IijPhTpQJCw/s1600/Statue+of+Liberty+NY+%282%29.jpg",
-                        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed nisl sit amet neque imperdiet hendrerit vel id urna. Duis dapibus dui interdum est venenatis sollicitudin. Morbi nec commodo neque, sed scelerisque velit. Pellentesque consequat eget ligula sed venenatis. Fusce venenatis vehicula tempus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce tellus nisl, mollis nec neque vel, rutrum venenatis purus."
-                    },
-                    {
-                        id: 2, 
-                        name: "Spanish for beginners",    
-                        author: "Learning.co",
-                        subscribers: 28935,
-                        image: "http://www.strangertickets.com/imager/b/original/36163974/7f89/Oleaje-Flamenco-042816-264-3-e1462950771638.jpg",
-                        description: "Ut elementum urna at est mollis, venenatis efficitur diam eleifend. Nullam nec commodo dui, in iaculis dolor. Nullam vitae suscipit ante. Duis ac lobortis risus, eu sagittis felis. Donec accumsan odio quis magna pretium cursus. Sed faucibus tincidunt purus, id iaculis nisl iaculis nec. "
-                    }
-                ]
-            },
-            {
-                language: "Hungarian",
-                flag: "hungary",
-                courses: [
-                    {
-                        id: 1,
-                        name: "Hungarian Travel Phrases",
-                        author: "Learning.co",
-                        subscribers: 4954,
-                        image: "http://www.tourist-destinations.com/wp-content/uploads/2012/03/budapest-hungary-european-union.jpg",
-                        description: "Quisque vitae mi gravida, porta risus id, tempor turpis. Proin pellentesque, enim sollicitudin vestibulum porta, magna lectus euismod mi, id dignissim nunc elit rhoncus orci. Praesent augue turpis, ultricies sed quam non, vestibulum feugiat sem. Maecenas id ultricies enim. In pulvinar nisi ac augue euismod, ac consequat elit maximus. Vestibulum sit amet nulla diam. Aliquam erat volutpat."
-                    }
-                ]
-            },
-            {
-                language: "Spanish",
-                flag: "spain",
-                courses: [
-                    {
-                        id: 2, 
-                        name: "Spanish for beginners",    
-                        author: "Learning.co",
-                        subscribers: 28935,
-                        image: "http://www.strangertickets.com/imager/b/original/36163974/7f89/Oleaje-Flamenco-042816-264-3-e1462950771638.jpg",
-                        description: "Ut elementum urna at est mollis, venenatis efficitur diam eleifend. Nullam nec commodo dui, in iaculis dolor. Nullam vitae suscipit ante. Duis ac lobortis risus, eu sagittis felis. Donec accumsan odio quis magna pretium cursus. Sed faucibus tincidunt purus, id iaculis nisl iaculis nec. "
-                    }
-                ]
-            },
-            {
-                language: "Slovak",
-                flag: "slovakia",
-                courses: [
-                    {
-                        id: 3, 
-                        name: "My holiday to Slovakia",     
-                        author: "Learning.co",
-                        subscribers: 983,
-                        image: "http://sacr3-files.s3-website-eu-west-1.amazonaws.com/_processed_/csm_Bratislava%2520mesto%2520okt%252010_243a1a482b.jpg",
-                        description: "Vivamus eleifend vel lacus vestibulum finibus. Cras vestibulum suscipit convallis. Pellentesque ullamcorper eget velit eu eleifend. Vestibulum molestie, felis eu tincidunt maximus, nisi nisi convallis nisl, eget vulputate dui magna at dui. Nulla facilisi. Curabitur molestie erat eget velit semper, quis fermentum dolor viverra. Nam sit amet elementum neque. Curabitur sit amet ultrices nisi, vitae semper ipsum."
-                    }
-                ]
-            }
-        ];
+        this.subCourses = [];
 
         this.myCourses = [
             {
@@ -228,6 +212,7 @@ export class MyCoursesComponent implements OnInit {
                 ]
             }
         ];
+        this.getLanguages();
     }
 
     showSubCourses() {
@@ -264,7 +249,6 @@ export class MyCoursesComponent implements OnInit {
                 this.myCourses.push(newCourse);
                 courseInput.value = "";
                 courseInput.style.display = 'none';
-
             }
         }.bind(this);
     }
