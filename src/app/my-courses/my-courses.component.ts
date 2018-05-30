@@ -1,6 +1,4 @@
 import { Component, OnInit} from '@angular/core';
-import { MiniMenuItems } from './MiniMenuItems';
-import { Course } from './Course';
 import { CourseService } from '../course.service';
 
 
@@ -63,20 +61,10 @@ export class MyCoursesComponent implements OnInit {
     handleLangDetails(data) {
         this.subCourses = [];
         for(let i=0; i<data.length; i++) {
-            let flag = "";
-            if(data[i].pk -1 === 0) {
-                flag = "united-states-of-america";
-            } else if (data[i].pk -1 === 1) {
-                flag = "hungary";
-            } else if (data[i].pk -1 === 2) {
-                flag = "spain";
-            } else if (data[i].pk -1 === 3) {
-                flag = "slovakia";
-            }
             this.subCourses.push({
                 id: data[i].pk -1,
                 language: data[i].fields.name,
-                flag: flag,
+                flag: data[i].fields.flag,
                 courses: []
             });
         }

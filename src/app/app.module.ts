@@ -25,6 +25,8 @@ import { DialogComponent } from './dialog/dialog.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CourseService } from './course.service';
+import { LoginService } from './login.service';
+
 import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
 import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
 import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component';
@@ -147,7 +149,9 @@ const appRoutes: Routes = [
             }
         )
     ],
-    providers: [CourseService],
+    providers: [CourseService,
+                LoginService
+                ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

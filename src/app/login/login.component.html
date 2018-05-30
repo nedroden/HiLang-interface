@@ -1,6 +1,5 @@
 <div id="login-body" class="fluid-container" style="background: url('../assets/images/login.jpg'); background-size: cover;">
     <div id="image-shadow" class="row justify-content-md-center">
-
         <div class="col-sm-12 col-md-3 align-self-center" id="login-field">
             <form id="login-form">
                 <div class="form-group">
@@ -10,7 +9,7 @@
                 </div>
 
                 <div id="login-buttons">
-                    <button type="button" routerLink="/user" class="btn btn-outline-dark mb-2 col-12" id="login-button">Log in</button>
+                    <button type="button" (click)="login()" class="btn btn-outline-dark mb-2 col-12" id="login-button">Log in</button>
                     <button type="button" routerLink="/" class="btn btn-outline-dark mb-2 col-12" id="login-button">Cancel</button>
                 </div>
             </form>
