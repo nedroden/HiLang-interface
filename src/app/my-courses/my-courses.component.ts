@@ -10,15 +10,16 @@ import { CourseService } from '../course.service';
 
 export class MyCoursesComponent implements OnInit {
     miniMenu;
+    subLanguages;
     subCourses;
     myCourses;
     favCourses;
-    languages;
     currentId: number;
     constructor(private _courses: CourseService) {
-        this.languages =[];
     }
 
+    //for debug no other use
+    //---------------------------
     getCourses() {
         this._courses.getCourses().subscribe(
             data => {this.doWithData(data)},
@@ -27,61 +28,56 @@ export class MyCoursesComponent implements OnInit {
         );
     }
 
-    getCourseByLang(id: number) {
-        this._courses.getCourseByLang(id).subscribe(
-            data => { this.handleCourseByLang(data, id)},
-            err => console.error(err),
-            () => console.log('Done loading courses by language')
-        );
-    }
-
-    getLanguages() {
-        this._courses.getLangDetails().subscribe(
-            data => { this.handleLangDetails(data) },
-            err => console.error(err),
-            () => console.log('Done loading languages')
-        );
-    }
-
-    //for debug no other use
     doWithData(data) {
         for(let i=0; i<data.length; i++) {
             this.subCourses[0].courses.push(data[i].fields);
         }
-        console.log(this.subCourses);
+    }
+    //---------------------------
+
+    getSubCourses() {
+        //replace 1 with user_id
+        this._courses.getSubCourses(1).subscribe(
+            data => { this.handleSubCourseData(data)},
+            err => console.log(err),
+            () => console.log('Done loading subsribed courses')
+        );
     }
 
-    handleCourseByLang(data, id) {
+    handleSubCourseData(data) {
         for(let i=0; i<data.length; i++) {
-            this.subCourses[id-1].courses.push(data[i].fields);
-            console.log(this.subCourses);
+            this._courses.getLangDetails(data[i].fields['language']).subscribe(
+                languageData => {this.handleLangDet(languageData,data)},
+                err => console.log(err),
+                () => console.log("Done loading this language")
+            );
         }
     }
 
-    handleLangDetails(data) {
-        this.subCourses = [];
-        for(let i=0; i<data.length; i++) {
-            this.subCourses.push({
-                id: data[i].pk -1,
-                language: data[i].fields.name,
-                flag: data[i].fields.flag,
-                courses: []
-            });
+    handleLangDet(langDet,data) {
+        let subribedCourses = [];
+        for(let i = 0; i<data.length; i++) {
+            if(data[i].fields['language'] == langDet[0].pk) {
+                subribedCourses.push(data[i].fields);
+            }
         }
-        for(let index=0; index<this.subCourses.length; index++) {
-            this.getCourseByLang(this.subCourses[index].id+1);
-        }
+        this.subCourses.push( {
+            id: langDet[0].pk,
+            name: langDet[0].fields['name'],
+            flag: langDet[0].fields['flag'],
+            courses: subribedCourses
+        });
     }
 
 
     ngOnInit() {
+        this.subCourses = [];
+        this.getSubCourses();
         this.miniMenu = [
             {name: "Subscribed courses", function: () => this.showSubCourses()},
             {name: "Created by me",        function: () => this.showUserCourses()},
             {name: "Favourite Courses", function: () => this.showFavCourses()},
         ];
-
-        this.subCourses = [];
 
         this.myCourses = [
             {
@@ -200,7 +196,6 @@ export class MyCoursesComponent implements OnInit {
                 ]
             }
         ];
-        this.getLanguages();
     }
 
     showSubCourses() {
