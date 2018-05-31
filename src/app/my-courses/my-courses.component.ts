@@ -36,6 +36,7 @@ export class MyCoursesComponent implements OnInit {
     //---------------------------
 
     getSubCourses() {
+        //replace 1 with user_id
         this._courses.getSubCourses(1).subscribe(
             data => { this.handleSubCourseData(data)},
             err => console.log(err),
@@ -44,32 +45,34 @@ export class MyCoursesComponent implements OnInit {
     }
 
     handleSubCourseData(data) {
-        console.log(data)
         for(let i=0; i<data.length; i++) {
             this._courses.getLangDetails(data[i].fields['language']).subscribe(
-                languageData => {this.handleLangDet(languageData)},
+                languageData => {this.handleLangDet(languageData,data)},
                 err => console.log(err),
                 () => console.log("Done loading this language")
             );
-            //this.subLanguages[0].courses.push(data[i].fields);
         }
     }
 
-    handleLangDet(langDet) {
-        this.subLanguages.push( {
+    handleLangDet(langDet,data) {
+        let subribedCourses = [];
+        for(let i = 0; i<data.length; i++) {
+            if(data[i].fields['language'] == langDet[0].pk) {
+                subribedCourses.push(data[i].fields);
+            }
+        }
+        this.subCourses.push( {
             id: langDet[0].pk,
             name: langDet[0].fields['name'],
-            flag: langDet[0].fields['flag']
-            courses: []
+            flag: langDet[0].fields['flag'],
+            courses: subribedCourses
         });
     }
 
 
     ngOnInit() {
         this.subCourses = [];
-        this.subLanguages = [];
         this.getSubCourses();
-        console.log(this.subLanguages[0]);
         this.miniMenu = [
             {name: "Subscribed courses", function: () => this.showSubCourses()},
             {name: "Created by me",        function: () => this.showUserCourses()},
