@@ -9,4 +9,5 @@ export class LoginService {
   postLoginData(loginData) {
   	return this.http.post('http://localhost:8000/api/login', loginData, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
+
 }
