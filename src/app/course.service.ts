@@ -14,6 +14,10 @@ export class CourseService {
   	return this.http.get('http://localhost:8000/api/courses');
   }
 
+  getPublicCourses() {
+	return this.http.get('http://localhost:8000/api/courses/public');
+  }
+
   getCourseByLang(id: number) {
   	return this.http.get('http://localhost:8000/api/course/language/' + id);
   }
