@@ -15,10 +15,14 @@ export class CourseService {
   }
 
   getCourseByLang(id: number) {
-  	return this.http.get('http://localhost:8000/api/course/language/' + id);
+  	return this.http.get('http://localhost:8000/api/course/language/' + id + '/');
   }
 
-  getLangDetails() {
-  	return this.http.get('http://localhost:8000/api/languages/');
+  getLangDetails(lang_id: number) {
+  	return this.http.get('http://localhost:8000/api/language/' + lang_id);
+  }
+
+  getSubCourses(u_id: number) {
+  	return this.http.get('http://localhost:8000/api/user/subscriptions/' + u_id + '/');
   }
 }
