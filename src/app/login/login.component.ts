@@ -21,5 +21,4 @@ export class LoginComponent implements OnInit {
 
         this._con.postLoginData(userData).subscribe(loggedIn => console.log(loggedIn));
     }
-
 }
