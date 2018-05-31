@@ -20,7 +20,7 @@ export class MyCoursesComponent implements OnInit {
     }
 
     getCourses() {
-        this._courses.getCourses().subscribe( 
+        this._courses.getCourses().subscribe(
             data => {this.doWithData(data)},
             err => console.error(err),
             () => console.log('Done loading courses')
@@ -89,8 +89,8 @@ export class MyCoursesComponent implements OnInit {
                 flag: "netherlands",
                 courses: [
                     {
-                        id: 4, 
-                        name: "Dutch: the language of the world",    
+                        id: 4,
+                        name: "Dutch: the language of the world",
                         author: "Jelmer",
                         subscribers: 4380,
                         image: "https://2.bp.blogspot.com/-HqC8Dl_8T2M/ThTY8yrQZOI/AAAAAAAACm8/laJZ2RuvF1I/s1600/kinderdijk.jpg",
@@ -103,8 +103,8 @@ export class MyCoursesComponent implements OnInit {
                 flag: "france",
                 courses: [
                     {
-                        id: 5, 
-                        name: "French for beginners",  
+                        id: 5,
+                        name: "French for beginners",
                         author: "Jelmer",
                         subscribers: 21300,
                         image: "https://3.bp.blogspot.com/-RNOP8XlpuOE/UQgMghYlnDI/AAAAAAAAjb4/1mMrhWMi4ck/s1600/2171-1280x960.jpg",
@@ -117,8 +117,8 @@ export class MyCoursesComponent implements OnInit {
                 flag: "germany",
                 courses: [
                     {
-                        id: 6, 
-                        name: "Angela Merkel\'s guide to German",    
+                        id: 6,
+                        name: "Angela Merkel\'s guide to German",
                         author: "Jelmer",
                         subscribers: 24000,
                         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Berlin_-_0266_-_16052015_-_Brandenburger_Tor.jpg/1200px-Berlin_-_0266_-_16052015_-_Brandenburger_Tor.jpg",
@@ -162,8 +162,8 @@ export class MyCoursesComponent implements OnInit {
                 flag: "france",
                 courses: [
                     {
-                        id: 9, 
-                        name: "Vive la revolution!",  
+                        id: 9,
+                        name: "Vive la revolution!",
                         author: "Learning.co",
                         subscribers: 434345,
                         image: "https://3.bp.blogspot.com/-RNOP8XlpuOE/UQgMghYlnDI/AAAAAAAAjb4/1mMrhWMi4ck/s1600/2171-1280x960.jpg",
@@ -176,8 +176,8 @@ export class MyCoursesComponent implements OnInit {
                 flag: "hungary",
                 courses: [
                     {
-                        id: 10, 
-                        name: "The dictator is coming",    
+                        id: 10,
+                        name: "The dictator is coming",
                         author: "Learning.co",
                         subscribers: 65484,
                         image: "http://www.tourist-destinations.com/wp-content/uploads/2012/03/budapest-hungary-european-union.jpg",
@@ -190,8 +190,8 @@ export class MyCoursesComponent implements OnInit {
                 flag: "slovakia",
                 courses: [
                     {
-                        id: 11, 
-                        name: "My holiday to Slovakia",     
+                        id: 11,
+                        name: "My holiday to Slovakia",
                         author: "Learning.co",
                         subscribers: 8876,
                         image: "http://sacr3-files.s3-website-eu-west-1.amazonaws.com/_processed_/csm_Bratislava%2520mesto%2520okt%252010_243a1a482b.jpg",
@@ -232,11 +232,10 @@ export class MyCoursesComponent implements OnInit {
 
         courseInput.onkeypress = function(event) {
             if(event.keyCode === 13) {
-                let newCourse = {id: this.currentId, name: courseInput.value, author: "Jelmer"}
-                this.currentId++;
-                this.myCourses.push(newCourse);
+                this._courses.createCourse({name: courseInput.value}).subscribe(course => console.log(course));
                 courseInput.value = "";
                 courseInput.style.display = 'none';
+                // TODO: Update my courses
             }
         }.bind(this);
     }
