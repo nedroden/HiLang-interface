@@ -8,19 +8,19 @@
 
     <br />
 
-    <div *ngFor="let courseGroup of courses" class="mb-sm-4">
-        <h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.language }}</h3>
-        <div class="card mb-sm-2" *ngFor="let course of courseGroup.courses">
+    <div *ngFor="let course of courses" class="mb-sm-4">
+        <!-- <h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.language }}</h3>
+        <div class="card mb-sm-2" *ngFor="let course of courseGroup.courses"> -->
             <div class="card-body">
                 <div class="pull-left col-sm-2">
-                    <img class="course-img" src="{{ course.image }}" alt="Course image">
+                    <img class="course-img" src="{{ course.fields.image }}" alt="Course image">
                 </div>
                 <div class="pull-left col-sm-8">
                     <h5 class="card-title">
-                        {{ course.name }}
+                        {{ course.fields.name }}
                     </h5>
                     <p class="card-text">
-                        {{ course.description }}
+                        {{ course.fields.description }}
                     </p>
                 </div>
 
@@ -29,17 +29,17 @@
 
             <div class="card-footer">
                 <div class="pull-left">
-                    <i class="fa fa-users"></i> {{ course.subscribers }} subscribers
+                    <i class="fa fa-users"></i> {{ course.fields.subscribers }} subscribers
                 </div>
 
                 <div class="pull-right">
                     Taught by {{ course.author }} |
-                    <a routerLink="/user/course-details/{{course.id}}">
+                    <a routerLink="/user/course-details/{{course.fields.id}}">
                         Subscribe to course
                     </a>
                 </div>
             </div>
-        </div>
+        <!-- </div> -->
     </div>
 </div>
 

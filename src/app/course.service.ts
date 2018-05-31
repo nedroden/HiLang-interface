@@ -14,11 +14,22 @@ export class CourseService {
   	return this.http.get('http://localhost:8000/api/courses');
   }
 
+  getPublicCourses() {
+	return this.http.get('http://localhost:8000/api/courses/public');
+  }
+
   getCourseByLang(id: number) {
   	return this.http.get('http://localhost:8000/api/course/language/' + id);
   }
 
   getLangDetails() {
   	return this.http.get('http://localhost:8000/api/languages/');
+  }
+
+  createCourse(courseData) {
+	  // TODO: Update with session data
+	  let testData = {name: courseData.name,
+  					  user: 1}
+	  return this.http.post('http://localhost:8000/api/course/create/', testData, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })})
   }
 }
