@@ -8,17 +8,18 @@ import { LoginService } from '../login.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private _con: LoginService) { }
+    constructor(private _con: LoginService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  login() {
-  	let userData = {
-  		email: 'jan@hotmail.com',
-  		password: 'welkom123'
-  	}
-  	this._con.postLoginData(userData).subscribe(loggedIn => console.log(loggedIn));
-  }
+    login() {
+        let userData = {
+        	email: 'jan@hotmail.com',
+        	password: 'welkom123'
+        }
+
+        this._con.postLoginData(userData).subscribe(loggedIn => console.log(loggedIn));
+    }
 
 }
