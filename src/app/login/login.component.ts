@@ -15,10 +15,9 @@ export class LoginComponent implements OnInit {
 
   login() {
   	let userData = {
-  		username: 'jelmer',
-  		password: '1234'
+  		email: 'jan@hotmail.com',
+  		password: 'welkom123'
   	}
   	this._con.postLoginData(userData).subscribe(loggedIn => console.log(loggedIn));
   }
-
 }

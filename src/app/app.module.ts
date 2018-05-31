@@ -26,6 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { CourseService } from './course.service';
 import { LoginService } from './login.service';
+import { AccountService } from './account.service';
+
 
 import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
 import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
@@ -150,7 +152,8 @@ const appRoutes: Routes = [
         )
     ],
     providers: [CourseService,
-                LoginService
+                LoginService,
+                AccountService
                 ],
     bootstrap: [AppComponent]
 })
