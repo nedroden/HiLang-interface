@@ -36,8 +36,8 @@ export class MyCoursesComponent implements OnInit {
     //---------------------------
 
     getSubCourses() {
-        //replace 1 with user_id
-        this._courses.getSubCourses(1).subscribe(
+        //replace 2 with user_id
+        this._courses.getSubCourses(2).subscribe(
             data => { this.handleSubCourseData(data)},
             err => console.log(err),
             () => console.log('Done loading subsribed courses')
@@ -61,6 +61,7 @@ export class MyCoursesComponent implements OnInit {
                 subribedCourses.push(data[i].fields);
             }
         }
+        console.log(langDet[0].fields['name']);
         this.subCourses.push( {
             id: langDet[0].pk,
             name: langDet[0].fields['name'],

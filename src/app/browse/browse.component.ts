@@ -9,12 +9,13 @@ import { CourseService } from '../course.service';
 })
 export class BrowseComponent implements OnInit {
     publicCourses = [];
-    courses;
+    courses = [];
 
     constructor(private _courses : CourseService) { }
 
     ngOnInit() {
-        this._courses.getPublicCourses().subscribe(courses => { courses.forEach(course => {this.publicCourses.push(course);})});
+        this._courses.getPublicCourses().subscribe(courses => {   
+        this.courses.forEach(course => {this.publicCourses.push(course);})});
         console.log(this.publicCourses);
         this.courses = this.publicCourses;
 
