@@ -61,8 +61,10 @@ export class MyCoursesComponent implements OnInit {
             if(data[i].fields['language'] == langDet[0].pk) {
                 this._courses.getUser(data[i].fields['user']).subscribe(
                     userName => { 
+                        console.log(data[i]);
                         subribedCourses.push(
                             {
+                                id: data[i].pk,
                                 description: data[i].fields['description'],
                                 image: data[i].fields['image'],
                                 name: data[i].fields['name'],

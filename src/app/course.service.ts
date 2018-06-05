@@ -19,7 +19,7 @@ export class CourseService {
   }
 
   getLangDetails(lang_id: number) {
-  	return this.http.get('http://localhost:8000/api/language/' + lang_id);
+  	return this.http.get('http://localhost:8000/api/language/' + lang_id + '/');
   }
 
   getSubCourses(u_id: number) {
