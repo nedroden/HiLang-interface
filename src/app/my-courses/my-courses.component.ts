@@ -56,11 +56,27 @@ export class MyCoursesComponent implements OnInit {
 
     handleLangDet(langDet,data) {
         let subribedCourses = [];
+        let author = "";
         for(let i = 0; i<data.length; i++) {
             if(data[i].fields['language'] == langDet[0].pk) {
-                subribedCourses.push(data[i].fields);
+                this._courses.getUser(data[i].fields['user']).subscribe(
+                    userName => { 
+                        subribedCourses.push(
+                            {
+                                description: data[i].fields['description'],
+                                image: data[i].fields['image'],
+                                name: data[i].fields['name'],
+                                subsribers: data[i].fields['subscribers'],
+                                author: userName[0].fields['name'] 
+                            }
+                        );
+                    },
+                    err => console.log(err),
+                    () => console.log("Got course author")
+                );   
             }
         }
+        console.log(subribedCourses);
         this.subCourses.push( {
             id: langDet[0].pk,
             name: langDet[0].fields['name'],
