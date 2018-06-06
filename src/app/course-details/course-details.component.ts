@@ -9,10 +9,10 @@ import { CourseService } from '../course.service';
 
 export class CourseDetailsComponent implements OnInit {
 	subCourses;
-  myCourses;
-  favCourses;
-  courseName;
-  courseAuthor;
+    myCourses;
+    favCourses;
+    courseName;
+    courseAuthor;
 	constructor(private courseService: CourseService) { }
 
     author = {

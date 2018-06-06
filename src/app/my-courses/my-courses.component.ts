@@ -246,8 +246,7 @@ export class MyCoursesComponent implements OnInit {
         courseInput.onkeypress = function(event) {
             if(event.keyCode === 13) {
                 let newCourse = {id: this.currentId, name: courseInput.value, author: "Jelmer"}
-                this.currentId++;
-                this.myCourses.push(newCourse);
+                this._courses.createCourse(courseInput.value, 1).subscribe(response => console.log(response));
                 courseInput.value = "";
                 courseInput.style.display = 'none';
             }
