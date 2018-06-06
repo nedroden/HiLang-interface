@@ -13,7 +13,7 @@
 				<h2>Subscribed courses</h2>
 				<hr />
 				<div *ngFor="let courseGroup of subCourses" class="mb-sm-4">
-					<h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.language }}</h3>
+					<h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.name }}</h3>
 					<div class="card mb-sm-2" *ngFor="let course of courseGroup.courses">
 						<div class="card-body">
 							<div class="pull-left col-sm-2">
