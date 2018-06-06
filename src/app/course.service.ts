@@ -26,6 +26,10 @@ export class CourseService {
   	return this.http.get('http://localhost:8000/api/user/subscriptions/' + u_id + '/');
   }
 
+  getFavCourses(u_id: number) {
+  	return this.http.get('http://localhost:8000/api/user/favorites/' + u_id + '/');
+  }
+
   getUser(u_id: number) {
   	return this.http.get('http://localhost:8000/api/user/' + u_id + '/');
   }
@@ -43,7 +47,7 @@ export class CourseService {
   		user: u_id,
   		course: c_id
   	};
-  	return this.http.post('http://localhost:8000/api/course/unfavorite', favoriteToDel { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+  	return this.http.post('http://localhost:8000/api/course/unfavorite', favoriteToDel, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
   createCourse(name: String, author: number) {
@@ -51,6 +55,6 @@ export class CourseService {
   		name: name,
   		user: author
   	};
-  	return this.http.post('http://localhost:8000/api/course/create/', courseData { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+  	return this.http.post('http://localhost:8000/api/course/create/', courseData, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 }
