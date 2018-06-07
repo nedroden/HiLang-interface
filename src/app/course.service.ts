@@ -14,17 +14,16 @@ export class CourseService {
   	return this.http.get('http://localhost:8000/api/courses');
   }
 
-  getPublicCourses() {
-	return this.http.get('http://localhost:8000/api/courses/public');
-  }
-
   getCourseByLang(id: number) {
   	return this.http.get('http://localhost:8000/api/course/language/' + id + '/');
   }
 
   getCourseDetails(c_id: number) {
-  	console.log(c_id);
   	return this.http.get('http://localhost:8000/api/course/1/' + c_id + '/');
+  }
+
+  getCourseLessons(c_id: number) {
+  	return this.http.get('http://localhost:8000/api/course/' + c_id + '/lessons');
   }
 
   getLangDetails(lang_id: number) {
@@ -35,9 +34,16 @@ export class CourseService {
   	return this.http.get('http://localhost:8000/api/user/subscriptions/' + u_id + '/');
   }
 
-
   getFavCourses(u_id: number) {
   	return this.http.get('http://localhost:8000/api/user/favorites/' + u_id + '/');
+  }
+
+  getUserCourses(u_id: number) {
+  	return this.http.get('http://localhost:8000/api/courses/' + u_id + '/');
+  }
+
+  editCourseDesc(courseData) {
+  	return this.http.post('http://localhost:8000/api/course/' + courseData['id'] + "/edit_desc", courseData, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
   getUser(u_id: number) {
@@ -60,11 +66,15 @@ export class CourseService {
   	return this.http.post('http://localhost:8000/api/course/unfavorite', favoriteToDel, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
-  createCourse(courseData) {
-	  // TODO: Update with session data
-	  let testData = {name: courseData.name,
-  					  user: 1}
-	  return this.http.post('http://localhost:8000/api/course/create/', testData, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })})
+  createCourse(name: String, author: number) {
+  	let courseData = {
+  		name: name,
+  		user: author
+  	};
+  	return this.http.post('http://localhost:8000/api/course/create/', courseData, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+  }
 
+  getPublicCourses() {
+  	return this.http.get('http://localhost:8000/api/courses/public');
   }
 }

@@ -1,4 +1,4 @@
-<h1>{{courseName}} by {{ courseAuthor }}</h1>
+<h1>{{courseName}}</h1>
 <hr>
 <div class="container-fluid">
 	<div class="col-sm-5 pull-left">
@@ -15,7 +15,9 @@
 				<br class="clear" />
 				<hr class="my-4" />
 
-				<p> {{ courseDesc }}</p>
+				<p id="course_desc" (dblclick)="edit()"> {{ courseDesc }}</p>
+				<textarea id="course_desc_edit" type='text' style="display: none"></textarea>
+				<button id="saveDesc" type="button" class="btn btn-primary" style="display: none">Save</button>
 			</div>
 
 			<div class="card-footer">
