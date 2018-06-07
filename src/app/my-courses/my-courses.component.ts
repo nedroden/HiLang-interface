@@ -37,7 +37,7 @@ export class MyCoursesComponent implements OnInit {
 
     getSubCourses() {
         //replace 2 with user_id
-        this._courses.getSubCourses(2).subscribe(
+        this._courses.getSubCourses(1).subscribe(
             data => { this.handleSubCourseData(data)},
             err => console.log(err),
             () => console.log('Done loading subsribed courses')

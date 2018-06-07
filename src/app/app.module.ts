@@ -35,7 +35,21 @@ import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component'
 
 import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
 
-const appRoutes: Routes = [
+const appRoutes: Routes = [/*
+    {
+        ignoreCase: true,
+        sourceLanguage: 'English',
+        targetLanguage: 'Dutch'
+    },
+    {
+        sourceLanguage: 'Hallo daar!',
+        targetLanguage: 'Hi there!',
+        userInput: [
+            'Hi dere'
+        ],
+
+        attempts: 0
+    },*/
     {
         path: '',
         redirectTo: 'home',
