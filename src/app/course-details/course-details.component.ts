@@ -13,6 +13,9 @@ export class CourseDetailsComponent implements OnInit {
     favCourses;
     courseName;
     courseAuthor;
+    courseDesc;
+    courseImg;
+    lessons;
 	constructor(private courseService: CourseService) { }
 
     author = {
@@ -21,12 +24,9 @@ export class CourseDetailsComponent implements OnInit {
     }
 
 	ngOnInit() {
-    this.subCourses = [
-        {id: 0, name: "English for beginners",    author: "Learning.co"},
-        {id: 1, name: "Spanish",    author: "Learning.co"},
-        {id: 2, name: "Hongarian",  author: "Learning.co"},
-        {id: 3, name: "Slovac",     author: "Learning.co"},
-    ];
+    this.subCourses = [];
+    this.lessons = [];
+    // this.lessons = [{'id' : 1, 'name': "English lesson 1", 'desc': "Food"}];
 
     this.myCourses = [
         {id: 4, name: "Dutch",      author: "Jelmer"},
@@ -42,25 +42,23 @@ export class CourseDetailsComponent implements OnInit {
         {id: 3, name: "Slovac",     author: "Learning.co"},
     ];
     let ulrParts = (window.location.href).split("/");
-		this.searchCourse(parseInt(ulrParts[ulrParts.length - 1]));
-
+	this.searchCourse(parseInt(ulrParts[ulrParts.length - 1]));
 	}
 
 	searchCourse(id) {
-		for(let item of this.subCourses) {
-			if(item.id === id) {
-				this.courseName = item.name;
-				this.courseAuthor = item.author;
-			}
-		}
-
-		for(let item of this.myCourses) {
-			if(item.id === id) {
-		    this.courseName = item.name;
-				this.courseAuthor = item.author;
-				document.getElementById('addLesson').style.display = "block";
-			}
-		}
+        this.courseService.getCourseDetails(id).subscribe(response => {
+            this.courseName = response['name'];
+            this.courseAuthor = response['author'];
+            this.courseDesc = response['description'];
+            this.courseImg = response['image'];
+            if(response['favorite']) {
+                document.getElementById('addFavorite').style.display = "none";
+                document.getElementById('delFavorite').style.display = "block";
+            } else {
+                document.getElementById('addFavorite').style.display = "block";
+                document.getElementById('delFavorite').style.display = "none";
+            }
+        });
 	}
 
   addFavorite() {

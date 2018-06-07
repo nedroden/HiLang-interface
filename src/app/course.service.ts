@@ -18,6 +18,11 @@ export class CourseService {
   	return this.http.get('http://localhost:8000/api/course/language/' + id + '/');
   }
 
+  getCourseDetails(c_id: number) {
+  	console.log(c_id);
+  	return this.http.get('http://localhost:8000/api/course/1/' + c_id + '/');
+  }
+
   getLangDetails(lang_id: number) {
   	return this.http.get('http://localhost:8000/api/language/' + lang_id + '/');
   }
