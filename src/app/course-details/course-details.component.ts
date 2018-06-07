@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { CourseService } from '../course.service';
 
 @Component({
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
   styleUrls: ['./course-details.component.css']
 })
+
 export class CourseDetailsComponent implements OnInit {
 	subCourses;
-  	myCourses;
-  	favCourses;
-
-  	courseName;
-  	courseAuthor;
-	constructor() { }
+    myCourses;
+    favCourses;
+    courseName;
+    courseAuthor;
+	constructor(private courseService: CourseService) { }
 
     author = {
         avatar: "http://cdn.guardian.ng/wp-content/uploads/2016/05/Vladimir-Putin.jpg",
@@ -40,8 +41,9 @@ export class CourseDetailsComponent implements OnInit {
         {id: 2, name: "Hongarian",  author: "Learning.co"},
         {id: 3, name: "Slovac",     author: "Learning.co"},
     ];
-    	let ulrParts = (window.location.href).split("/");
+    let ulrParts = (window.location.href).split("/");
 		this.searchCourse(parseInt(ulrParts[ulrParts.length - 1]));
+
 	}
 
 	searchCourse(id) {
@@ -60,5 +62,21 @@ export class CourseDetailsComponent implements OnInit {
 			}
 		}
 	}
+
+  addFavorite() {
+    let ulrParts = (window.location.href).split("/");
+    let courseId = parseInt(ulrParts[ulrParts.length - 1]);
+    this.courseService.addFavorite(1,courseId).subscribe(response => console.log(response));
+    document.getElementById('addFavorite').style.display = "none";
+    document.getElementById('delFavorite').style.display = "block";
+  }
+
+  delFavorite() {
+    let ulrParts = (window.location.href).split("/");
+    let courseId = parseInt(ulrParts[ulrParts.length - 1]);
+    this.courseService.delFavorite(1,courseId).subscribe(response => console.log(response));
+    document.getElementById('addFavorite').style.display = "block";
+    document.getElementById('delFavorite').style.display = "none";
+  }
 
 }
