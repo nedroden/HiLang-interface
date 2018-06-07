@@ -1,14 +1,20 @@
 export abstract class Exercise {
     
-    vocabulary;
+    vocabulary = [];
 
     queue = [];
     correctWords = [];
     incorrectWords = [];
 
+    static Word = class {
+        native: string;
+        translation: string;
+        exercise: string;
+    }
+
     public initialize(): void {
         for (let word of vocabulary.sort((a, b) => 0.5 - Math.random()))
-            queue.push(word);
+            this.queue.push(word);
     }
 
     public getNext() {
