@@ -1,23 +1,19 @@
+import { Flashcard } from './structures/flashcard';
+
 export abstract class Exercise {
     
-    vocabulary = [];
+    vocabulary: Flashcard[] = [];
 
-    queue = [];
-    correctWords = [];
-    incorrectWords = [];
-
-    static Word = class {
-        native: string;
-        translation: string;
-        exercise: string;
-    }
+    queue: Flashcard[] = [];
+    correctWords: Flashcard[] = [];
+    incorrectWords: Flashcard[] = [];
 
     public initialize(): void {
-        for (let word of vocabulary.sort((a, b) => 0.5 - Math.random()))
+        for (let word of this.vocabulary.sort((a, b) => 0.5 - Math.random()))
             this.queue.push(word);
     }
 
-    public getNext() {
+    public getNext(): Flashcard {
         return this.queue.length > 0 ? this.queue[0] : null;
     }
 
@@ -26,7 +22,7 @@ export abstract class Exercise {
     }
 
     public isCorrect(input: string): boolean {
-        return input === this.queue.translation;
+        return input === this.queue[0].translation;
     }
 
     public removeFromQueue(isCorrect: boolean): boolean {
