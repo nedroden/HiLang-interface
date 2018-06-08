@@ -19,6 +19,7 @@ export class CourseDetailsComponent implements OnInit {
     courseImg;
     lessons;
     editable = false;
+  
 	constructor(private courseService: CourseService) { }
 
     author = {
@@ -29,24 +30,8 @@ export class CourseDetailsComponent implements OnInit {
 	ngOnInit() {
     this.subCourses = [];
     this.lessons = [];
-    // this.lessons = [{'id' : 1, 'name': "English lesson 1", 'desc': "Food"}];
-
-    this.myCourses = [
-        {id: 4, name: "Dutch",      author: "Jelmer"},
-        {id: 5, name: "French",     author: "Jelmer"},
-        {id: 6, name: "German",     author: "Jelmer"},
-        {id: 7, name: "English",    author: "Jelmer"},
-    ];
-
-    this.favCourses = [
-        {id: 4, name: "Dutch",      author: "Jelmer"},
-        {id: 5, name: "French",     author: "Jelmer"},
-        {id: 2, name: "Hongarian",  author: "Learning.co"},
-        {id: 3, name: "Slovac",     author: "Learning.co"},
-    ];
     let ulrParts = (window.location.href).split("/");
 	this.searchCourse(parseInt(ulrParts[ulrParts.length - 1]));
-    
 	}
 
 	searchCourse(id) {
@@ -64,6 +49,13 @@ export class CourseDetailsComponent implements OnInit {
                 document.getElementById('addFavorite').style.display = "block";
                 document.getElementById('delFavorite').style.display = "none";
             }
+            if(response['subscription']) {
+                document.getElementById('subscribeBtn').style.display = "none";
+                document.getElementById('UnSubscribeBtn').style.display = "block";
+            } else {
+                document.getElementById('subscribeBtn').style.display = "block";
+                document.getElementById('UnSubscribeBtn').style.display = "none";
+            }
             //replace 1 with logged in user id
             if(this.courseAuthorId === 1) {
                 document.getElementById('addLesson').style.display="block";
@@ -75,52 +67,73 @@ export class CourseDetailsComponent implements OnInit {
 
     edit() {
         if(this.editable) {
-            let editor = document.getElementById("course_desc_edit")
-            let desc = document.getElementById("course_desc")
-            editor.innerText = desc.innerText;
+            let editor = (<HTMLInputElement>document.getElementById("course_desc_edit"))
+            let desc = (<HTMLInputElement>document.getElementById("course_desc"))
+            editor.value = desc.innerText;
 
             editor.style.display = "block";
             document.getElementById("saveDesc").style.display = "block";
             desc.style.display = "none";
+            document.getElementById("course_edit").style.display = "none";
         }
     }
 
     saveEdit() {
-        let newDesc = document.getElementById("course_desc_edit");
-        console.log(newDesc);
+        let newDesc = (<HTMLInputElement>document.getElementById("course_desc_edit")).value;
         let courseData = {
             'id': this.courseId,
             'desc': newDesc,
         }
         this.courseService.editCourseDesc(courseData).subscribe(response => console.log(response));
+        document.getElementById("course_desc_edit").style.display = "none";
+        document.getElementById("saveDesc").style.display = "none";
+        document.getElementById("course_desc").style.display = "block";
+        document.getElementById("course_edit").style.display = "block";
     }
 
     getLessons() {
         this.courseService.getCourseLessons(this.courseId).subscribe(response => {
+            let subLessons = [];
             for(let lesson of <Array<any>>response) {
-                this.lessons.push( {
+                subLessons.push( {
                     id: lesson.pk,
                     name: lesson.fields['name'],
                     desc: lesson.fields['description'],
                 });
-            } 
+            }
+            this.lessons = subLessons;
         });
     }
 
     addFavorite() {
-      let ulrParts = (window.location.href).split("/");
-      let courseId = parseInt(ulrParts[ulrParts.length - 1]);
-      this.courseService.addFavorite(1,courseId).subscribe(response => console.log(response));
-      document.getElementById('addFavorite').style.display = "none";
-      document.getElementById('delFavorite').style.display = "block";
+        let ulrParts = (window.location.href).split("/");
+        let courseId = parseInt(ulrParts[ulrParts.length - 1]);
+        this.courseService.addFavorite(1,courseId).subscribe();
+        document.getElementById('addFavorite').style.display = "none";
+        document.getElementById('delFavorite').style.display = "block";
     }
     
     delFavorite() {
-      let ulrParts = (window.location.href).split("/");
-      let courseId = parseInt(ulrParts[ulrParts.length - 1]);
-      this.courseService.delFavorite(1,courseId).subscribe(response => console.log(response));
-      document.getElementById('addFavorite').style.display = "block";
-      document.getElementById('delFavorite').style.display = "none";
+        let ulrParts = (window.location.href).split("/");
+        let courseId = parseInt(ulrParts[ulrParts.length - 1]);
+        this.courseService.delFavorite(1,courseId).subscribe();
+        document.getElementById('addFavorite').style.display = "block";
+        document.getElementById('delFavorite').style.display = "none";
     }
 
+    subscribe() {
+        let ulrParts = (window.location.href).split("/");
+        let courseId = parseInt(ulrParts[ulrParts.length - 1]);
+        this.courseService.subscribe(1,courseId).subscribe();
+        document.getElementById('subscribeBtn').style.display = "none";
+        document.getElementById('UnSubscribeBtn').style.display = "block";
+    }
+
+    unSubscribe() {
+        let ulrParts = (window.location.href).split("/");
+        let courseId = parseInt(ulrParts[ulrParts.length - 1]);
+        this.courseService.unSubscribe(1,courseId).subscribe();
+        document.getElementById('subscribeBtn').style.display = "block";
+        document.getElementById('UnSubscribeBtn').style.display = "none";
+    }
 }

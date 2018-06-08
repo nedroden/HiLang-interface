@@ -50,7 +50,7 @@ export class UserwelcomeComponent implements OnInit {
         }
     ];
 
-    constructor() { }
+    constructor() {}
 
     ngOnInit() {
     }

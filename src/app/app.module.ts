@@ -27,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseService } from './course.service';
 import { LoginService } from './login.service';
 import { AccountService } from './account.service';
-
+import { CookieService } from './cookie.service';
+import { HilangApiService } from './hilang-api.service';
 
 import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
 import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
@@ -94,6 +95,10 @@ const appRoutes: Routes = [/*
                         component: MultipleChoiceComponent
                     }
                 ]
+            },
+            {
+                path: 'lesson/:author_id/:lesson_id',
+                component: LessonviewComponent
             },
             {
                 path: 'browse',
@@ -172,7 +177,9 @@ const appRoutes: Routes = [/*
     ],
     providers: [CourseService,
                 LoginService,
-                AccountService
+                AccountService,
+                CookieService,
+                HilangApiService
                 ],
     bootstrap: [AppComponent]
 })
