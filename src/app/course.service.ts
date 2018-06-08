@@ -66,12 +66,11 @@ export class CourseService {
   	return this.http.post('http://localhost:8000/api/course/unfavorite', favoriteToDel, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
-  createCourse(name: String, author: number) {
-  	let courseData = {
-  		name: name,
-  		user: author
-  	};
-  	return this.http.post('http://localhost:8000/api/course/create/', courseData, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+  createCourse(courseData) {
+	  // TODO: Update with session data
+	  let testData = {name: courseData.name,
+  					  user: 1}
+	  return this.http.post('http://localhost:8000/api/course/create/', testData, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })})
   }
 
   getPublicCourses() {

@@ -150,7 +150,6 @@ export class MyCoursesComponent implements OnInit {
             {name: "Created by me",        function: () => this.showUserCourses()},
             {name: "Favourite Courses", function: () => this.showFavCourses()},
         ];
-        
     }
 
     showSubCourses() {

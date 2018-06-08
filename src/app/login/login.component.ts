@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
+import { CookieService } from '../cookie.service';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import { LoginService } from '../login.service';
 })
 export class LoginComponent implements OnInit {
 
-    constructor(private _con: LoginService) { }
+    constructor(private _con: LoginService, private _cookie: CookieService) { }
 
     ngOnInit() {
     }
@@ -20,15 +21,8 @@ export class LoginComponent implements OnInit {
         }
 
         this._con.postLoginData(userData).subscribe(data => {
-            if (data.user && data.token) {
-                console.log(data);
-                let d = new Date();
-                d.setTime(d.getTime() + (10*24*60*60*1000));
-                document.cookie = "expires="+ d.toUTCString();
-                document.cookie = "name=" + data.user.name;
-                document.cookie = "email=" + data.user.email;
-                document.cookie = "distributor=" + data.user.distributor;
-                document.cookie = "token=" + data.token;
+            if (data.user_id && data.token) {
+                this._cookie.createCookie(data);
                 window.location.href = "/user";
             } else {
                 // Iets van een melding ofzo

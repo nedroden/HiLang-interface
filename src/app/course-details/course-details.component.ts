@@ -19,6 +19,7 @@ export class CourseDetailsComponent implements OnInit {
     courseImg;
     lessons;
     editable = false;
+  
 	constructor(private courseService: CourseService) { }
 
     author = {
@@ -45,8 +46,7 @@ export class CourseDetailsComponent implements OnInit {
         {id: 3, name: "Slovac",     author: "Learning.co"},
     ];
     let ulrParts = (window.location.href).split("/");
-	this.searchCourse(parseInt(ulrParts[ulrParts.length - 1]));
-    
+		this.searchCourse(parseInt(ulrParts[ulrParts.length - 1]));
 	}
 
 	searchCourse(id) {
@@ -122,5 +122,4 @@ export class CourseDetailsComponent implements OnInit {
       document.getElementById('addFavorite').style.display = "block";
       document.getElementById('delFavorite').style.display = "none";
     }
-
 }
