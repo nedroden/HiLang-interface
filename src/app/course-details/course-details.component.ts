@@ -81,6 +81,7 @@ export class CourseDetailsComponent implements OnInit {
             editor.style.display = "block";
             document.getElementById("saveDesc").style.display = "block";
             desc.style.display = "none";
+            document.getElementById("course_edit").style.display = "none";
         }
     }
 
@@ -94,6 +95,7 @@ export class CourseDetailsComponent implements OnInit {
         document.getElementById("course_desc_edit").style.display = "none";
         document.getElementById("saveDesc").style.display = "none";
         document.getElementById("course_desc").style.display = "block";
+        document.getElementById("course_edit").style.display = "block";
     }
 
     getLessons() {

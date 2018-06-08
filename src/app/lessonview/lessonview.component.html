@@ -13,7 +13,8 @@
 
                 <hr class="my-4" />
 
-                <p id='lesson_desc' (dblclick)="edit()"> {{ lesson.desc }}</p>
+                <p id='lesson_desc'> {{ lesson.desc }}</p>
+                <button id="lesson_edit" class="btn btn-primary" (click)="edit()">Edit</button>
                 <textarea id="lesson_desc_edit" type='text' style="display: none"></textarea>
                 <button id="saveLessonDesc" type="button" class="btn btn-primary" style="display: none" (click)="saveEdit()">Save</button>
             </div>

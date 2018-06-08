@@ -78,6 +78,7 @@ export class LessonviewComponent implements OnInit {
             editor.style.display = "block";
             document.getElementById("saveLessonDesc").style.display = "block";
             desc.style.display = "none";
+            document.getElementById("lesson_edit").style.display = "none";
         }
     }
 
@@ -91,5 +92,6 @@ export class LessonviewComponent implements OnInit {
         document.getElementById("lesson_desc_edit").style.display = "none";
         document.getElementById("saveLessonDesc").style.display = "none";
         document.getElementById("lesson_desc").style.display = "block";
+        document.getElementById("lesson_edit").style.display = "block";
     }
 }
