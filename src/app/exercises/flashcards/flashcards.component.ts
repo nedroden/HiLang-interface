@@ -42,12 +42,16 @@ export class FlashcardsComponent extends Exercise implements OnInit {
         input.classList.add(className);
         input.disabled = true;
 
+        if (!isCorrect)
+            document.getElementById('correct_answer').innerHTML = '<strong>Correct answer:</strong> ' + exercise.currentWord.translation.replace(/<(?:.|\n)*?>/gm, '');
+
         setTimeout(() => {
             input.classList.remove(className);
             input.disabled = false;
 
             exercise.clear(isCorrect, input);
             exercise.next();
-        }, exercise.timeout);
+            document.getElementById('correct_answer').innerHTML = '';
+        }, exercise.getTimeout(isCorrect));
     }
 }
