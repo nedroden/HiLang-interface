@@ -76,20 +76,29 @@ const appRoutes: Routes = [/*
                 component: UserwelcomeComponent
             },
             {
-                path: 'flashcards',
-                component: FlashcardsComponent
-            },
-            {
-                path: 'grammar',
-                component: GrammarComponent
+                path: 'lesson/:id',
+                children: [
+                    {
+                        path: '',
+                        component: LessonviewComponent,
+                    },
+                    {
+                        path: 'flashcards',
+                        component: FlashcardsComponent
+                    },
+                    {
+                        path: 'grammar',
+                        component: GrammarComponent
+                    },
+                    {
+                        path: 'mc',
+                        component: MultipleChoiceComponent
+                    }
+                ]
             },
             {
                 path: 'lesson/:author_id/:lesson_id',
                 component: LessonviewComponent
-            },
-            {
-                path: 'mc',
-                component: MultipleChoiceComponent
             },
             {
                 path: 'browse',
