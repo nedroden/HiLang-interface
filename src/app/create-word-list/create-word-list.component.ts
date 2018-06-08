@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LessonService } from '../lesson.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-word-list',
@@ -8,21 +10,24 @@ import { Component, OnInit } from '@angular/core';
 export class CreateWordListComponent implements OnInit {
 
 	number = 5;
+	data;
+	private course_id: number;
 
-    constructor() { }
+    constructor(private _lesson: LessonService, private _activatedRoute: ActivatedRoute) { 
+    }
 
     ngOnInit() {
-    	this.addOnClick();
+    	this._activatedRoute.params.subscribe(params => this.course_id = params.id); 
+	   	this.addOnClick();
     	this.createRows();
     }
 
     addOnClick(){
        	var addRowsButton = document.getElementById("addRowsButton");
-    	addRowsButton.onclick = this.createRows;
+    	addRowsButton.onclick = this.createRows.bind(this);
 
     	var saveButton = document.getElementById("saveButton");
-    	saveButton.onclick = this.saveList;
-
+    	saveButton.onclick = this.handleData.bind(this);
     }
 
 	createRows(){
@@ -52,7 +57,34 @@ export class CreateWordListComponent implements OnInit {
 		}
 	}
 
-	saveList(){
-		console.log("Saved your file");
+	handleData(){
+    	this.data = {}
+		var table = document.getElementById("input_field") as HTMLTableElement
+		var rowLength = table.rows.length
+		
+		var lessonTitle = (<HTMLInputElement>document.getElementById("inputTitle")).value
+		this.data['title'] = lessonTitle
+		var lessonCategory = (<HTMLInputElement>document.getElementById("inputCategory")).value
+		this.data['category'] = lessonCategory
+		var lessonDescription = (<HTMLInputElement>document.getElementById("inputDescription")).value
+		this.data['description'] = lessonDescription
+		var lessonGrammar = (<HTMLInputElement>document.getElementById("inputGrammar")).value
+		this.data['grammar'] = lessonGrammar
+
+		this.data['course_id'] = this.course_id
+		
+		this.data['words'] = {}
+
+
+		for(let i = 1; i < rowLength; i++){
+			var cells = table.rows.item(i).cells
+			var word1 = (<HTMLInputElement>cells.item(1).children[0]).value
+			var word2 = (<HTMLInputElement>cells.item(2).children[0]).value
+			if(word1 != undefined && word2 != undefined && word1 != "" && word2 != ""){
+				this.data.words[word1] = word2
+			}
+		}
+		console.log(this.data)
+		this._lesson.postLessonData(this.data, this.course_id).subscribe(response=> console.log(response));
 	}
 }

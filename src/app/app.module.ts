@@ -27,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseService } from './course.service';
 import { LoginService } from './login.service';
 import { AccountService } from './account.service';
+import { LessonService } from './lesson.service';
 import { CookieService } from './cookie.service';
 import { HilangApiService } from './hilang-api.service';
 
@@ -99,7 +100,7 @@ const appRoutes: Routes = [
                 component: CourseDetailsComponent
             },
             {
-                path: 'create-list',
+                path: 'course-details/:id/create-list',
                 component: CreateWordListComponent
             },
             {
@@ -164,6 +165,7 @@ const appRoutes: Routes = [
     providers: [CourseService,
                 LoginService,
                 AccountService,
+                LessonService,
                 CookieService,
                 HilangApiService
                 ],

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course-details',
@@ -19,8 +20,11 @@ export class CourseDetailsComponent implements OnInit {
     courseImg;
     lessons;
     editable = false;
-  
-	constructor(private courseService: CourseService) { }
+    course_id: number;
+
+	constructor(private courseService: CourseService,
+                private _activatedRoute: ActivatedRoute) {}
+
 
     author = {
         avatar: "http://cdn.guardian.ng/wp-content/uploads/2016/05/Vladimir-Putin.jpg",
@@ -42,25 +46,28 @@ export class CourseDetailsComponent implements OnInit {
             this.courseAuthorId = response['authorId'];
             this.courseDesc = response['description'];
             this.courseImg = response['image'];
-            if(response['favorite']) {
-                document.getElementById('addFavorite').style.display = "none";
-                document.getElementById('delFavorite').style.display = "block";
-            } else {
-                document.getElementById('addFavorite').style.display = "block";
-                document.getElementById('delFavorite').style.display = "none";
+            if(document.getElementById('addFavorite') != null) {
+                if(response['favorite']) {
+                    document.getElementById('addFavorite').style.display = "none";
+                    document.getElementById('delFavorite').style.display = "block";
+                } else {
+                    document.getElementById('addFavorite').style.display = "block";
+                    document.getElementById('delFavorite').style.display = "none";
+                }
+                if(response['subscription']) {
+                    document.getElementById('subscribeBtn').style.display = "none";
+                    document.getElementById('UnSubscribeBtn').style.display = "block";
+                } else {
+                    document.getElementById('subscribeBtn').style.display = "block";
+                    document.getElementById('UnSubscribeBtn').style.display = "none";
+                }
+                //replace 1 with logged in user id
+                if(this.courseAuthorId === 1) {
+                    document.getElementById('addLesson').style.display="block";
+                    this.editable = true;
+                }
             }
-            if(response['subscription']) {
-                document.getElementById('subscribeBtn').style.display = "none";
-                document.getElementById('UnSubscribeBtn').style.display = "block";
-            } else {
-                document.getElementById('subscribeBtn').style.display = "block";
-                document.getElementById('UnSubscribeBtn').style.display = "none";
-            }
-            //replace 1 with logged in user id
-            if(this.courseAuthorId === 1) {
-                document.getElementById('addLesson').style.display="block";
-                this.editable = true;
-            }
+            
             this.getLessons();
         });
 	}
