@@ -46,7 +46,6 @@ export class CourseDetailsComponent implements OnInit {
     ];
     let ulrParts = (window.location.href).split("/");
 	this.searchCourse(parseInt(ulrParts[ulrParts.length - 1]));
-    
 	}
 
 	searchCourse(id) {
@@ -75,9 +74,9 @@ export class CourseDetailsComponent implements OnInit {
 
     edit() {
         if(this.editable) {
-            let editor = document.getElementById("course_desc_edit")
-            let desc = document.getElementById("course_desc")
-            editor.innerText = desc.innerText;
+            let editor = (<HTMLInputElement>document.getElementById("course_desc_edit"))
+            let desc = (<HTMLInputElement>document.getElementById("course_desc"))
+            editor.value = desc.innerText;
 
             editor.style.display = "block";
             document.getElementById("saveDesc").style.display = "block";
@@ -86,24 +85,28 @@ export class CourseDetailsComponent implements OnInit {
     }
 
     saveEdit() {
-        let newDesc = document.getElementById("course_desc_edit");
-        console.log(newDesc);
+        let newDesc = (<HTMLInputElement>document.getElementById("course_desc_edit")).value;
         let courseData = {
             'id': this.courseId,
             'desc': newDesc,
         }
         this.courseService.editCourseDesc(courseData).subscribe(response => console.log(response));
+        document.getElementById("course_desc_edit").style.display = "none";
+        document.getElementById("saveDesc").style.display = "none";
+        document.getElementById("course_desc").style.display = "block";
     }
 
     getLessons() {
         this.courseService.getCourseLessons(this.courseId).subscribe(response => {
+            let subLessons = [];
             for(let lesson of <Array<any>>response) {
-                this.lessons.push( {
+                subLessons.push( {
                     id: lesson.pk,
                     name: lesson.fields['name'],
                     desc: lesson.fields['description'],
                 });
-            } 
+            }
+            this.lessons = subLessons;
         });
     }
 

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { interval, pipe } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 
 const httpOptions = {
 	headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -19,7 +21,9 @@ export class CourseService {
   }
 
   getCourseDetails(c_id: number) {
-  	return this.http.get('http://localhost:8000/api/course/1/' + c_id + '/');
+  	return interval(500).pipe(
+  			concatMap(() =>this.http.get('http://localhost:8000/api/course/1/' + c_id + '/'))
+  		);
   }
 
   getCourseLessons(c_id: number) {
