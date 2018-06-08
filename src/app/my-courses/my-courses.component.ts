@@ -23,8 +23,7 @@ export class MyCoursesComponent implements OnInit {
     getCourses() {
         this._courses.getCourses().subscribe(
             data => {this.doWithData(data)},
-            err => console.error(err),
-            () => console.log('Done loading courses')
+            err => console.error(err)
         );
     }
 
@@ -34,7 +33,6 @@ export class MyCoursesComponent implements OnInit {
         }
     }
     //---------------------------
-
     getSubCourses() {
         //replace 1 with user_id
         this._courses.getSubCourses(1).subscribe(
@@ -59,16 +57,17 @@ export class MyCoursesComponent implements OnInit {
 
     handleCourseData(data, type) {
         for(let i=0; i<data.length; i++) {
-            this._courses.getLangDetails(data[i].fields['language']).subscribe(
-                languageData => {this.handleLangDet(languageData,data)},
-                err => console.log(err),
-                () => console.log("Done loading this language")
+            this._courses.getLangDetails(data[i].fields['native_lang']).subscribe(
+                languageData => {this.handleLangDet(languageData,data, type)},
+                err => console.log(err)
             );
         }
     }
 
-    handleLangDet(langDet,data) {
-        let subribedCourses = [];
+
+    handleLangDet(langDet,data, type) {
+        let courses = [];
+        let author = "";
         for(let i = 0; i<data.length; i++) {
             if(data[i].fields['language'] == langDet[0].pk) {
                 this._courses.getUser(data[i].fields['user']).subscribe(
@@ -135,13 +134,6 @@ export class MyCoursesComponent implements OnInit {
                 });
             }
         }
-        console.log(langDet[0].fields['name']);
-        this.subCourses.push( {
-            id: langDet[0].pk,
-            name: langDet[0].fields['name'],
-            flag: langDet[0].fields['flag'],
-            courses: subribedCourses
-        });
     }
 
 
@@ -157,7 +149,6 @@ export class MyCoursesComponent implements OnInit {
             {name: "Created by me",        function: () => this.showUserCourses()},
             {name: "Favourite Courses", function: () => this.showFavCourses()},
         ];
-
     }
 
     showSubCourses() {
@@ -189,6 +180,7 @@ export class MyCoursesComponent implements OnInit {
 
         courseInput.onkeypress = function(event) {
             if(event.keyCode === 13) {
+                let newCourse = {id: this.currentId, name: courseInput.value, author: "Jelmer"}
                 this._courses.createCourse({name: courseInput.value}).subscribe(course => console.log(course));
                 courseInput.value = "";
                 courseInput.style.display = 'none';
