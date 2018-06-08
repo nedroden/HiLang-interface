@@ -38,9 +38,9 @@ export class LessonviewComponent implements OnInit {
                 this.lesson['name'] = response['name'];
                 this.lesson['desc'] = response['desc'];
                 this.lesson['cat'] = response['cat'];
-                this.getLanguage(response['native'],0);
-                this.getLanguage(response['translation'],1);
-            } 
+                this.lesson['source_language'] = response['native'],
+                this.lesson['target_language'] = response['trans']
+            }
         });
         this.courseService.getLesson(this.id).subscribe(response => {
             let subVoc = [];
