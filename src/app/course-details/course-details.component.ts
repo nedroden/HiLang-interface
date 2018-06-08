@@ -15,20 +15,16 @@ export class CourseDetailsComponent implements OnInit {
     courseId;
     courseName;
     courseAuthor;
-<<<<<<< HEAD
-    course_id: number;
-
-	constructor(private courseService: CourseService,
-                private _activatedRoute: ActivatedRoute) {}
-=======
     courseAuthorId;
     courseDesc;
     courseImg;
     lessons;
     editable = false;
-  
-	constructor(private courseService: CourseService) { }
->>>>>>> upstream/master
+    course_id: number;
+
+	constructor(private courseService: CourseService,
+                private _activatedRoute: ActivatedRoute) {}
+
 
     author = {
         avatar: "http://cdn.guardian.ng/wp-content/uploads/2016/05/Vladimir-Putin.jpg",
@@ -36,21 +32,9 @@ export class CourseDetailsComponent implements OnInit {
     }
 
 	ngOnInit() {
-<<<<<<< HEAD
-    this._activatedRoute.params.subscribe(params => this.course_id = params.id);
-
-    this.subCourses = [
-        {id: 0, name: "English for beginners",    author: "Learning.co"},
-        {id: 1, name: "Spanish",    author: "Learning.co"},
-        {id: 2, name: "Hongarian",  author: "Learning.co"},
-        {id: 3, name: "Slovac",     author: "Learning.co"},
-    ];
-=======
     this.subCourses = [];
     this.lessons = [];
     // this.lessons = [{'id' : 1, 'name': "English lesson 1", 'desc': "Food"}];
->>>>>>> upstream/master
-
     this.myCourses = [
         {id: 4, name: "Dutch",      author: "Jelmer"},
         {id: 5, name: "French",     author: "Jelmer"},

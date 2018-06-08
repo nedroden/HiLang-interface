@@ -27,8 +27,7 @@ export class CreateWordListComponent implements OnInit {
     	addRowsButton.onclick = this.createRows.bind(this);
 
     	var saveButton = document.getElementById("saveButton");
-    	saveButton.onclick = this.getData.bind(this);
-
+    	saveButton.onclick = this.handleData.bind(this);
     }
 
 	createRows(){
@@ -58,7 +57,7 @@ export class CreateWordListComponent implements OnInit {
 		}
 	}
 
-	getData(){
+	handleData(){
     	this.data = {}
 		var table = document.getElementById("input_field") as HTMLTableElement
 		var rowLength = table.rows.length
@@ -87,10 +86,5 @@ export class CreateWordListComponent implements OnInit {
 		}
 		console.log(this.data)
 		this._lesson.postLessonData(this.data, this.course_id).subscribe(response=> console.log(response));
-	}
-
-
-	saveList(){
-		console.log("Saved your file");
 	}
 }

@@ -16,12 +16,12 @@ export class LoginComponent implements OnInit {
 
     login() {
         let userData = {
-        	email: document.getElementById('loginEmail').value,
-        	password: document.getElementById('loginPassword').value,
+        	email: document.getElementById('loginEmail')['value'],
+        	password: document.getElementById('loginPassword')['value'],
         }
 
         this._con.postLoginData(userData).subscribe(data => {
-            if (data.user_id && data.token) {
+            if (data['user_id'] && data['token']) {
                 this._cookie.createCookie(data);
                 window.location.href = "/user";
             } else {

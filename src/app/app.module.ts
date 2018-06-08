@@ -29,6 +29,10 @@ import { LoginService } from './login.service';
 import { AccountService } from './account.service';
 import { LessonService } from './lesson.service';
 import { CookieService } from './cookie.service';
+<<<<<<< HEAD
+=======
+import { HilangApiService } from './hilang-api.service';
+>>>>>>> upstream/master
 
 import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
 import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
@@ -170,7 +174,8 @@ const appRoutes: Routes = [/*
                 LoginService,
                 AccountService,
                 LessonService,
-                CookieService
+                CookieService,
+                HilangApiService
                 ],
     bootstrap: [AppComponent]
 })
