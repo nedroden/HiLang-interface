@@ -14,4 +14,8 @@ export class LessonService {
     public getLesson(id: number): Observable<Lesson> {
         return this._http.get<Lesson>('http://localhost:8000/api/lesson/' + id);
     }
+
+	postLessonData(lessonData, course_id) {
+		return this._http.post('http://localhost:8000/api/course/' + course_id + '/create-lesson', lessonData, { headers: new HttpHeaders({ 'Content-Type': 'application/json'})});
+	}
 }
