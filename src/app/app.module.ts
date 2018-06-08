@@ -37,21 +37,7 @@ import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component'
 
 import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
 
-const appRoutes: Routes = [/*
-    {
-        ignoreCase: true,
-        sourceLanguage: 'English',
-        targetLanguage: 'Dutch'
-    },
-    {
-        sourceLanguage: 'Hallo daar!',
-        targetLanguage: 'Hi there!',
-        userInput: [
-            'Hi dere'
-        ],
-
-        attempts: 0
-    },*/
+const appRoutes: Routes = [
     {
         path: '',
         redirectTo: 'home',
@@ -77,20 +63,29 @@ const appRoutes: Routes = [/*
                 component: UserwelcomeComponent
             },
             {
-                path: 'flashcards',
-                component: FlashcardsComponent
-            },
-            {
-                path: 'grammar',
-                component: GrammarComponent
+                path: 'lesson/:id',
+                children: [
+                    {
+                        path: '',
+                        component: LessonviewComponent,
+                    },
+                    {
+                        path: 'flashcards',
+                        component: FlashcardsComponent
+                    },
+                    {
+                        path: 'grammar',
+                        component: GrammarComponent
+                    },
+                    {
+                        path: 'mc',
+                        component: MultipleChoiceComponent
+                    }
+                ]
             },
             {
                 path: 'lesson/:author_id/:lesson_id',
                 component: LessonviewComponent
-            },
-            {
-                path: 'mc',
-                component: MultipleChoiceComponent
             },
             {
                 path: 'browse',

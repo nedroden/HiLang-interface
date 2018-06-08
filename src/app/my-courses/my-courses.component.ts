@@ -69,7 +69,7 @@ export class MyCoursesComponent implements OnInit {
         let courses = [];
         let author = "";
         for(let i = 0; i<data.length; i++) {
-            if(data[i].fields['language'] == langDet[0].pk) {
+            if(data[i].fields['native_lang'] == langDet[0].pk) {
                 this._courses.getUser(data[i].fields['user']).subscribe(
                     userName => { 
                         courses.push(
@@ -181,7 +181,7 @@ export class MyCoursesComponent implements OnInit {
         courseInput.onkeypress = function(event) {
             if(event.keyCode === 13) {
                 let newCourse = {id: this.currentId, name: courseInput.value, author: "Jelmer"}
-                this._courses.createCourse({name: courseInput.value}).subscribe(course => console.log(course));
+                this._courses.createCourse({name: courseInput.value}).subscribe();
                 courseInput.value = "";
                 courseInput.style.display = 'none';
             }

@@ -1,6 +1,8 @@
 /* General header styles */
 #header {
-    background: #efefef url('src/assets/header-bg1.jpg') repeat-x;
+    background-color: #efefef;
+    background-image: url('../../assets/header-bg1.jpg');
+    background-repeat: repeat-x;
     background-size: 100% auto;
     background-position: 0% 25%;
     padding: 20px 50px 20px 50px;

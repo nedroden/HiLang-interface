@@ -29,13 +29,13 @@ export class CourseService {
   }
 
   getLessonDet(l_id: number) {
-  	return interval(5000).pipe(
+  	return interval(500).pipe(
   		concatMap(() => this.http.get('http://localhost:8000/api/lesson/' + l_id + '/details'))
   	);
   }
 
   getLesson(l_id: number) {
-  	return interval(5000).pipe(
+  	return interval(500).pipe(
   		concatMap(() => this.http.get('http://localhost:8000/api/lesson/' + l_id))
   	);
   }

@@ -2,51 +2,80 @@ import { Flashcard } from './structures/flashcard';
 
 export abstract class Exercise {
 
-    score: number = 0;
+    protected timeout = 2000;
+
+    protected score: number = 0;
     
-    vocabulary: Flashcard[] = [];
+    protected vocabulary: Flashcard[];
 
-    queue: Flashcard[] = [];
-    correctWords: Flashcard[] = [];
-    incorrectWords: Flashcard[] = [];
+    protected queue: Flashcard[];
+    protected correctWords: Flashcard[];
+    protected incorrectWords: Flashcard[];
 
-    public initialize(): void {
-        for (let word of this.vocabulary.sort((a, b) => 0.5 - Math.random()))
-            this.queue.push(word);
+    protected currentWord: Flashcard;
+
+    protected progress: number;
+
+    constructor() {
+        this.vocabulary = [];
+        this.queue = [];
+        this.correctWords = [];
+        this.incorrectWords = [];
+
+        this.currentWord = new Flashcard;
+        this.progress = 0;
     }
 
-    public hasNext(): boolean {
+    protected initialize(): void {
+        for (let word of this.vocabulary.sort((a, b) => 0.5 - Math.random()))
+            this.queue.push(word);
+
+        this.currentWord = this.queue[0];
+    }
+
+    protected hasNext(): boolean {
         return this.queue.length !== 0;
     }
 
-    public getNext(): Flashcard {
-        return this.queue.length > 0 ? this.queue[0] : null;
+    protected next(): void {
+        if (this.queue.length > 0)
+            this.currentWord = this.queue[0];
+        else if (this.incorrectWords.length > 0)
+            this.nextRound();
+        else
+            this.exit();
     }
 
-    public getProgress(): number {
-        return this.correctWords.length / this.vocabulary.length;
+    private updateProgress(): void {
+        this.progress = (this.correctWords.length / this.vocabulary.length) * 100;
     }
 
-    public isCorrect(input: string): boolean {
+    protected isCorrect(input: string): boolean {
         return input === this.queue[0].translation;
     }
 
-    public removeFromQueue(isCorrect: boolean): boolean {
+    protected clear(isCorrect: boolean, input: HTMLInputElement): boolean {
         if (this.queue.length === 0)
             return false;
 
         (isCorrect ? this.correctWords : this.incorrectWords).push(this.queue[0]);
         this.queue.shift();
 
+        this.updateProgress();
+        input.value = '';
+
         return true;
     }
 
-    public nextRound(): void {
+    protected nextRound(): void {
         this.queue = this.incorrectWords.slice();
         this.incorrectWords = [];
+
+        if (this.queue.length > 0)
+            this.next();
     }
 
-    public exit(): void {
-        // implement exit functionality
+    protected exit(): void {
+        alert('Exercise completed!');
     }
 }
