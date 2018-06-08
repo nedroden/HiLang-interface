@@ -30,6 +30,18 @@ export class CourseService {
   	return this.http.get('http://localhost:8000/api/course/' + c_id + '/lessons');
   }
 
+  getLessonDet(l_id: number) {
+  	return interval(500).pipe(
+  		concatMap(() => this.http.get('http://localhost:8000/api/lesson/' + l_id + '/details'))
+  	);
+  }
+
+  getLesson(l_id: number) {
+  	return interval(500).pipe(
+  		concatMap(() => this.http.get('http://localhost:8000/api/lesson/' + l_id))
+  	);
+  }
+
   getLangDetails(lang_id: number) {
   	return this.http.get('http://localhost:8000/api/language/' + lang_id + '/');
   }
@@ -47,7 +59,11 @@ export class CourseService {
   }
 
   editCourseDesc(courseData) {
-  	return this.http.post('http://localhost:8000/api/course/' + courseData['id'] + "/edit_desc", courseData, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+  	return this.http.post('http://localhost:8000/api/course/' + courseData['id'] + '/edit_desc', courseData, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+  }
+
+  editLessonDesc(lessonData) {
+  	return this.http.post('http://localhost:8000/api/lesson/' + lessonData['id'] + '/edit_desc', lessonData, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
   getUser(u_id: number) {
