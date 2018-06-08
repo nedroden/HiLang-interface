@@ -3,9 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { interval, pipe } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 
-const httpOptions = {
-	headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-};
 
 @Injectable()
 export class CourseService {
@@ -22,6 +19,7 @@ export class CourseService {
 
   getCourseDetails(c_id: number) {
   	return interval(500).pipe(
+  			//replace 1 in url with user id
   			concatMap(() =>this.http.get('http://localhost:8000/api/course/1/' + c_id + '/'))
   		);
   }
@@ -31,19 +29,23 @@ export class CourseService {
   }
 
   getLessonDet(l_id: number) {
-  	return interval(500).pipe(
+  	return interval(5000).pipe(
   		concatMap(() => this.http.get('http://localhost:8000/api/lesson/' + l_id + '/details'))
   	);
   }
 
   getLesson(l_id: number) {
-  	return interval(500).pipe(
+  	return interval(5000).pipe(
   		concatMap(() => this.http.get('http://localhost:8000/api/lesson/' + l_id))
   	);
   }
 
   getLangDetails(lang_id: number) {
   	return this.http.get('http://localhost:8000/api/language/' + lang_id + '/');
+  }
+
+  getLanguages() {
+  	return this.http.get('http://localhost:8000/api/languages');
   }
 
   getSubCourses(u_id: number) {
@@ -86,6 +88,22 @@ export class CourseService {
   	return this.http.post('http://localhost:8000/api/course/unfavorite', favoriteToDel, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
+  subscribe(u_id: number, c_id: number) {
+  	let subscription = {
+  		user: u_id,
+  		course: c_id
+  	}
+  	return this.http.post('http://localhost:8000/api/course/subscribe', subscription, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+  }
+
+  unSubscribe(u_id: number, c_id: number) {
+  	let subscriptionToDel = {
+  		user: u_id,
+  		course: c_id
+  	};
+  	return this.http.post('http://localhost:8000/api/course/unsubscribe', subscriptionToDel, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })})
+  }
+
   createCourse(name: String, author: number) {
   	let courseData = {
   		name: name,
@@ -96,5 +114,12 @@ export class CourseService {
 
   getPublicCourses() {
   	return this.http.get('http://localhost:8000/api/courses/public');
+  }
+
+  searchForPublicCourse(name: String) {
+  	let courseData = {
+  		name: name
+  	}
+  	return this.http.post('http://localhost:8000/api/course/search', courseData, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })})
   }
 }

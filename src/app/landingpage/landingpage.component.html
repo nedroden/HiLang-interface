@@ -30,33 +30,13 @@
     <div class="container">
     <div class="row">
         <div class="col-12" id="offer-title">
-            <h3 class="text-center">Some of our courses we offer:</h3>
+            <h3 class="text-center">Some of our languages we offer courses for:</h3>
         </div>
     </div>
     <div class="row">
-        <div class="col-md col-sm-4 col-6 flag">
-            <img src="assets/images/flags/japan.svg" class="col-12" />
-            <h5>Japans</h5>
-        </div>
-        <div class="col-md col-sm-4 col-6 flag">
-            <img src="assets/images/flags/germany.svg" class="col-12" />
-            <h5 class="col-12">Duits</h5>
-        </div>
-        <div class="col-md col-sm-4 col-6 flag">
-            <img src="assets/images/flags/united-kingdom.svg" class="col-12" />
-            <h5>Engels</h5>
-        </div>
-        <div class="col-md col-sm-4 col-6 flag">
-            <img src="assets/images/flags/russia.svg" class="col-12" />
-            <h5>Russisch</h5>
-        </div>
-        <div class="col-md col-sm-4 col-6 flag">
-            <img src="assets/images/flags/spain.svg" class="col-12" />
-            <h5>Spaans</h5>
-        </div>
-        <div class="col-md col-sm-4 col-6 flag">
-            <img src="assets/images/flags/france.svg" class="col-12" />
-            <h5>Frans</h5>
+        <div class="col-md col-sm-4 col-6 flag" *ngFor="let language of languages">
+            <img src="assets/images/flags/{{ language.flag }}.svg" class="col-12"/>
+            <h5> {{ language.name }}</h5>
         </div>
     </div>
 </div>
