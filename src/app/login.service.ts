@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HilangApiService } from './hilang-api.service';
 
 @Injectable()
 export class LoginService {
   private course: object;
 
-  constructor(private http: HttpClient) { }
+  constructor(private _api: HilangApiService) { }
     postLoginData(loginData) {
-        return this.http.post('http://localhost:8000/api/login', loginData, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+        return this._api.call('http://localhost:8000/api/login', loginData);
     }
 }

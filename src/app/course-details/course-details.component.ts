@@ -19,6 +19,7 @@ export class CourseDetailsComponent implements OnInit {
     courseImg;
     lessons;
     editable = false;
+  
 	constructor(private courseService: CourseService) { }
 
     author = {
@@ -135,5 +136,4 @@ export class CourseDetailsComponent implements OnInit {
         document.getElementById('subscribeBtn').style.display = "block";
         document.getElementById('UnSubscribeBtn').style.display = "none";
     }
-
 }
