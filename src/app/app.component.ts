@@ -14,14 +14,16 @@ export class AppComponent {
     constructor(private _router: Router, private _cookie: CookieService) {}
 
     ngOnInit() {
-        // this._cookie.getCookie();
-        //
-        // this._cookie.checkValidity().subscribe(response => {
-        //     if (!response['approved'])
-        //         this._cookie.destroy();
-        // });
-        //
-        // if (window.location.href.includes("user") && this._cookie.getValue() == null)
-        //     this._router.navigate(['/login'])
+        this._cookie.getCookie();
+        this._cookie.checkValidityPost().subscribe(response => {
+            if (!response['approved'] && this._cookie.value != null) {
+                this._cookie.destroy();
+                if (window.location.href.includes("user"))
+                    this._router.navigate(['/login']);
+            }
+        });
+
+        if (window.location.href.includes("user") && this._cookie.getValue() == null)
+            this._router.navigate(['/login']);
     }
 }
