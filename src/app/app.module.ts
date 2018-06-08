@@ -28,7 +28,7 @@ import { CourseService } from './course.service';
 import { LoginService } from './login.service';
 import { AccountService } from './account.service';
 import { CookieService } from './cookie.service';
-
+import { HilangApiService } from './hilang-api.service';
 
 import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
 import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
@@ -169,7 +169,8 @@ const appRoutes: Routes = [/*
     providers: [CourseService,
                 LoginService,
                 AccountService,
-                CookieService
+                CookieService,
+                HilangApiService
                 ],
     bootstrap: [AppComponent]
 })
