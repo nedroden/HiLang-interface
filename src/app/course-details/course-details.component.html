@@ -1,11 +1,11 @@
-<h1>{{courseName}} by {{ courseAuthor }}</h1>
+<h1>{{courseName}}</h1>
 <hr>
 <div class="container-fluid">
 	<div class="col-sm-5 pull-left">
 		<div class="card">
 			<div class="card-body">
 				<div class="pull-left col-sm-2 mr-sm-3">
-					<img class="course-img" src="https://4.bp.blogspot.com/-O5q3YjRkago/UI9JEEXttiI/AAAAAAAAK8E/IijPhTpQJCw/s1600/Statue+of+Liberty+NY+%282%29.jpg" alt="Course image">
+					<img class="course-img" src="{{ courseImg }}" alt="Course image">
 				</div>
 				<div class="pull-left col-sm-8">
 					<h2 class="display-5">{{ courseName }}</h2>
@@ -15,7 +15,9 @@
 				<br class="clear" />
 				<hr class="my-4" />
 
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed nisl sit amet neque imperdiet hendrerit vel id urna. Duis dapibus dui interdum est venenatis sollicitudin. Morbi nec commodo neque, sed scelerisque velit. Pellentesque consequat eget ligula sed venenatis. Fusce venenatis vehicula tempus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce tellus nisl, mollis nec neque vel, rutrum venenatis purus.</p>
+				<p id="course_desc" (dblclick)="edit()"> {{ courseDesc }}</p>
+				<textarea id="course_desc_edit" type='text' style="display: none"></textarea>
+				<button id="saveDesc" type="button" class="btn btn-primary" style="display: none">Save</button>
 			</div>
 
 			<div class="card-footer">
@@ -38,30 +40,12 @@
 
 	<div class="col-sm-5 pull-right">
 		<h2>Lesson overview</h2>
-		<div class="list-group">
+		<div *ngFor="let lesson of lessons" class="list-group">
 			<a routerLink="/user/lesson" class="list-group-item list-group-item-action flex-column align-items-start">
 				<div class="d-flex w-100 justify-content-between">
-					<h5 class="mb-1">Lesson 1. Welcome to New York</h5>
-					<small class="success">100%</small>
+					<h5 class="mb-1"> {{ lesson.name }} </h5>
 				</div>
-				<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-				<small>Donec id elit non mi porta.</small>
-			</a>
-			<a routerLink="/user/lesson" class="list-group-item list-group-item-action flex-column align-items-start">
-				<div class="d-flex w-100 justify-content-between">
-					<h5 class="mb-1">Lesson 2. Visiting family</h5>
-					<small class="text-warning">65%</small>
-				</div>
-				<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-				<small>Donec id elit non mi porta.</small>
-			</a>
-			<a routerLink="/user/lesson" class="list-group-item list-group-item-action flex-column align-items-start">
-				<div class="d-flex w-100 justify-content-between">
-					<h5 class="mb-1">Lesson 3. Meeting new friends</h5>
-					<small class="text-danger">0%</small>
-				</div>
-				<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-				<small>Donec id elit non mi porta.</small>
+				<p class="mb-1"> {{ lesson.desc }}</p>
 			</a>
 		</div>
 

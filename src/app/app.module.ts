@@ -28,6 +28,7 @@ import { CourseService } from './course.service';
 import { LoginService } from './login.service';
 import { AccountService } from './account.service';
 import { LessonService } from './lesson.service';
+import { CookieService } from './cookie.service';
 
 import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
 import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
@@ -35,7 +36,21 @@ import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component'
 
 import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
 
-const appRoutes: Routes = [
+const appRoutes: Routes = [/*
+    {
+        ignoreCase: true,
+        sourceLanguage: 'English',
+        targetLanguage: 'Dutch'
+    },
+    {
+        sourceLanguage: 'Hallo daar!',
+        targetLanguage: 'Hi there!',
+        userInput: [
+            'Hi dere'
+        ],
+
+        attempts: 0
+    },*/
     {
         path: '',
         redirectTo: 'home',
@@ -154,7 +169,8 @@ const appRoutes: Routes = [
     providers: [CourseService,
                 LoginService,
                 AccountService,
-                LessonService
+                LessonService,
+                CookieService
                 ],
     bootstrap: [AppComponent]
 })
