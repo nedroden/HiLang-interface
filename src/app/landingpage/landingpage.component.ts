@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CourseService } from '../course.service';
 
 
 @Component({
@@ -7,12 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./landingpage.component.css']
 })
 export class LandingpageComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-    //let dispatch = Dispatch.getInstance();
-    //var loginButton = document.getElementById("login-button");
-    //loginButton.onclick = dispatch.do("login");
-  }
+	languages;
+	constructor(private courseService: CourseService) {}
+	ngOnInit() {
+		this.languages = [
+			{
+				name: "English",
+				flag: "england"
+			}
+		];
+		this.courseService.getLanguages().subscribe(response => {
+			let subLanguages = [];
+			for(let language of <Array<any>>response) {
+				subLanguages.push({
+					name: language['fields']['name'],
+					flag: language['fields']['flag']
+				});
+			}
+			this.languages = subLanguages;
+		});
+  		//let dispatch = Dispatch.getInstance();
+  		//var loginButton = document.getElementById("login-button");
+  		//loginButton.onclick = dispatch.do("login");
+	}
 }

@@ -15,9 +15,10 @@
 				<br class="clear" />
 				<hr class="my-4" />
 
-				<p id="course_desc" (dblclick)="edit()"> {{ courseDesc }}</p>
+				<p id="course_desc"> {{ courseDesc }}</p>
+				<button id="course_edit" class="btn btn-primary" (click)="edit()">Edit</button>
 				<textarea id="course_desc_edit" type='text' style="display: none"></textarea>
-				<button id="saveDesc" type="button" class="btn btn-primary" style="display: none">Save</button>
+				<button id="saveDesc" type="button" class="btn btn-primary" style="display: none" (click)="saveEdit()">Save</button>
 			</div>
 
 			<div class="card-footer">
@@ -41,7 +42,7 @@
 	<div class="col-sm-5 pull-right">
 		<h2>Lesson overview</h2>
 		<div *ngFor="let lesson of lessons" class="list-group">
-			<a routerLink="/user/lesson" class="list-group-item list-group-item-action flex-column align-items-start">
+			<a routerLink="/user/lesson/{{ courseAuthorId }}/{{ lesson.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
 				<div class="d-flex w-100 justify-content-between">
 					<h5 class="mb-1"> {{ lesson.name }} </h5>
 				</div>
@@ -54,7 +55,8 @@
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-light">Report error</button>
             <button type="button" class="btn btn-light">Rate course</button>
-            <button type="button" class="btn btn-danger">Unsubscribe</button>
+            <button id="subscribeBtn" style="display: block" type="button" class="btn btn-light" (click)="subscribe()">Subscribe</button>
+            <button id="UnSubscribeBtn" style="display: block" type="button" class="btn btn-danger" (click)="unSubscribe()">Unsubscribe</button>
             <button id="addFavorite" style="display: block" type="button" class="btn btn-light" (click)="addFavorite()">Favorite</button>
             <button id="delFavorite" style="display: none" type="button" class="btn btn-light" (click)="delFavorite()">Unfavorite</button>
         </div>

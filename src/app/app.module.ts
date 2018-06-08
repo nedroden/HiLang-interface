@@ -84,7 +84,7 @@ const appRoutes: Routes = [/*
                 component: GrammarComponent
             },
             {
-                path: 'lesson',
+                path: 'lesson/:author_id/:lesson_id',
                 component: LessonviewComponent
             },
             {
