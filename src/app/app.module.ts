@@ -27,7 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseService } from './course.service';
 import { LoginService } from './login.service';
 import { AccountService } from './account.service';
-
+import { LessonService } from './lesson.service';
 
 import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
 import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
@@ -89,7 +89,7 @@ const appRoutes: Routes = [
                 component: CourseDetailsComponent
             },
             {
-                path: 'create-list',
+                path: 'course-details/:id/create-list',
                 component: CreateWordListComponent
             },
             {
@@ -153,7 +153,8 @@ const appRoutes: Routes = [
     ],
     providers: [CourseService,
                 LoginService,
-                AccountService
+                AccountService,
+                LessonService
                 ],
     bootstrap: [AppComponent]
 })

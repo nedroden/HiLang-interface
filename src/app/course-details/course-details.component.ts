@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course-details',
@@ -13,7 +14,10 @@ export class CourseDetailsComponent implements OnInit {
     favCourses;
     courseName;
     courseAuthor;
-	constructor(private courseService: CourseService) { }
+    course_id: number;
+
+	constructor(private courseService: CourseService,
+                private _activatedRoute: ActivatedRoute) {}
 
     author = {
         avatar: "http://cdn.guardian.ng/wp-content/uploads/2016/05/Vladimir-Putin.jpg",
@@ -21,6 +25,8 @@ export class CourseDetailsComponent implements OnInit {
     }
 
 	ngOnInit() {
+    this._activatedRoute.params.subscribe(params => this.course_id = params.id);
+
     this.subCourses = [
         {id: 0, name: "English for beginners",    author: "Learning.co"},
         {id: 1, name: "Spanish",    author: "Learning.co"},

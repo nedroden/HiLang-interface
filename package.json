@@ -27,7 +27,7 @@
     "notosans-fontface": "^1.1.0",
     "npm": "^6.0.1",
     "rxjs": "^6.0.0",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.12"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^6.0.0",
