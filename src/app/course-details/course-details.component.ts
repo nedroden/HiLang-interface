@@ -12,6 +12,7 @@ export class CourseDetailsComponent implements OnInit {
 	subCourses;
     myCourses;
     favCourses;
+    lessonCounter;
     courseId;
     courseName;
     courseAuthor;
@@ -32,10 +33,10 @@ export class CourseDetailsComponent implements OnInit {
     }
 
 	ngOnInit() {
-    this.subCourses = [];
-    this.lessons = [];
-    let ulrParts = (window.location.href).split("/");
-	this.searchCourse(parseInt(ulrParts[ulrParts.length - 1]));
+        this.subCourses = [];
+        this.lessons = [];
+        let ulrParts = (window.location.href).split("/");
+	    this.searchCourse(parseInt(ulrParts[ulrParts.length - 1]));
 	}
 
 	searchCourse(id) {
@@ -54,6 +55,8 @@ export class CourseDetailsComponent implements OnInit {
                     document.getElementById('addFavorite').style.display = "block";
                     document.getElementById('delFavorite').style.display = "none";
                 }
+            }
+            if(document.getElementById('subscribeBtn') != null) {
                 if(response['subscription']) {
                     document.getElementById('subscribeBtn').style.display = "none";
                     document.getElementById('UnSubscribeBtn').style.display = "block";
@@ -61,11 +64,11 @@ export class CourseDetailsComponent implements OnInit {
                     document.getElementById('subscribeBtn').style.display = "block";
                     document.getElementById('UnSubscribeBtn').style.display = "none";
                 }
-                //replace 1 with logged in user id
-                if(this.courseAuthorId === 1) {
-                    document.getElementById('addLesson').style.display="block";
-                    this.editable = true;
-                }
+            }
+            //replace 1 with logged in user id
+            if(this.courseAuthorId === 1 && document.getElementById('addLesson') != null) {
+                document.getElementById('addLesson').style.display="block";
+                this.editable = true;
             }
             
             this.getLessons();
@@ -101,9 +104,11 @@ export class CourseDetailsComponent implements OnInit {
     getLessons() {
         this.courseService.getCourseLessons(this.courseId).subscribe(response => {
             let subLessons = [];
+            this.lessonCounter = 0;
             for(let lesson of <Array<any>>response) {
                 subLessons.push( {
                     id: lesson.pk,
+                    counter: ++this.lessonCounter,
                     name: lesson.fields['name'],
                     desc: lesson.fields['description'],
                 });

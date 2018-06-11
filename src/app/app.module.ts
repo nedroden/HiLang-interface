@@ -84,7 +84,7 @@ const appRoutes: Routes = [
                 ]
             },
             {
-                path: 'lesson/:author_id/:lesson_id',
+                path: 'lesson/:lesson_counter/:author_id/:lesson_id',
                 component: LessonviewComponent
             },
             {
