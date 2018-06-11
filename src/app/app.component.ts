@@ -16,7 +16,7 @@ export class AppComponent {
     ngOnInit() {
         this._cookie.getCookie();
         this._cookie.checkValidityPost().subscribe(response => {
-            if (!response['approved'] && this._cookie.value != null) {
+            if (!response['approved'] && this._cookie.getValue() != null) {
                 this._cookie.destroy();
                 if (window.location.href.includes("user"))
                     this._router.navigate(['/login']);

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from '../cookie.service';
 
 @Component({
   selector: 'app-menu-bar',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuBarComponent implements OnInit {
 
-    constructor() { }
+    constructor(private _cookie: CookieService, private _router: Router) { }
 
     ngOnInit() {}
 
@@ -26,17 +28,16 @@ export class MenuBarComponent implements OnInit {
             label: "My courses",
             icon: "save",
             href: "/user/courses"
-
         },
         {
             label: "Settings",
             icon: "wrench",
             href: "/user/settings"
         },
-        {
-            label: "Log out",
-            icon: "sign-out",
-            href: "/home"
-        }
     ];
+
+    logOut() {
+        this._cookie.destroy();
+        this._router.navigate(["/login"]);
+    }
 }

@@ -9,10 +9,11 @@ export class HilangApiService {
 
   call(url: string, params: object) {
       let data = {
-          user_id: this._cookie.getValue['user_id'],
-          token: this._cookie.getValue['token'],
+          user_id: this._cookie.getValue()['user_id'],
+          token: this._cookie.getValue()['token'],
           params: params,
       }
+
       return this._http.post(url, data, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
