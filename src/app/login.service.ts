@@ -7,6 +7,6 @@ export class LoginService {
 
   constructor(private _api: HilangApiService) { }
     postLoginData(loginData) {
-        return this._api.call('http://localhost:8000/api/login', loginData);
+        return this._api.login(loginData);
     }
 }
