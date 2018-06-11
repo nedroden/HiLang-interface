@@ -75,6 +75,10 @@ export abstract class Exercise {
             this.next();
     }
 
+    protected getTimeout(isCorrect: boolean) {
+        return this.timeout * (isCorrect ? 1 : 2);
+    }
+
     protected exit(): void {
         alert('Exercise completed!');
     }

@@ -9,7 +9,8 @@ import { CourseService } from '../course.service';
 export class LessonviewComponent implements OnInit {
 
     lesson = {
-        id: 0,
+        counter: 0,
+        id: "",
         name: "",
         desc: "",
         cat: "",
@@ -32,6 +33,7 @@ export class LessonviewComponent implements OnInit {
         let ulrParts = (window.location.href).split("/");
         this.id = parseInt(ulrParts[ulrParts.length - 1]);
         this.authorId = parseInt(ulrParts[ulrParts.length - 2]);
+        this.lesson['counter'] = parseInt(ulrParts[ulrParts.length - 3]);
         this.courseService.getLessonDet(this.id).subscribe(response => {
             if(response != null) {
                 this.lesson['id'] = response['id'];
@@ -44,9 +46,10 @@ export class LessonviewComponent implements OnInit {
         });
         this.courseService.getLesson(this.id).subscribe(response => {
             let subVoc = [];
+            let counter = 0;
             for(let entry of response[0]['vocabulary']) {
                 subVoc.push({
-                    index: entry['id'],
+                    index: ++counter,
                     native: entry['native'],
                     translation: entry['translation']
                 })

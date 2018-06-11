@@ -13,11 +13,11 @@
 				<h2>Subscribed courses</h2>
 				<hr />
 				<div *ngFor="let courseGroup of subCourses" class="mb-sm-4">
-					<h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.name }}</h3>
+					<h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" alt="No flag available"/> {{ courseGroup.name }}</h3>
 					<div class="card mb-sm-2" *ngFor="let course of courseGroup.courses">
 						<div class="card-body">
 							<div class="pull-left col-sm-2">
-								<img class="course-img" src="{{ course.image }}" alt="Course image">
+								<img class="course-img" src="{{ course.image }}" alt="Course image not available">
 							</div>
 							<div class="pull-left col-sm-8">
 								<h5 class="card-title">
@@ -51,7 +51,7 @@
 				<h2>Created by me</h2>
 				<hr />
 				<div *ngFor="let courseGroup of myCourses" class="mb-sm-4">
-					<h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.language }}</h3>
+					<h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.name }}</h3>
 					<div class="card mb-sm-2" *ngFor="let course of courseGroup.courses">
 						<div class="card-body">
 							<div class="pull-left col-sm-2">
@@ -90,7 +90,7 @@
 				<h2>Favorite courses</h2>
 				<hr />
 				<div *ngFor="let courseGroup of favCourses" class="mb-sm-4">
-					<h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.language }}</h3>
+					<h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.name }}</h3>
 					<div class="card mb-sm-2" *ngFor="let course of courseGroup.courses">
 						<div class="card-body">
 							<div class="pull-left col-sm-2">
