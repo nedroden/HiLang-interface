@@ -127,6 +127,19 @@ br.clear {
     border-color: #fff;
 }
 
+input[type="text"].correct {
+    background: #f2fced;
+}
+
+input[type="text"].incorrect {
+    background: #fceeed;
+}
+
+form#exercise input[type="text"]:focus {
+    box-shadow: none;
+    border-color: inherit;
+}
+
 /* Responsiveness */
 @media only screen and (max-width: 900px) {
     #menuBar a {

@@ -33,7 +33,6 @@ export class MyCoursesComponent implements OnInit {
         }
     }
     //---------------------------
-
     getSubCourses() {
         //replace 1 with user_id
         this._courses.getSubCourses(1).subscribe(

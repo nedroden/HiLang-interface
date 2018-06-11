@@ -10,16 +10,30 @@ export class CookieService {
 
   constructor(private _router: Router, private _http: HttpClient) { }
 
+  getValue() {
+      return this.value;
+  }
+
   getCookie() {
       for (let item of document.cookie.split(';')) {
-        if (item.includes('hl_cred'))
-            return JSON.parse(item.split('=')[1]);
+        if (item.includes('hl_cred')) {
+            this.value = JSON.parse(item.split('=')[1]);
+            break;
+        } else {
+            this.value = null;
+        }
       }
-      return false;
   }
 
   checkValidity() {
-    //return this._http.post('http://localhost:8000/api/checkToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+    this._http.post('http://localhost:8000/api/checkToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).subscribe(response => {
+        if (!response['approved'] && this.value != null)
+            this.destroy();
+        });
+  }
+
+  checkValidityPost() {
+      return this._http.post('http://localhost:8000/api/checkToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
   createCookie(data: object ) {
@@ -34,13 +48,8 @@ export class CookieService {
   }
 
   destroy() {
-      this._http.post('http://localhost:8000/api/destoryToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
-      document.cookie = "hl_cred=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-      this._router.navigate(["/login"]);
+      this._http.post('http://localhost:8000/api/destroyToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+      document.cookie = "hl_cred=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       this.value = null;
-  }
-
-  getValue() {
-      return this.value;
   }
 }

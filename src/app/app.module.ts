@@ -27,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseService } from './course.service';
 import { LoginService } from './login.service';
 import { AccountService } from './account.service';
+import { LessonService } from './lesson.service';
 import { CookieService } from './cookie.service';
 import { HilangApiService } from './hilang-api.service';
 
@@ -62,20 +63,29 @@ const appRoutes: Routes = [
                 component: UserwelcomeComponent
             },
             {
-                path: 'flashcards',
-                component: FlashcardsComponent
-            },
-            {
-                path: 'grammar',
-                component: GrammarComponent
+                path: 'lesson/:id',
+                children: [
+                    {
+                        path: '',
+                        component: LessonviewComponent,
+                    },
+                    {
+                        path: 'flashcards',
+                        component: FlashcardsComponent
+                    },
+                    {
+                        path: 'grammar',
+                        component: GrammarComponent
+                    },
+                    {
+                        path: 'mc',
+                        component: MultipleChoiceComponent
+                    }
+                ]
             },
             {
                 path: 'lesson/:lesson_counter/:author_id/:lesson_id',
                 component: LessonviewComponent
-            },
-            {
-                path: 'mc',
-                component: MultipleChoiceComponent
             },
             {
                 path: 'browse',
@@ -90,7 +100,7 @@ const appRoutes: Routes = [
                 component: CourseDetailsComponent
             },
             {
-                path: 'create-list',
+                path: 'course-details/:id/create-list',
                 component: CreateWordListComponent
             },
             {
@@ -155,6 +165,7 @@ const appRoutes: Routes = [
     providers: [CourseService,
                 LoginService,
                 AccountService,
+                LessonService,
                 CookieService,
                 HilangApiService
                 ],

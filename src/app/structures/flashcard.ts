@@ -1,5 +1,5 @@
 export class Flashcard {
-    native: string;
-    translation: string;
-    exercise: string;
+    native: string = '';
+    translation: string = '';
+    exercise: string = '';
 }
