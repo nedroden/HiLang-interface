@@ -93,6 +93,10 @@ const appRoutes: Routes = [
                 component: BrowseComponent
             },
             {
+                path: 'browse/:searchFor',
+                component: BrowseComponent
+            },
+            {
                 path: 'courses',
                 component: MyCoursesComponent
             },
@@ -140,7 +144,7 @@ const appRoutes: Routes = [
         AccountsettingsComponent,
         UserinfoblockComponent,
         ExerciseResultComponent,
-        DialogComponent
+        DialogComponent,
     ],
     entryComponents: [
         HeaderComponent,
@@ -159,7 +163,7 @@ const appRoutes: Routes = [
         RouterModule.forRoot(
             appRoutes,
             {
-                enableTracing: true
+                enableTracing: false
             }
         )
     ],
