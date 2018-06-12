@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CourseService } from '../course.service';
+import { LessonDetailsService } from '../lesson-details.service';
 
 @Component({
   selector: 'app-lessonview',
@@ -14,6 +16,7 @@ export class LessonviewComponent implements OnInit {
         name: "",
         desc: "",
         cat: "",
+        grammar: "",
         source_language: "",
         target_language: "",
         vocabulary: [],
@@ -23,25 +26,28 @@ export class LessonviewComponent implements OnInit {
         }
     }
     id: number;
+    courseId;
     authorId: number;
     editable;
 
-    constructor(private courseService: CourseService) { }
+    constructor(private courseService: CourseService, private lesDetService: LessonDetailsService, public router: Router) { }
 
     ngOnInit() {
         this.editable = false;
         let ulrParts = (window.location.href).split("/");
         this.id = parseInt(ulrParts[ulrParts.length - 1]);
-        this.authorId = parseInt(ulrParts[ulrParts.length - 2]);
-        this.lesson['counter'] = parseInt(ulrParts[ulrParts.length - 3]);
+        this.courseId = parseInt(ulrParts[ulrParts.length - 2]);
+        this.authorId = parseInt(ulrParts[ulrParts.length - 3]);
+        this.lesson['counter'] = parseInt(ulrParts[ulrParts.length - 4]);
         this.courseService.getLessonDet(this.id).subscribe(response => {
             if(response != null) {
                 this.lesson['id'] = response['id'];
                 this.lesson['name'] = response['name'];
                 this.lesson['desc'] = response['desc'];
                 this.lesson['cat'] = response['cat'];
-                this.lesson['source_language'] = response['native'],
-                this.lesson['target_language'] = response['trans']
+                this.lesson['grammar'] = response['grammar'];
+                this.lesson['source_language'] = response['native'];
+                this.lesson['target_language'] = response['trans'];
             }
         });
         this.courseService.getLesson(this.id).subscribe(response => {
@@ -73,28 +79,17 @@ export class LessonviewComponent implements OnInit {
     }
 
     edit() {
-        if(this.editable) {
-            let editor = (<HTMLInputElement>document.getElementById("lesson_desc_edit"))
-            let desc = (<HTMLInputElement>document.getElementById("lesson_desc"))
-            editor.value = desc.innerText;
-
-            editor.style.display = "block";
-            document.getElementById("saveLessonDesc").style.display = "block";
-            desc.style.display = "none";
-            document.getElementById("lesson_edit").style.display = "none";
+        let details = {
+            id: this.lesson['id'],
+            name: this.lesson['name'],
+            category: this.lesson['cat'],
+            description: this.lesson['desc'],
+            grammar: this.lesson['grammar'],
+            course: this.courseId,
+            vocabulary: this.lesson['vocabulary']
         }
+        this.lesDetService.saveDetails(details);
+        this.router.navigate(['/user/course-details/' + this.courseId + '/create-list']);
     }
 
-    saveEdit() {
-        let newDesc = (<HTMLInputElement>document.getElementById("lesson_desc_edit")).value;
-        let courseData = {
-            'id': this.id,
-            'desc': newDesc,
-        }
-        this.courseService.editLessonDesc(courseData).subscribe();
-        document.getElementById("lesson_desc_edit").style.display = "none";
-        document.getElementById("saveLessonDesc").style.display = "none";
-        document.getElementById("lesson_desc").style.display = "block";
-        document.getElementById("lesson_edit").style.display = "block";
-    }
 }

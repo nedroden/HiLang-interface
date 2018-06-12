@@ -27,8 +27,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseService } from './course.service';
 import { LoginService } from './login.service';
 import { AccountService } from './account.service';
+import { LessonService } from './lesson.service';
 import { CookieService } from './cookie.service';
 import { HilangApiService } from './hilang-api.service';
+import { LessonDetailsService } from './lesson-details.service';
 
 import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
 import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
@@ -62,20 +64,29 @@ const appRoutes: Routes = [
                 component: UserwelcomeComponent
             },
             {
-                path: 'flashcards',
-                component: FlashcardsComponent
+                path: 'lesson/:id',
+                children: [
+                    {
+                        path: '',
+                        component: LessonviewComponent,
+                    },
+                    {
+                        path: 'flashcards',
+                        component: FlashcardsComponent
+                    },
+                    {
+                        path: 'grammar',
+                        component: GrammarComponent
+                    },
+                    {
+                        path: 'mc',
+                        component: MultipleChoiceComponent
+                    }
+                ]
             },
             {
-                path: 'grammar',
-                component: GrammarComponent
-            },
-            {
-                path: 'lesson/:lesson_counter/:author_id/:lesson_id',
+                path: 'lesson/:lesson_counter/:author_id/:course_id/:lesson_id',
                 component: LessonviewComponent
-            },
-            {
-                path: 'mc',
-                component: MultipleChoiceComponent
             },
             {
                 path: 'browse',
@@ -90,7 +101,7 @@ const appRoutes: Routes = [
                 component: CourseDetailsComponent
             },
             {
-                path: 'create-list',
+                path: 'course-details/:id/create-list',
                 component: CreateWordListComponent
             },
             {
@@ -155,8 +166,10 @@ const appRoutes: Routes = [
     providers: [CourseService,
                 LoginService,
                 AccountService,
+                LessonService,
                 CookieService,
-                HilangApiService
+                HilangApiService,
+                LessonDetailsService
                 ],
     bootstrap: [AppComponent]
 })

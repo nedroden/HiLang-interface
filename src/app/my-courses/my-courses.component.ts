@@ -33,7 +33,6 @@ export class MyCoursesComponent implements OnInit {
         }
     }
     //---------------------------
-
     getSubCourses() {
         //replace 1 with user_id
         this._courses.getSubCourses(1).subscribe(
@@ -58,7 +57,7 @@ export class MyCoursesComponent implements OnInit {
 
     handleCourseData(data, type) {
         for(let i=0; i<data.length; i++) {
-            this._courses.getLangDetails(data[i].fields['native_lang']).subscribe(
+            this._courses.getLangDetails(data[i].fields['trans_lang']).subscribe(
                 languageData => {this.handleLangDet(languageData,data, type)},
                 err => console.log(err)
             );
@@ -70,7 +69,7 @@ export class MyCoursesComponent implements OnInit {
         let courses = [];
         let author = "";
         for(let i = 0; i<data.length; i++) {
-            if(data[i].fields['native_lang'] == langDet[0].pk) {
+            if(data[i].fields['trans_lang'] == langDet[0].pk) {
                 this._courses.getUser(data[i].fields['user']).subscribe(
                     userName => { 
                         courses.push(

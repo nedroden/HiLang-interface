@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course-details',
@@ -20,8 +21,11 @@ export class CourseDetailsComponent implements OnInit {
     courseImg;
     lessons;
     editable = false;
-  
-	constructor(private courseService: CourseService) { }
+    course_id: number;
+
+	constructor(private courseService: CourseService,
+                private _activatedRoute: ActivatedRoute) {}
+
 
     author = {
         avatar: "http://cdn.guardian.ng/wp-content/uploads/2016/05/Vladimir-Putin.jpg",
@@ -66,6 +70,7 @@ export class CourseDetailsComponent implements OnInit {
                 document.getElementById('addLesson').style.display="block";
                 this.editable = true;
             }
+            
             this.getLessons();
         });
 	}
