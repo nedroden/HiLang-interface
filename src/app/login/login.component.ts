@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
         this._con.postLoginData(userData).subscribe(data => {
             if (data['user_id'] && data['token']) {
                 this._cookie.createCookie(data);
-                this._router.navigate(["/user"]);
             } else {
                 // Iets van een melding ofzo
             }

@@ -17,6 +17,14 @@ export class HilangApiService {
       return this._http.post(url, data, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
+  unsafeGet(url: string) {
+      return this._http.get(url, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+  }
+
+  unsafePost(url: string, params: object) {
+      return this._http.post(url, params, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+  }
+
   login(params: object) {
       return this._http.post('http://localhost:8000/api/login', params, {headers: new HttpHeaders({ 'Content-Type': 'application/json'})});
   }
