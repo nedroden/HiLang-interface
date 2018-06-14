@@ -37,6 +37,7 @@ import { AccountsettingsComponent } from './accountsettings/accountsettings.comp
 import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component';
 
 import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
+import { CompletionComponent } from './exercises/completion/completion.component';
 
 const appRoutes: Routes = [
     {
@@ -81,6 +82,10 @@ const appRoutes: Routes = [
                     {
                         path: 'mc',
                         component: MultipleChoiceComponent
+                    },
+                    {
+                        path: 'completion',
+                        component: CompletionComponent
                     }
                 ]
             },
@@ -145,6 +150,7 @@ const appRoutes: Routes = [
         UserinfoblockComponent,
         ExerciseResultComponent,
         DialogComponent,
+        CompletionComponent
     ],
     entryComponents: [
         HeaderComponent,
@@ -152,6 +158,7 @@ const appRoutes: Routes = [
         MyCoursesComponent,
         FlashcardsComponent,
         GrammarComponent,
+        CompletionComponent,
         BrowseComponent,
         MultipleChoiceComponent,
         CreateWordListComponent,
