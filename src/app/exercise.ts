@@ -54,6 +54,7 @@ export abstract class Exercise {
         return input === this.queue[0].translation;
     }
 
+
     protected clear(isCorrect: boolean, input: HTMLInputElement): boolean {
         if (this.queue.length === 0)
             return false;

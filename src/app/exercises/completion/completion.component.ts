@@ -12,10 +12,13 @@ import { Exercise } from '../../exercise';
 export class CompletionComponent extends Exercise implements OnInit {
 	id: number;
 	lesson: Lesson;
+	correctAnswer: string;
+	question: string;
 
   	constructor(private lessonService: LessonService, private activatedRoute: ActivatedRoute) {
   		super();
   		this.lesson = new Lesson;
+
   	}
 	
   	ngOnInit() {
@@ -31,19 +34,40 @@ export class CompletionComponent extends Exercise implements OnInit {
   	}
 
   	makeIncomplete(currentWord) {
+  		let question = ""
   		for(let index = 0; index < currentWord.translation.length; index++) {
-  			if(index != 1 && index != currentWord.translation.length) {
-  				currentWord.translation[index] = ".";
+  			if(index != 0 && index != currentWord.translation.length -1 && index != Math.floor(currentWord.translation.length / 2)) {
+  				question += ".";
+  			} else {
+  				question += currentWord.translation[index];
   			}
-  			console.log(currentWord.translation[index]);
   		}
-  		console.log(currentWord)
+  		this.correctAnswer = currentWord.translation;
+  		this.question = question;
   	}
 
   	private handleInput(event, exercise): void {
   		event.preventDefault();
-  		console.log(event);
-  		console.log(exercise);
-  	}
+  		let answer = (<HTMLInputElement>document.getElementById('answer'));
+  		let isCorrect = (exercise.isCorrect(answer.value));
+  		let className = isCorrect ? 'correct' : 'incorrect';
 
+        answer.classList.add(className);
+        answer.disabled = true;
+
+  		if(!isCorrect) {
+  			document.getElementById('correctAnswer').innerHTML = '<strong>Correct answer: </strong>' + this.correctAnswer;  		
+  		}
+
+  		setTimeout(() => {
+  			answer.classList.remove(className);
+            answer.disabled = false;
+
+            exercise.clear(isCorrect, answer);
+            exercise.next();
+            this.makeIncomplete(exercise.currentWord);
+
+  			document.getElementById('correctAnswer').innerHTML = "";
+  		}, exercise.getTimeout(isCorrect));
+  	}
 }
