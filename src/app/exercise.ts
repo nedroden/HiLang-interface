@@ -16,6 +16,9 @@ export abstract class Exercise {
 
     protected progress: number;
 
+    protected timeInSeconds: number;
+    protected timer: number;
+
     constructor() {
         this.vocabulary = [];
         this.queue = [];
@@ -24,6 +27,8 @@ export abstract class Exercise {
 
         this.currentWord = new Flashcard;
         this.progress = 0;
+
+        this.timeInSeconds = 0;
     }
 
     protected initialize(): void {
@@ -31,6 +36,7 @@ export abstract class Exercise {
             this.queue.push(word);
 
         this.currentWord = this.queue[0];
+        this.startTimer();
     }
 
     protected hasNext(): boolean {
@@ -75,8 +81,24 @@ export abstract class Exercise {
             this.next();
     }
 
-    protected getTimeout(isCorrect: boolean) {
+    protected getTimeout(isCorrect: boolean): number {
         return this.timeout * (isCorrect ? 1 : 2);
+    }
+
+    protected startTimer(): void {
+        let startingTime = new Date();
+
+        this.timer = window.setInterval(() => {
+            this.timeInSeconds = Math.floor((new Date().getTime() - startingTime.getTime()) / 1000);
+        }, 1000);
+    }
+
+    protected stopTimer(): void {
+        window.clearInterval(this.timer);
+    }
+
+    protected resetTimer(): void {
+        this.timeInSeconds = 0;
     }
 
     protected exit(): void {
