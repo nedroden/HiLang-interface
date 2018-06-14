@@ -1,10 +1,10 @@
 <div *ngIf="_router.url.includes('user'); else other">
-    
+
     <div id="wrapper">
         <app-header></app-header>
 
         <div id="content">
-            <router-outlet></router-outlet>
+            <router-outlet (activate)="checkCookie()"></router-outlet>
         </div>
 
         <app-footer></app-footer>
