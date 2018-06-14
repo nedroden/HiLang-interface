@@ -46,7 +46,8 @@ export class CourseService {
   }
 
   getLanguages() {
-  	return this._api.call('http://localhost:8000/api/languages/', {});
+      return this._api.unsafeGet('http://localhost:8000/api/languages/');
+  	//return this._api.call('http://localhost:8000/api/languages/', {});
   }
 
   getSubCourses(u_id: number) {
