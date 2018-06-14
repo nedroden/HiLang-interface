@@ -25,8 +25,25 @@ export class CompletionComponent extends Exercise implements OnInit {
   			this.lesson = lesson[0];
   			this.vocabulary = this.lesson.vocabulary;
   			this.initialize();
-  			console.log(this.lesson);
+  			this.makeIncomplete(this.currentWord);
   		});
+  		document.getElementById('enterAnswer').addEventListener('click', e => this.handleInput(e, this));
+  	}
+
+  	makeIncomplete(currentWord) {
+  		for(let index = 0; index < currentWord.translation.length; index++) {
+  			if(index != 1 && index != currentWord.translation.length) {
+  				currentWord.translation[index] = ".";
+  			}
+  			console.log(currentWord.translation[index]);
+  		}
+  		console.log(currentWord)
+  	}
+
+  	private handleInput(event, exercise): void {
+  		event.preventDefault();
+  		console.log(event);
+  		console.log(exercise);
   	}
 
 }
