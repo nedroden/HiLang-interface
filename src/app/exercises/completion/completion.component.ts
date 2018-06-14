@@ -14,6 +14,8 @@ export class CompletionComponent extends Exercise implements OnInit {
 	lesson: Lesson;
 	correctAnswer: string;
 	question: string;
+	nativeName: string;
+	transName: string;
 
   	constructor(private lessonService: LessonService, private activatedRoute: ActivatedRoute) {
   		super();
@@ -26,9 +28,13 @@ export class CompletionComponent extends Exercise implements OnInit {
 
   		this.lessonService.getLesson(this.id).subscribe(lesson => {
   			this.lesson = lesson[0];
-  			this.vocabulary = this.lesson.vocabulary;
+  			this.vocabulary = this.lesson['vocabulary'];
   			this.initialize();
   			this.makeIncomplete(this.currentWord);
+  			this.lessonService.getLessonLanguages(this.lesson['course_id']).subscribe(response => {
+  				this.nativeName = response['native'];
+  				this.transName = response['trans'];
+  			});
   		});
   		document.getElementById('enterAnswer').addEventListener('click', e => this.handleInput(e, this));
   	}
