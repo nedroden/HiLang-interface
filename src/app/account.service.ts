@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HilangApiService } from './hilang-api.service';
 
 @Injectable()
 
 export class AccountService {
 
-	constructor(private http: HttpClient) { }
+	constructor(private _api: HilangApiService) { }
 
 	userInfoUrl = 'http://localhost:8000/api/user/1/';
 
 	getAccountSettings() {
-		return this.http.get('http://localhost:8000/api/user/1/');
+		return this._api.call('http://localhost:8000/api/user/1/', {});
 	}
 }
-
-
-
