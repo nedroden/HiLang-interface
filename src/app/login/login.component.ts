@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginService } from '../login.service';
 import { CookieService } from '../cookie.service';
 
@@ -9,9 +10,11 @@ import { CookieService } from '../cookie.service';
 })
 export class LoginComponent implements OnInit {
 
-    constructor(private _con: LoginService, private _cookie: CookieService) { }
+    constructor(private _con: LoginService, private _cookie: CookieService, private _router: Router) { }
 
     ngOnInit() {
+        if (this._cookie.getValue() != null)
+            this._router.navigate(["/user"]);
     }
 
     login() {
@@ -23,7 +26,7 @@ export class LoginComponent implements OnInit {
         this._con.postLoginData(userData).subscribe(data => {
             if (data['user_id'] && data['token']) {
                 this._cookie.createCookie(data);
-                window.location.href = "/user";
+                this._router.navigate(["/user"]);
             } else {
                 // Iets van een melding ofzo
             }
