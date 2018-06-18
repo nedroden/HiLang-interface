@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
     constructor(private _con: LoginService, private _cookie: CookieService, private _router: Router) { }
 
     ngOnInit() {
+        this._cookie.checkValidity();
         if (this._cookie.getValue() != null)
             this._router.navigate(["/user"]);
     }

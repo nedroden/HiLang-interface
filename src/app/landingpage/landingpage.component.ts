@@ -39,7 +39,7 @@ export class LandingpageComponent implements OnInit {
         let password = document.getElementById('registerPassword');
         let confirmPassword = document.getElementById('registerConfirm');
 
-        if (email['value'] != null && name['value'] != null && password['value'] != null && password['value'] == confirmPassword['value']) {
+        if (email['value'] != '' && name['value'] != '' && password['value'] != '' && password['value'] == confirmPassword['value']) {
             let params = {
                 name: email['name'],
                 email: email['value'],
