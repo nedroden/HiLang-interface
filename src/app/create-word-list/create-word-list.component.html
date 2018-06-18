@@ -1,7 +1,7 @@
 <div id="context">
     <div id="headerBar">
         <label id="createLessonLabel">Create your lesson</label>
-    </div> 
+    </div>
     <form id="form">
         <div class="form-group">
             <label class="control-label" for="inputTitle">Title</label>
@@ -12,6 +12,10 @@
             <textarea class="form-control" rows="3" cols="80" id="inputDescription" placeholder="Enter the description of this lesson"></textarea>
             <label class="control-label" for="inputGrammar">Grammar (optional)</label>
             <textarea class="form-control" rows="4" cols="80" id="inputGrammar" placeholder="Enter the grammar of this lesson"></textarea>
+            <label class="control-label" for="inputGrammar">Exercise type</label>
+            <select class="custom-select" id="inputExerciseType">
+                <option *ngFor="let type of types" value="{{type.pk}}">{{type.fields.name}}</option>
+            </select>
         </div>
         <table id="input_field">
             <tr>

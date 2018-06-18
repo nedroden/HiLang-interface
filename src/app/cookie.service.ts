@@ -6,9 +6,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CookieService {
-  value: object;
-
-  constructor(private _router: Router, private _http: HttpClient) { }
+  private value: object;
+  constructor(private _router: Router, private _http: HttpClient) {
+      this.value = null;
+  }
 
   getValue() {
       return this.value;
@@ -26,6 +27,7 @@ export class CookieService {
   }
 
   checkValidity() {
+    this.getCookie();
     this._http.post('http://localhost:8000/api/checkToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).subscribe(response => {
         if (!response['approved'] && this.value != null)
             this.destroy();
@@ -33,6 +35,7 @@ export class CookieService {
   }
 
   checkValidityPost() {
+      this.getCookie();
       return this._http.post('http://localhost:8000/api/checkToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
@@ -48,7 +51,7 @@ export class CookieService {
   }
 
   destroy() {
-      this._http.post('http://localhost:8000/api/destroyToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+      this._http.post('http://localhost:8000/api/destroyToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).subscribe();
       document.cookie = "hl_cred=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       this.value = null;
   }

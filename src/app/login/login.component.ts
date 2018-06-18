@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
     constructor(private _con: LoginService, private _cookie: CookieService, private _router: Router) { }
 
     ngOnInit() {
+        this._cookie.checkValidity();
         if (this._cookie.getValue() != null)
             this._router.navigate(["/user"]);
     }
@@ -26,7 +27,6 @@ export class LoginComponent implements OnInit {
         this._con.postLoginData(userData).subscribe(data => {
             if (data['user_id'] && data['token']) {
                 this._cookie.createCookie(data);
-                this._router.navigate(["/user"]);
             } else {
                 // Iets van een melding ofzo
             }

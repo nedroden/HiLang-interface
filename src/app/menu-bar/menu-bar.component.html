@@ -3,8 +3,8 @@
         <li *ngFor="let item of items" id="header" class="nav-item" routerLink="{{ item.href }}">
             <i class="fa fa-{{ item.icon }} menu-icon"></i> <a class="nav-link">{{ item.label }}</a>
         </li>
-        <li id="header" class="nav-item">
-            <i class="fa fa-sign-out menu-icon"></i> <a class="nav-link" (click)="logOut()">Log out</a>
+        <li id="header" class="nav-item" (click)="logOut()">
+            <i class="fa fa-sign-out menu-icon"></i> <a class="nav-link">Log out</a>
         </li>
     </ul>
 </div>

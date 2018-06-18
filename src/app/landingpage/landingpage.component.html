@@ -13,15 +13,14 @@
         </div>
 
         <div class="col-sm-12 offset-sm-0 col-md-3 offset-md-1 align-self-center" id="register-field">
-            <form id="register-form">
-                <div class="form-group">
+                <div class="form-group" id="register-form">
                     <h2>Start learning today!</h2>
+                    <input type="text" class="form-control" id="registerName" placeholder="Name">
                     <input type="email" class="form-control" id="registerEmail" placeholder="E-mail address">
                     <input type="password" class="form-control" id="registerPassword" placeholder="Password">
                     <input type="password" class="form-control" id="registerConfirm" placeholder="Confirm password">
-                    <button type="submit" class="btn btn-primary mb-2 col-12" id="register-button">Get started!</button>
+                    <button (click)="register()" class="btn btn-primary mb-2 col-12" id="register-button">Get started!</button>
                 </div>
-            </form>
         </div>
     </div>
 </div>
