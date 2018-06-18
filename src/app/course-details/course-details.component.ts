@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
+import { CookieService } from '../cookie.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -24,7 +25,8 @@ export class CourseDetailsComponent implements OnInit {
     course_id: number;
 
 	constructor(private courseService: CourseService,
-                private _activatedRoute: ActivatedRoute) {}
+                private _activatedRoute: ActivatedRoute,
+                private _cookies: CookieService) {}
 
 
     author = {
@@ -66,7 +68,7 @@ export class CourseDetailsComponent implements OnInit {
                 }
             }
             //replace 1 with logged in user id
-            if(this.courseAuthorId === 1 && document.getElementById('addLesson') != null) {
+            if(this.courseAuthorId === this._cookies.getValue()['user_id'] && document.getElementById('addLesson') != null) {
                 document.getElementById('addLesson').style.display="block";
                 this.editable = true;
             }
@@ -120,7 +122,7 @@ export class CourseDetailsComponent implements OnInit {
     addFavorite() {
         let ulrParts = (window.location.href).split("/");
         let courseId = parseInt(ulrParts[ulrParts.length - 1]);
-        this.courseService.addFavorite(1,courseId).subscribe();
+        this.courseService.addFavorite(this._cookies.getValue()['user_id'], courseId).subscribe();
         document.getElementById('addFavorite').style.display = "none";
         document.getElementById('delFavorite').style.display = "block";
     }
@@ -128,7 +130,7 @@ export class CourseDetailsComponent implements OnInit {
     delFavorite() {
         let ulrParts = (window.location.href).split("/");
         let courseId = parseInt(ulrParts[ulrParts.length - 1]);
-        this.courseService.delFavorite(1,courseId).subscribe();
+        this.courseService.delFavorite(this._cookies.getValue()['user_id'], courseId).subscribe();
         document.getElementById('addFavorite').style.display = "block";
         document.getElementById('delFavorite').style.display = "none";
     }
@@ -136,7 +138,7 @@ export class CourseDetailsComponent implements OnInit {
     subscribe() {
         let ulrParts = (window.location.href).split("/");
         let courseId = parseInt(ulrParts[ulrParts.length - 1]);
-        this.courseService.subscribe(1,courseId).subscribe();
+        this.courseService.subscribe(this._cookies.getValue()['user_id'], courseId).subscribe();
         document.getElementById('subscribeBtn').style.display = "none";
         document.getElementById('UnSubscribeBtn').style.display = "block";
     }
@@ -144,7 +146,7 @@ export class CourseDetailsComponent implements OnInit {
     unSubscribe() {
         let ulrParts = (window.location.href).split("/");
         let courseId = parseInt(ulrParts[ulrParts.length - 1]);
-        this.courseService.unSubscribe(1,courseId).subscribe();
+        this.courseService.unSubscribe(this._cookies.getValue()['user_id'], courseId).subscribe();
         document.getElementById('subscribeBtn').style.display = "block";
         document.getElementById('UnSubscribeBtn').style.display = "none";
     }

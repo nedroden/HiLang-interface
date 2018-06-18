@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { HilangApiService } from './hilang-api.service';
+import { CookieService } from './cookie.service';
 import { interval, pipe } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 
@@ -8,7 +9,7 @@ import { concatMap } from 'rxjs/operators';
 @Injectable()
 export class CourseService {
 
-  constructor(private _api: HilangApiService) { }
+  constructor(private _api: HilangApiService, private _cookies: CookieService) { }
 
   getCourses() {
   	return this._api.call('http://localhost:8000/api/courses', {});
@@ -21,7 +22,7 @@ export class CourseService {
   getCourseDetails(c_id: number) {
   	return interval(500).pipe(
   			//replace 1 in url with user id
-  			concatMap(() =>this._api.call('http://localhost:8000/api/course/1/' + c_id + '/', {}))
+  			concatMap(() =>this._api.call('http://localhost:8000/api/course/' + this._cookies.getValue()['user_id'] + '/' + c_id + '/', {}))
   		);
   }
 
@@ -42,6 +43,9 @@ export class CourseService {
   }
 
   getLangDetails(lang_id: number) {
+    if(lang_id === null) {
+        lang_id = 7;
+    }
   	return this._api.call('http://localhost:8000/api/language/' + lang_id + '/', {});
   }
 
@@ -108,10 +112,12 @@ export class CourseService {
 
 
   createCourse(courseData) {
-	  // TODO: Update with session data
-	  let testData = {name: courseData.name,
-  					  user: 1}
-	  return this._api.call('http://localhost:8000/api/course/create/', testData);
+    //replace native_lang with interface language
+	let testData = {name: courseData.name,
+  				    user: this._cookies.getValue()['user_id'],
+                    native_lang: 2,
+                    trans_lang: 7}
+	return this._api.call('http://localhost:8000/api/course/create/', testData);
 
   }
 

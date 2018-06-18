@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { CourseService } from '../course.service';
+import { CookieService } from '../cookie.service';
 
 
 @Component({
@@ -15,8 +16,7 @@ export class MyCoursesComponent implements OnInit {
     myCourses;
     favCourses;
     currentId: number;
-    constructor(private _courses: CourseService) {
-    }
+    constructor(private _courses: CourseService, private _cookies: CookieService) {}
 
     //for debug no other use
     //---------------------------
@@ -28,35 +28,47 @@ export class MyCoursesComponent implements OnInit {
     }
 
     doWithData(data) {
-        for(let i=0; i<data.length; i++) {
+        for(let i=0; i<data['length']; i++) {
             this.subCourses[0].courses.push(data[i].fields);
         }
     }
     //---------------------------
     getSubCourses() {
         //replace 1 with user_id
-        this._courses.getSubCourses(1).subscribe(
-            data => { this.handleCourseData(data, 0)},
+        this._courses.getSubCourses(this._cookies.getValue()['user_id']).subscribe(
+            data => {
+                if(data['length'] != 0) {
+                    this.handleCourseData(data, 0);
+                }
+            },
             err => console.log(err)
         );
     }
 
     getFavCourses() {
-        this._courses.getFavCourses(1).subscribe(
-            data => { this.handleCourseData(data, 1)},
+        this._courses.getFavCourses(this._cookies.getValue()['user_id']).subscribe(
+            data => {
+                if(data['length'] != 0) {
+                    this.handleCourseData(data, 1); 
+                }
+            },
             err => console.log(err)
         );
     }
 
     getMyCourses() {
-        this._courses.getUserCourses(1).subscribe( 
-            data => { this.handleCourseData(data, 2)},
+        this._courses.getUserCourses(this._cookies.getValue()['user_id']).subscribe( 
+            data => {
+                if(data['length'] != 0) {
+                    this.handleCourseData(data, 2); 
+                }
+            },
             err => console.log(err)
         );
     }
 
     handleCourseData(data, type) {
-        for(let i=0; i<data.length; i++) {
+        for(let i=0; i<data['length']; i++) {
             this._courses.getLangDetails(data[i].fields['trans_lang']).subscribe(
                 languageData => {this.handleLangDet(languageData,data, type)},
                 err => console.log(err)
@@ -68,10 +80,10 @@ export class MyCoursesComponent implements OnInit {
     handleLangDet(langDet,data, type) {
         let courses = [];
         let author = "";
-        for(let i = 0; i<data.length; i++) {
+        for(let i = 0; i<data['length']; i++) {
             if(data[i].fields['trans_lang'] == langDet[0].pk) {
                 this._courses.getUser(data[i].fields['user']).subscribe(
-                    userName => { 
+                    userName => {
                         courses.push(
                             {
                                 id: data[i].pk,
@@ -180,7 +192,7 @@ export class MyCoursesComponent implements OnInit {
 
         courseInput.onkeypress = function(event) {
             if(event.keyCode === 13) {
-                let newCourse = {id: this.currentId, name: courseInput.value, author: "Jelmer"}
+                let newCourse = {id: this.currentId, name: courseInput.value, author: ""}
                 this._courses.createCourse({name: courseInput.value}).subscribe();
                 courseInput.value = "";
                 courseInput.style.display = 'none';

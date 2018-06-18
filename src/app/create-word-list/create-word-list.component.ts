@@ -1,12 +1,8 @@
-    import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LessonService } from '../lesson.service';
-<<<<<<< HEAD
-import { ActivatedRoute } from '@angular/router';
 import { HilangApiService } from '../hilang-api.service';
-=======
 import { LessonDetailsService } from '../lesson-details.service';
 import { ActivatedRoute, Router } from '@angular/router';
->>>>>>> upstream/master
 
 @Component({
   selector: 'app-create-word-list',
@@ -20,9 +16,9 @@ export class CreateWordListComponent implements OnInit {
 	private course_id: number;
     details;
     private types;
+    private lesson_id: number;
 
     constructor(private _lesson: LessonService, private _activatedRoute: ActivatedRoute, private _api: HilangApiService, private lesDetService: LessonDetailsService, private router: Router) {
-    	private lesson_id: number;
     }
 
     ngOnInit() {
@@ -130,7 +126,7 @@ export class CreateWordListComponent implements OnInit {
                 console.log(response);
                 if (response['length'] > 0)
                     console.log("DEZE DOET HET, JE MAG DE GEBRUIKER DOORSTUREN");
-                    this._router.navigate(['user/course/' + this.course_id]);
+                    this.router.navigate(['user/course/' + this.course_id]);
             });
         } else {
             alert("Vul alle velden in!");
