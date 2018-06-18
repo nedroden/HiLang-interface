@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LessonService } from '../lesson.service';
-import { ActivatedRoute } from '@angular/router';
+import { LessonDetailsService } from '../lesson-details.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-word-list',
@@ -12,14 +13,42 @@ export class CreateWordListComponent implements OnInit {
 	number = 5;
 	data;
 	private course_id: number;
+	details;
+	private lesson_id: number;
 
-    constructor(private _lesson: LessonService, private _activatedRoute: ActivatedRoute) { 
+    constructor(private _lesson: LessonService, private _activatedRoute: ActivatedRoute, private lesDetService: LessonDetailsService, private router: Router) { 
     }
 
     ngOnInit() {
     	this._activatedRoute.params.subscribe(params => this.course_id = params.id); 
 	   	this.addOnClick();
     	this.createRows();
+    	this.details = this.lesDetService.getDetails();
+
+    	this.lesDetService.emptyDetails();
+    	this.addExistingData(this.details);
+    }
+
+    addExistingData(details) {
+    	if(details['id'] != "") {
+    		this.lesson_id = details['id'];
+    		(<HTMLInputElement>document.getElementById('inputTitle')).value = details['name'];
+    		(<HTMLInputElement>document.getElementById('inputCategory')).value = details['category'];
+    		(<HTMLInputElement>document.getElementById('inputDescription')).value = details['description'];
+    		(<HTMLInputElement>document.getElementById('inputGrammar')).value = details['grammar'];
+    		let vocabulary = details['vocabulary'];
+    		console.log(vocabulary);
+    		for(let i=5; i<vocabulary.length; i+=5) {
+    			this.createRows();
+    		}
+    		let table = document.getElementById("input_field") as HTMLTableElement
+    		let rowLength = table.rows.length
+    		for(let i = 0; i < vocabulary.length; i++){
+				let cells = table.rows.item(i+1).cells;
+				(<HTMLInputElement>cells.item(1).children[0]).value = vocabulary[i].native;
+				(<HTMLInputElement>cells.item(2).children[0]).value = vocabulary[i].translation;
+			}
+    	}
     }
 
     addOnClick(){
@@ -61,7 +90,7 @@ export class CreateWordListComponent implements OnInit {
     	this.data = {}
 		var table = document.getElementById("input_field") as HTMLTableElement
 		var rowLength = table.rows.length
-		
+		this.data['id'] = this.lesson_id;
 		var lessonTitle = (<HTMLInputElement>document.getElementById("inputTitle")).value
 		this.data['title'] = lessonTitle
 		var lessonCategory = (<HTMLInputElement>document.getElementById("inputCategory")).value
@@ -84,7 +113,7 @@ export class CreateWordListComponent implements OnInit {
 				this.data.words[word1] = word2
 			}
 		}
-		console.log(this.data)
 		this._lesson.postLessonData(this.data, this.course_id).subscribe(response=> console.log(response));
+		this.router.navigate(['/user/course-details/' + this.course_id]);
 	}
 }

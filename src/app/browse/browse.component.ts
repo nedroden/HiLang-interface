@@ -13,11 +13,30 @@ export class BrowseComponent implements OnInit {
     constructor(private _courses : CourseService) { }
 
     ngOnInit() {
+        this.addKeyEvent();
+        let ulrParts = (window.location.href).split("/");
+        if(ulrParts[5] != null) {
+            this.search(ulrParts[5]);
+            let searchBar = (<HTMLInputElement>document.getElementById('browseBar'));
+            searchBar.value = ulrParts[5];
+        }
     }
 
-    search() {
+    addKeyEvent() {
+        let searchInput = (<HTMLInputElement>document.getElementById('browseBar'));
+        searchInput.onkeypress = function(event) {
+            if(event.keyCode === 13) {
+                this.search((<HTMLInputElement>document.getElementById('browseBar')).value);
+            }
+        }.bind(this);
+    }
+
+    doSearch() {
+        this.search((<HTMLInputElement>document.getElementById('browseBar')).value);
+    }
+
+    search(searchFor: String) {
         this.courses = [];
-        let searchFor = (<HTMLInputElement>document.getElementById('browseBar')).value;
         this._courses.searchForPublicCourse(searchFor).subscribe(response => {
             for(let course of <Array<any>>response) {
                 this.courses.push({
@@ -32,4 +51,5 @@ export class BrowseComponent implements OnInit {
             this.publicCourses = this.courses;
         });
     }
+
 }
