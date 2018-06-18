@@ -11,12 +11,7 @@ export class LandingpageComponent implements OnInit {
 	languages;
 	constructor(private courseService: CourseService) {}
 	ngOnInit() {
-		this.languages = [
-			{
-				name: "English",
-				flag: "england"
-			}
-		];
+		this.languages = [];
 		this.courseService.getLanguages().subscribe(response => {
 			let subLanguages = [];
 			for(let language of <Array<any>>response) {
