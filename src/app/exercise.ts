@@ -1,4 +1,5 @@
 import { Flashcard } from './structures/flashcard';
+import { ExerciseService } from './exercise.service';
 
 export abstract class Exercise {
 
@@ -19,8 +20,8 @@ export abstract class Exercise {
     protected timeInSeconds: number;
     protected timer: number;
 
-    constructor() {
-        this.vocabulary = [];
+    constructor(protected exerciseService: ExerciseService) {
+        this.exerciseService.setVocabulary([]);
         this.queue = [];
         this.correctWords = [];
         this.incorrectWords = [];
@@ -32,7 +33,7 @@ export abstract class Exercise {
     }
 
     protected initialize(): void {
-        for (let word of this.vocabulary.sort((a, b) => 0.5 - Math.random()))
+        for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random()))
             this.queue.push(word);
 
         this.currentWord = this.queue[0];
@@ -53,7 +54,7 @@ export abstract class Exercise {
     }
 
     private updateProgress(): void {
-        this.progress = (this.correctWords.length / this.vocabulary.length) * 100;
+        this.progress = (this.correctWords.length / this.exerciseService.getVocabulary().length) * 100;
     }
 
     protected isCorrect(input: string): boolean {

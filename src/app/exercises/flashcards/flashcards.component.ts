@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../../structures/lesson';
 import { LessonService } from '../../lesson.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Exercise } from '../../exercise';
+import { ExerciseService } from '../../exercise.service';
 
 @Component({
   selector: 'app-flashcards',
@@ -15,8 +16,10 @@ export class FlashcardsComponent extends Exercise implements OnInit {
     lesson: Lesson;
 
     constructor(private _lessonService: LessonService,
-                private _activatedRoute: ActivatedRoute) {
-        super();
+                private _activatedRoute: ActivatedRoute,
+                private _router: Router,
+                exerciseService: ExerciseService) {
+        super(exerciseService);
         this.lesson = new Lesson;
     }
 
@@ -25,7 +28,7 @@ export class FlashcardsComponent extends Exercise implements OnInit {
 
         this._lessonService.getLesson(this.id).subscribe(lesson => {
             this.lesson = lesson[0];
-            this.vocabulary = this.lesson.vocabulary;
+            this.exerciseService.setVocabulary(this.lesson.vocabulary);
             this.initialize();
         });
 
@@ -53,5 +56,9 @@ export class FlashcardsComponent extends Exercise implements OnInit {
             exercise.next();
             document.getElementById('correct_answer').innerHTML = '';
         }, exercise.getTimeout(isCorrect));
+    }
+
+    protected exit(): void {
+        this._router.navigate(['/user/exercisecompleted']);
     }
 }

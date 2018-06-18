@@ -3,6 +3,7 @@ import { Lesson } from '../../structures/lesson';
 import { LessonService } from '../../lesson.service';
 import { ActivatedRoute } from '@angular/router';
 import { Exercise } from '../../exercise';
+import { ExerciseService } from '../../exercise.service';
 
 @Component({
   selector: 'app-completion',
@@ -17,8 +18,8 @@ export class CompletionComponent extends Exercise implements OnInit {
 	nativeName: string;
 	transName: string;
 
-  	constructor(private lessonService: LessonService, private activatedRoute: ActivatedRoute) {
-  		super();
+  	constructor(private lessonService: LessonService, private activatedRoute: ActivatedRoute, exerciseService: ExerciseService) {
+  		super(exerciseService);
   		this.lesson = new Lesson;
 
   	}
