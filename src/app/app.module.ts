@@ -30,12 +30,14 @@ import { AccountService } from './account.service';
 import { LessonService } from './lesson.service';
 import { CookieService } from './cookie.service';
 import { HilangApiService } from './hilang-api.service';
+import { LessonDetailsService } from './lesson-details.service';
 
 import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
 import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
 import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component';
 
 import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
+import { CompletionComponent } from './exercises/completion/completion.component';
 
 const appRoutes: Routes = [
     {
@@ -80,15 +82,23 @@ const appRoutes: Routes = [
                     {
                         path: 'mc',
                         component: MultipleChoiceComponent
+                    },
+                    {
+                        path: 'completion',
+                        component: CompletionComponent
                     }
                 ]
             },
             {
-                path: 'lesson/:lesson_counter/:author_id/:lesson_id',
+                path: 'lesson/:lesson_counter/:author_id/:course_id/:lesson_id',
                 component: LessonviewComponent
             },
             {
                 path: 'browse',
+                component: BrowseComponent
+            },
+            {
+                path: 'browse/:searchFor',
                 component: BrowseComponent
             },
             {
@@ -139,7 +149,8 @@ const appRoutes: Routes = [
         AccountsettingsComponent,
         UserinfoblockComponent,
         ExerciseResultComponent,
-        DialogComponent
+        DialogComponent,
+        CompletionComponent
     ],
     entryComponents: [
         HeaderComponent,
@@ -147,6 +158,7 @@ const appRoutes: Routes = [
         MyCoursesComponent,
         FlashcardsComponent,
         GrammarComponent,
+        CompletionComponent,
         BrowseComponent,
         MultipleChoiceComponent,
         CreateWordListComponent,
@@ -158,7 +170,7 @@ const appRoutes: Routes = [
         RouterModule.forRoot(
             appRoutes,
             {
-                enableTracing: true
+                enableTracing: false
             }
         )
     ],
@@ -167,7 +179,8 @@ const appRoutes: Routes = [
                 AccountService,
                 LessonService,
                 CookieService,
-                HilangApiService
+                HilangApiService,
+                LessonDetailsService
                 ],
     bootstrap: [AppComponent]
 })

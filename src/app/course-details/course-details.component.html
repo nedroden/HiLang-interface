@@ -42,7 +42,7 @@
 	<div class="col-sm-5 pull-right">
 		<h2>Lesson overview</h2>
 		<div *ngFor="let lesson of lessons" class="list-group">
-			<a routerLink="/user/lesson/{{ lesson.counter }}/{{ courseAuthorId }}/{{ lesson.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
+			<a routerLink="/user/lesson/{{ lesson.counter }}/{{ courseAuthorId }}/{{courseId}}/{{ lesson.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
 				<div class="d-flex w-100 justify-content-between">
 					<h5 class="mb-1"> {{ lesson.name }} </h5>
 				</div>

@@ -1,24 +1,26 @@
-<h1><strong>Lesson 1</strong> Completion exercise </h1>
+<h1><strong>{{ lesson.name }}</strong> Completion exercise </h1>
 <hr />
 <div class="col-sm-10">
-    <form>
+    <form id="exercise">
         <div class="form-group">
             <div class="pull-left col-sm-5">
-                <label for="local_language">English:</label>
-                <h3 id="local_language">I'm going to the grocery store</h3>
-                <label for="local_language">Nederlands:</label>
-                <h3 id="local_language">Ik ga naar de s.p....r.t</h3>
+                <label for="native_language">{{ nativeName }}:</label>
+                <h3 id="questionWord">{{ question }}</h3>
+                <label for="trans_language">{{ transName }}:</label>
+                <h3 id="questionTrans">{{ currentWord.native}}</h3>
             </div>
             <div class="pull-right col-sm-5">
-                <label for="translation">Translation:</label>
+                <label for="translation">Answer:</label>
                 <div class="form-inline">
-                    <input id="translation" type="text" class="form-control form-control-lg form-control mr-sm-3" placeholder="Enter translation here" autocomplete="off" />
-                    <button type="submit" class="btn btn-success btn-lg">Proceed</button>
+                    <input id="answer" type="text" class="form-control form-control-lg form-control mr-sm-3" placeholder="Enter translation here" autocomplete="off" />
+                    <button id="enterAnswer" type="submit" class="btn btn-success btn-lg">Proceed</button>
                 </div>
             </div>
             <br class="clear" />
         </div>
     </form>
+
+    <p id="correctAnswer"></p>
 
     <div class="container-fluid action_buttons">
         <div class="row">

@@ -1,7 +1,12 @@
     import { Component, OnInit } from '@angular/core';
 import { LessonService } from '../lesson.service';
+<<<<<<< HEAD
 import { ActivatedRoute } from '@angular/router';
 import { HilangApiService } from '../hilang-api.service';
+=======
+import { LessonDetailsService } from '../lesson-details.service';
+import { ActivatedRoute, Router } from '@angular/router';
+>>>>>>> upstream/master
 
 @Component({
   selector: 'app-create-word-list',
@@ -13,9 +18,11 @@ export class CreateWordListComponent implements OnInit {
 	number = 5;
 	data;
 	private course_id: number;
+    details;
     private types;
 
-    constructor(private _lesson: LessonService, private _activatedRoute: ActivatedRoute, private _api: HilangApiService) {
+    constructor(private _lesson: LessonService, private _activatedRoute: ActivatedRoute, private _api: HilangApiService, private lesDetService: LessonDetailsService, private router: Router) {
+    	private lesson_id: number;
     }
 
     ngOnInit() {
@@ -25,6 +32,33 @@ export class CreateWordListComponent implements OnInit {
         this._api.call('http://localhost:8000/api/lessontypes', {}).subscribe(data => {
             this.types = data;
         });
+
+    	this.details = this.lesDetService.getDetails();
+
+    	this.lesDetService.emptyDetails();
+    	this.addExistingData(this.details);
+    }
+
+    addExistingData(details) {
+    	if(details['id'] != "") {
+    		this.lesson_id = details['id'];
+    		(<HTMLInputElement>document.getElementById('inputTitle')).value = details['name'];
+    		(<HTMLInputElement>document.getElementById('inputCategory')).value = details['category'];
+    		(<HTMLInputElement>document.getElementById('inputDescription')).value = details['description'];
+    		(<HTMLInputElement>document.getElementById('inputGrammar')).value = details['grammar'];
+    		let vocabulary = details['vocabulary'];
+    		console.log(vocabulary);
+    		for(let i=5; i<vocabulary.length; i+=5) {
+    			this.createRows();
+    		}
+    		let table = document.getElementById("input_field") as HTMLTableElement
+    		let rowLength = table.rows.length
+    		for(let i = 0; i < vocabulary.length; i++){
+				let cells = table.rows.item(i+1).cells;
+				(<HTMLInputElement>cells.item(1).children[0]).value = vocabulary[i].native;
+				(<HTMLInputElement>cells.item(2).children[0]).value = vocabulary[i].translation;
+			}
+    	}
     }
 
     addOnClick(){
@@ -66,8 +100,7 @@ export class CreateWordListComponent implements OnInit {
     	this.data = {};
 		var table = document.getElementById("input_field") as HTMLTableElement;
 		var rowLength = table.rows.length;
-
-		var lessonTitle = (<HTMLInputElement>document.getElementById("inputTitle")).value;
+        var lessonTitle = (<HTMLInputElement>document.getElementById("inputTitle")).value;
 		this.data['title'] = lessonTitle;
 		var lessonCategory = (<HTMLInputElement>document.getElementById("inputCategory")).value;
 		this.data['category'] = lessonCategory;
@@ -97,6 +130,7 @@ export class CreateWordListComponent implements OnInit {
                 console.log(response);
                 if (response['length'] > 0)
                     console.log("DEZE DOET HET, JE MAG DE GEBRUIKER DOORSTUREN");
+                    this._router.navigate(['user/course/' + this.course_id]);
             });
         } else {
             alert("Vul alle velden in!");
