@@ -55,15 +55,15 @@ export class CourseService {
   }
 
   getSubCourses(u_id: number) {
-  	return this._api.call('http://localhost:8000/api/user/subscriptions/' + u_id + '/', {});
+    return this._api.call('http://localhost:8000/api/user/subscriptions/' + u_id + '/', {});
   }
 
   getFavCourses(u_id: number) {
-  	return this._api.call('http://localhost:8000/api/user/favorites/' + u_id + '/', {});
+    return this._api.call('http://localhost:8000/api/user/favorites/' + u_id + '/', {});
   }
 
   getUserCourses(u_id: number) {
-  	return this._api.call('http://localhost:8000/api/courses/' + u_id + '/', {});
+    return this._api.call('http://localhost:8000/api/courses/' + u_id + '/', {});
   }
 
   editCourseDesc(courseData) {

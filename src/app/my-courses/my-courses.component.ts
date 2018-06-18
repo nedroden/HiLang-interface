@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import { CourseService } from '../course.service';
 import { CookieService } from '../cookie.service';
 
@@ -34,7 +35,7 @@ export class MyCoursesComponent implements OnInit {
     }
     //---------------------------
     getSubCourses() {
-        //replace 1 with user_id
+        this.subCourses = [];
         this._courses.getSubCourses(this._cookies.getValue()['user_id']).subscribe(
             data => {
                 if(data['length'] != 0) {
@@ -46,6 +47,7 @@ export class MyCoursesComponent implements OnInit {
     }
 
     getFavCourses() {
+        this.favCourses = [];
         this._courses.getFavCourses(this._cookies.getValue()['user_id']).subscribe(
             data => {
                 if(data['length'] != 0) {
@@ -57,6 +59,7 @@ export class MyCoursesComponent implements OnInit {
     }
 
     getMyCourses() {
+        this.myCourses = [];
         this._courses.getUserCourses(this._cookies.getValue()['user_id']).subscribe( 
             data => {
                 if(data['length'] != 0) {
@@ -70,7 +73,9 @@ export class MyCoursesComponent implements OnInit {
     handleCourseData(data, type) {
         for(let i=0; i<data['length']; i++) {
             this._courses.getLangDetails(data[i].fields['trans_lang']).subscribe(
-                languageData => {this.handleLangDet(languageData,data, type)},
+                languageData => {
+                    this.handleLangDet(languageData,data, type);
+                },
                 err => console.log(err)
             );
         }
@@ -138,7 +143,7 @@ export class MyCoursesComponent implements OnInit {
                 }
             }
             if(unique) {
-                this.myCourses.push( {
+                this.myCourses.push({
                     id: langDet[0].pk,
                     name: langDet[0].fields['name'],
                     flag: langDet[0].fields['flag'],
@@ -150,9 +155,6 @@ export class MyCoursesComponent implements OnInit {
 
 
     ngOnInit() {
-        this.subCourses = [];
-        this.favCourses = [];
-        this.myCourses = [];
         this.getSubCourses();
         this.getFavCourses();
         this.getMyCourses();
@@ -164,17 +166,20 @@ export class MyCoursesComponent implements OnInit {
     }
 
     showSubCourses() {
+        this.getSubCourses();
         this.hideAll();
         document.getElementById('subCourses').style.display = 'block';
     }
 
     showUserCourses() {
+        this.getMyCourses();
         this.hideAll();
         document.getElementById('myCourses').style.display = 'block';
         document.getElementById('addCourse').style.display = 'block';
     }
 
     showFavCourses() {
+        this.getFavCourses();
         this.hideAll();
         document.getElementById('favCourses').style.display = 'block';
     }
@@ -193,7 +198,9 @@ export class MyCoursesComponent implements OnInit {
         courseInput.onkeypress = function(event) {
             if(event.keyCode === 13) {
                 let newCourse = {id: this.currentId, name: courseInput.value, author: ""}
-                this._courses.createCourse({name: courseInput.value}).subscribe();
+                this._courses.createCourse({name: courseInput.value}).subscribe(
+                            this.showSubCourses()
+                    );
                 courseInput.value = "";
                 courseInput.style.display = 'none';
             }
