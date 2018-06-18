@@ -41,7 +41,7 @@ export class LandingpageComponent implements OnInit {
 
         if (email['value'] != '' && name['value'] != '' && password['value'] != '' && password['value'] == confirmPassword['value']) {
             let params = {
-                name: email['name'],
+                name: name['value'],
                 email: email['value'],
             	password: password['value']
             };
@@ -52,6 +52,8 @@ export class LandingpageComponent implements OnInit {
                     this._cookie.createCookie(data);
                 }
             });
+        } else {
+            alert('Vul alle velden in!');
         }
     }
 }
