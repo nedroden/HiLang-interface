@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+    import { Component, OnInit } from '@angular/core';
 import { LessonService } from '../lesson.service';
 import { ActivatedRoute } from '@angular/router';
+import { HilangApiService } from '../hilang-api.service';
 
 @Component({
   selector: 'app-create-word-list',
@@ -12,14 +13,18 @@ export class CreateWordListComponent implements OnInit {
 	number = 5;
 	data;
 	private course_id: number;
+    private types;
 
-    constructor(private _lesson: LessonService, private _activatedRoute: ActivatedRoute) { 
+    constructor(private _lesson: LessonService, private _activatedRoute: ActivatedRoute, private _api: HilangApiService) {
     }
 
     ngOnInit() {
-    	this._activatedRoute.params.subscribe(params => this.course_id = params.id); 
+    	this._activatedRoute.params.subscribe(params => this.course_id = params.id);
 	   	this.addOnClick();
     	this.createRows();
+        this._api.call('http://localhost:8000/api/lessontypes', {}).subscribe(data => {
+            this.types = data;
+        });
     }
 
     addOnClick(){
@@ -31,8 +36,8 @@ export class CreateWordListComponent implements OnInit {
     }
 
 	createRows(){
-		for(let x = 0; x < 5; x ++){			
-			
+		for(let x = 0; x < 5; x ++){
+
 			var table = document.getElementById("input_field") as HTMLTableElement;
 			var i = table.getElementsByTagName("tr").length;
 			var row = table.insertRow(i);
@@ -48,7 +53,7 @@ export class CreateWordListComponent implements OnInit {
 			var cell2_input = document.createElement("input");
 			cell2_input.classList.add("form-control");
 			cell2.appendChild(cell2_input);
-			
+
 			var cell3 = row.insertCell(2);
 			var cell3_input = document.createElement("input");
 			cell3_input.classList.add("form-control");
@@ -58,33 +63,43 @@ export class CreateWordListComponent implements OnInit {
 	}
 
 	handleData(){
-    	this.data = {}
-		var table = document.getElementById("input_field") as HTMLTableElement
-		var rowLength = table.rows.length
-		
-		var lessonTitle = (<HTMLInputElement>document.getElementById("inputTitle")).value
-		this.data['title'] = lessonTitle
-		var lessonCategory = (<HTMLInputElement>document.getElementById("inputCategory")).value
-		this.data['category'] = lessonCategory
-		var lessonDescription = (<HTMLInputElement>document.getElementById("inputDescription")).value
-		this.data['description'] = lessonDescription
-		var lessonGrammar = (<HTMLInputElement>document.getElementById("inputGrammar")).value
-		this.data['grammar'] = lessonGrammar
+    	this.data = {};
+		var table = document.getElementById("input_field") as HTMLTableElement;
+		var rowLength = table.rows.length;
 
-		this.data['course_id'] = this.course_id
-		
-		this.data['words'] = {}
-
+		var lessonTitle = (<HTMLInputElement>document.getElementById("inputTitle")).value;
+		this.data['title'] = lessonTitle;
+		var lessonCategory = (<HTMLInputElement>document.getElementById("inputCategory")).value;
+		this.data['category'] = lessonCategory;
+		var lessonDescription = (<HTMLInputElement>document.getElementById("inputDescription")).value;
+		this.data['description'] = lessonDescription;
+		var lessonGrammar = (<HTMLInputElement>document.getElementById("inputGrammar")).value;
+		this.data['grammar'] = lessonGrammar;
+		this.data['course_id'] = this.course_id;
+        this.data['lessonType'] = (<HTMLSelectElement>document.getElementById("inputExerciseType")).value;
+		this.data['words'] = {};
 
 		for(let i = 1; i < rowLength; i++){
-			var cells = table.rows.item(i).cells
-			var word1 = (<HTMLInputElement>cells.item(1).children[0]).value
-			var word2 = (<HTMLInputElement>cells.item(2).children[0]).value
+			var cells = table.rows.item(i).cells;
+			var word1 = (<HTMLInputElement>cells.item(1).children[0]).value;
+			var word2 = (<HTMLInputElement>cells.item(2).children[0]).value;
 			if(word1 != undefined && word2 != undefined && word1 != "" && word2 != ""){
-				this.data.words[word1] = word2
+				this.data.words[word1] = word2;
 			}
 		}
-		console.log(this.data)
-		this._lesson.postLessonData(this.data, this.course_id).subscribe(response=> console.log(response));
+        if (this.data['title'] != "" &&
+            this.data['category'] != "" &&
+            this.data['description'] != "" &&
+            this.data['course_id'] != "" &&
+            this.data['lessonType'] != "" &&
+            this.data['words'] != "") {
+    		this._lesson.postLessonData(this.data, this.course_id).subscribe(response => {
+                console.log(response);
+                if (response['length'] > 0)
+                    console.log("DEZE DOET HET, JE MAG DE GEBRUIKER DOORSTUREN");
+            });
+        } else {
+            alert("Vul alle velden in!");
+        }
 	}
 }
