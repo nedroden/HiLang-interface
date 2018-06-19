@@ -20,16 +20,16 @@ export class FlashcardsComponent extends Exercise implements OnInit {
                 router: Router,
                 exerciseService: ExerciseService) {
         super(exerciseService, router);
-        this.lesson = new Lesson;
     }
 
     ngOnInit() {
+        this.lesson = new Lesson;
         this._activatedRoute.params.subscribe(params => this.id = params.id);
 
         this._lessonService.getLesson(this.id).subscribe(lesson => {
-            this.lesson = lesson[0];
+            this.lesson = lesson;
             this.exerciseService.setVocabulary(this.lesson.vocabulary);
-            this.initialize(lesson[0]);
+            this.initialize(lesson);
         });
 
         document.getElementById('enterTranslation').addEventListener('click', e => this.handleInput(e, this));

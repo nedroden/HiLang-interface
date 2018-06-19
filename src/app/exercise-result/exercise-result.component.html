@@ -9,7 +9,7 @@
                     <h4><label>List: {{ result.lesson.name }}</label></h4>
 					<h4><label>Time: {{ result.lessonTime }} seconds</label></h4>
 					<h4><label>Method: {{ result.method }}</label></h4>
-					<h4><label>Language: NL - ENG</label></h4>
+					<h4><label>Language: {{ result.lesson.source_language }} - {{ result.lesson.target_language }}</label></h4>
                 </div>
 
                 <div class="form-group">
@@ -17,26 +17,16 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th scope="col">NL</th>
-									<th scope="col">ENG</th>
-									<th scope="col">Your Answer</th>
+									<th scope="col">{{ result.lesson.source_language }}</th>
+									<th scope="col">{{ result.lesson.target_language }}</th>
+									<th scope="col">Correct at first attempt</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="table-success">
-									<td>hallo</td>
-									<td>hello</td>
-									<td>hello</td>
-								</tr>
-								<tr class="table-danger">
-									<td>hond</td>
-									<td>dog</td>
-									<td>cat</td>
-								</tr>
-								<tr class="table-success">
-									<td>huis</td>
-									<td>house</td>
-									<td>house</td>
+								<tr *ngFor="let word of result.vocabulary" class="table-{{ word.roundCorrect === 0 ? 'success' : 'danger' }}">
+									<td>{{ word.native }}</td>
+									<td>{{ word.translation }}</td>
+									<td><i class="fa fa-{{ word.roundCorrect === 0 ? 'check' : 'times' }}"></i></td>
 								</tr>
 							</tbody>
 						</table>					

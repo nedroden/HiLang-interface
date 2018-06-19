@@ -121,7 +121,14 @@ export abstract class Exercise {
     }
 
     protected calculateGrade(): void {
-        this.exerciseService.setGrade(8.0);
+        let correctInFirstAttempt = 0;
+        let pointsPerWord = 9 / this.exerciseService.getVocabulary().length;
+
+        for (let word of this.exerciseService.getResults().vocabulary)
+            if (word.roundCorrect === 0)
+                correctInFirstAttempt++;
+
+        this.exerciseService.setGrade(1 + pointsPerWord * correctInFirstAttempt);
     }
 
     protected exit(): void {
