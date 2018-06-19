@@ -117,7 +117,7 @@ const appRoutes: Routes = [
                 component: AccountsettingsComponent
             },
             {
-                path: "exercise-result",
+                path: "exercisecompleted",
                 component: ExerciseResultComponent
             },
             {

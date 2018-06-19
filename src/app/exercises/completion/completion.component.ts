@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../../structures/lesson';
 import { LessonService } from '../../lesson.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Exercise } from '../../exercise';
+import { ExerciseService } from '../../exercise.service';
 
 @Component({
   selector: 'app-completion',
@@ -10,17 +11,16 @@ import { Exercise } from '../../exercise';
   styleUrls: ['./completion.component.css']
 })
 export class CompletionComponent extends Exercise implements OnInit {
-	id: number;
-	lesson: Lesson;
-	correctAnswer: string;
-	question: string;
-	nativeName: string;
-	transName: string;
+    id: number;
+    lesson: Lesson;
+    correctAnswer: string;
+    question: string;
+    nativeName: string;
+    transName: string;
 
-  	constructor(private lessonService: LessonService, private activatedRoute: ActivatedRoute) {
-  		super();
+  	constructor(private lessonService: LessonService, private activatedRoute: ActivatedRoute, router: Router, exerciseService: ExerciseService) {
+  		super(exerciseService, router);
   		this.lesson = new Lesson;
-
   	}
 	
   	ngOnInit() {
@@ -29,7 +29,7 @@ export class CompletionComponent extends Exercise implements OnInit {
   		this.lessonService.getLesson(this.id).subscribe(lesson => {
   			this.lesson = lesson[0];
   			this.vocabulary = this.lesson['vocabulary'];
-  			this.initialize();
+  			this.initialize(this.lesson);
   			this.makeIncomplete(this.currentWord);
   			this.lessonService.getLessonLanguages(this.lesson['course_id']).subscribe(response => {
   				this.nativeName = response['native'];

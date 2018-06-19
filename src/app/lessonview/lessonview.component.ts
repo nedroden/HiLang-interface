@@ -53,7 +53,7 @@ export class LessonviewComponent implements OnInit {
         this.courseService.getLesson(this.id).subscribe(response => {
             let subVoc = [];
             let counter = 0;
-            for(let entry of response[0]['vocabulary']) {
+            for(let entry of response['vocabulary']) {
                 subVoc.push({
                     index: ++counter,
                     native: entry['native'],
