@@ -27,6 +27,7 @@ import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component'
 import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
 import { CompletionComponent } from './exercises/completion/completion.component';
 import { PreExerciseComponent } from './pre-exercise/pre-exercise.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { CourseService } from './course.service';
 import { LoginService } from './login.service';
@@ -45,7 +46,7 @@ const appRoutes: Routes = [
     },
     {
         path: 'home',
-        component: LandingpageComponent,
+        component: LandingpageComponent
     },
     {
         path: 'login',
@@ -68,9 +69,9 @@ const appRoutes: Routes = [
                     {
                         path: 'completion',
                         component: CompletionComponent
-                    }
+                    },  
                     {
-                        path: 'flashcards',
+                        path: 'flashcard',
                         component: FlashcardsComponent
                     },
                     {
@@ -122,7 +123,12 @@ const appRoutes: Routes = [
             {
                 path: "lesson/:lesson_counter/:author_id/:course_id/:lesson_id/pre-exercise",
                 component: PreExerciseComponent
-            }
+            },
+            {
+                path: '**',
+                component: PageNotFoundComponent
+            },
+
         ]
     },
 ];
@@ -153,7 +159,8 @@ const appRoutes: Routes = [
         ExerciseResultComponent,
         DialogComponent,
         CompletionComponent,
-        PreExerciseComponent
+        PreExerciseComponent,
+        PageNotFoundComponent
     ],
     entryComponents: [
         HeaderComponent,
@@ -173,7 +180,7 @@ const appRoutes: Routes = [
         RouterModule.forRoot(
             appRoutes,
             {
-                enableTracing: false
+                enableTracing: true
             }
         )
     ],
