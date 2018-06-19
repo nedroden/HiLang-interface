@@ -12,12 +12,8 @@ export class LandingpageComponent implements OnInit {
 	languages;
 	constructor(private _course: CourseService, private _api: HilangApiService, private _cookie: CookieService) {}
 	ngOnInit() {
-		this.languages = [
-			{
-				name: "English",
-				flag: "england"
-			}
-		];
+		this.languages = [];
+
 		this._course.getLanguages().subscribe(response => {
 			let subLanguages = [];
 			for(let language of <Array<any>>response) {
