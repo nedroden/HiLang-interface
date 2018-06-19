@@ -10,19 +10,23 @@ import { LoginComponent } from './login/login.component';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { GrammarComponent } from './exercises/grammar/grammar.component';
 import { FlashcardsComponent } from './exercises/flashcards/flashcards.component';
+import { SentenceStructureComponent } from './exercises/sentencestructure/sentencestructure.component';
+import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoice.component';
+
 import { LessonviewComponent } from './lessonview/lessonview.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowseComponent } from './browse/browse.component';
 import { CreateWordListComponent} from './create-word-list/create-word-list.component';
-
-import { SentenceStructureComponent } from './exercises/sentencestructure/sentencestructure.component';
-import { MultipleChoiceComponent } from './exercises/multiplechoice/multiplechoice.component';
 import { FooterComponent } from './footer/footer.component';
-
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { DialogComponent } from './dialog/dialog.component';
-
 import { HttpClientModule } from '@angular/common/http';
+import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
+import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
+import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component';
+import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
+import { CompletionComponent } from './exercises/completion/completion.component';
+import { PreExerciseComponent } from './pre-exercise/pre-exercise.component';
 
 import { CourseService } from './course.service';
 import { LoginService } from './login.service';
@@ -32,12 +36,6 @@ import { CookieService } from './cookie.service';
 import { HilangApiService } from './hilang-api.service';
 import { LessonDetailsService } from './lesson-details.service';
 
-import { UserwelcomeComponent } from './userwelcome/userwelcome.component';
-import { AccountsettingsComponent } from './accountsettings/accountsettings.component';
-import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component';
-
-import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
-import { CompletionComponent } from './exercises/completion/completion.component';
 
 const appRoutes: Routes = [
     {
@@ -68,25 +66,25 @@ const appRoutes: Routes = [
                 path: 'lesson/:id',
                 children: [
                     {
-                        path: '',
-                        component: LessonviewComponent,
-                    },
+                        path: 'completion',
+                        component: CompletionComponent
+                    }
                     {
                         path: 'flashcards',
                         component: FlashcardsComponent
-                    },
-                    {
-                        path: 'grammar',
-                        component: GrammarComponent
                     },
                     {
                         path: 'mc',
                         component: MultipleChoiceComponent
                     },
                     {
-                        path: 'completion',
-                        component: CompletionComponent
-                    }
+                        path: 'grammar',
+                        component: GrammarComponent
+                    },
+                    {
+                        path: 'sentence',
+                        component: SentenceStructureComponent
+                    },
                 ]
             },
             {
@@ -120,6 +118,10 @@ const appRoutes: Routes = [
             {
                 path: "exercise-result",
                 component: ExerciseResultComponent
+            },
+            {
+                path: "lesson/:lesson_counter/:author_id/:course_id/:lesson_id/pre-exercise",
+                component: PreExerciseComponent
             }
         ]
     },
@@ -150,7 +152,8 @@ const appRoutes: Routes = [
         UserinfoblockComponent,
         ExerciseResultComponent,
         DialogComponent,
-        CompletionComponent
+        CompletionComponent,
+        PreExerciseComponent
     ],
     entryComponents: [
         HeaderComponent,
