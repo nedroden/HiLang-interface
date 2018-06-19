@@ -21,6 +21,7 @@ export class CourseDetailsComponent implements OnInit {
     courseDesc;
     courseImg;
     lessons;
+    languages;
     editable = false;
     course_id: number;
 
@@ -37,8 +38,10 @@ export class CourseDetailsComponent implements OnInit {
 	ngOnInit() {
         this.subCourses = [];
         this.lessons = [];
+        this.languages = [];
         let ulrParts = (window.location.href).split("/");
 	    this.searchCourse(parseInt(ulrParts[ulrParts.length - 1]));
+        this.getLanguages();
 	}
 
 	searchCourse(id) {
@@ -67,15 +70,25 @@ export class CourseDetailsComponent implements OnInit {
                     document.getElementById('UnSubscribeBtn').style.display = "none";
                 }
             }
-            //replace 1 with logged in user id
             if(this.courseAuthorId === this._cookies.getValue()['user_id'] && document.getElementById('addLesson') != null) {
                 document.getElementById('addLesson').style.display="block";
+                document.getElementById('course_edit').style.display="block";
                 this.editable = true;
             }
-            
             this.getLessons();
         });
 	}
+
+    getLanguages(){
+        this.courseService.getLanguages().subscribe(response => {
+            for(let language of response as Array<any>) {
+                this.languages.push({
+                    id: language.pk,
+                    name: language.fields['name']
+                })
+            }
+        });
+    }
 
     edit() {
         if(this.editable) {
@@ -149,5 +162,18 @@ export class CourseDetailsComponent implements OnInit {
         this.courseService.unSubscribe(this._cookies.getValue()['user_id'], courseId).subscribe();
         document.getElementById('subscribeBtn').style.display = "block";
         document.getElementById('UnSubscribeBtn').style.display = "none";
+    }
+
+    selectLang() {
+        let selName =  (<HTMLInputElement>document.getElementById('select_lang')).value;
+        for(let language of this.languages) {
+            if(language.name === selName) {
+                let langData = {
+                    id: this.courseId,
+                    lang_id: language.id
+                }
+                this.courseService.editCourseLang(langData).subscribe();
+            }
+        }
     }
 }

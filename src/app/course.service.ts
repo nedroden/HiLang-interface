@@ -70,6 +70,10 @@ export class CourseService {
   	return this._api.call('http://localhost:8000/api/course/' + courseData['id'] + '/edit_desc', courseData);
   }
 
+  editCourseLang(courseData) {
+    return this._api.call('http://localhost:8000/api/course/' + courseData['id'] + '/edit_lang', courseData);
+  }
+
   editLessonDesc(lessonData) {
   	return this._api.call('http://localhost:8000/api/lesson/' + lessonData['id'] + '/edit_desc', lessonData);
   }

@@ -37,7 +37,7 @@ export class LandingpageComponent implements OnInit {
 
         if (email['value'] != '' && name['value'] != '' && password['value'] != '' && password['value'] == confirmPassword['value']) {
             let params = {
-                name: email['name'],
+                name: name['value'],
                 email: email['value'],
             	password: password['value']
             };
