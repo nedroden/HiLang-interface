@@ -92,7 +92,7 @@ export class CreateWordListComponent implements OnInit {
 		}
 	}
 
-	handleData(){
+	handleData() {
     	this.data = {};
 		var table = document.getElementById("input_field") as HTMLTableElement;
 		var rowLength = table.rows.length;
@@ -125,7 +125,6 @@ export class CreateWordListComponent implements OnInit {
     		this._lesson.postLessonData(this.data, this.course_id).subscribe(response => {
                 console.log(response);
                 if (response['length'] > 0)
-                    console.log("DEZE DOET HET, JE MAG DE GEBRUIKER DOORSTUREN");
                     this.router.navigate(['user/course/' + this.course_id]);
             });
         } else {
