@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Lesson } from '../../structures/lesson';
 import { LessonService } from '../../lesson.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Exercise } from '../../exercise';
+import { ExerciseService } from '../../exercise.service';
 
 @Component({
   selector: 'app-flashcards',
@@ -15,18 +16,20 @@ export class FlashcardsComponent extends Exercise implements OnInit {
     lesson: Lesson;
 
     constructor(private _lessonService: LessonService,
-                private _activatedRoute: ActivatedRoute) {
-        super();
-        this.lesson = new Lesson;
+                private _activatedRoute: ActivatedRoute,
+                router: Router,
+                exerciseService: ExerciseService) {
+        super(exerciseService, router);
     }
 
     ngOnInit() {
+        this.lesson = new Lesson;
         this._activatedRoute.params.subscribe(params => this.id = params.id);
 
         this._lessonService.getLesson(this.id).subscribe(lesson => {
-            this.lesson = lesson[0];
-            this.vocabulary = this.lesson.vocabulary;
-            this.initialize();
+            this.lesson = lesson;
+            this.exerciseService.setVocabulary(this.lesson.vocabulary);
+            this.initialize(lesson);
         });
 
         document.getElementById('enterTranslation').addEventListener('click', e => this.handleInput(e, this));
