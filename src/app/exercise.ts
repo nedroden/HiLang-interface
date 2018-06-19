@@ -1,5 +1,7 @@
 import { Flashcard } from './structures/flashcard';
 import { ExerciseService } from './exercise.service';
+import { Router } from '@angular/router';
+import { Lesson } from './structures/lesson';
 
 export abstract class Exercise {
 
@@ -20,8 +22,13 @@ export abstract class Exercise {
     protected timeInSeconds: number;
     protected timer: number;
 
-    constructor(protected exerciseService: ExerciseService) {
+    protected round: number;
+
+    constructor(protected exerciseService: ExerciseService,
+                protected router: Router) {
         this.exerciseService.setVocabulary([]);
+        this.exerciseService.clearResults();
+
         this.queue = [];
         this.correctWords = [];
         this.incorrectWords = [];
@@ -30,14 +37,17 @@ export abstract class Exercise {
         this.progress = 0;
 
         this.timeInSeconds = 0;
+        this.round = 0;
     }
 
-    protected initialize(): void {
+    protected initialize(lesson: Lesson): void {
         for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random()))
             this.queue.push(word);
 
         this.currentWord = this.queue[0];
         this.startTimer();
+
+        this.exerciseService.setLesson(lesson);
     }
 
     protected hasNext(): boolean {
@@ -66,6 +76,11 @@ export abstract class Exercise {
         if (this.queue.length === 0)
             return false;
 
+        if (isCorrect) {
+            this.currentWord.roundCorrect = this.round;
+            this.exerciseService.addCorrectWord(this.currentWord);
+        }
+
         (isCorrect ? this.correctWords : this.incorrectWords).push(this.queue[0]);
         this.queue.shift();
 
@@ -81,6 +96,8 @@ export abstract class Exercise {
 
         if (this.queue.length > 0)
             this.next();
+
+        this.round++;
     }
 
     protected getTimeout(isCorrect: boolean): number {
@@ -103,7 +120,16 @@ export abstract class Exercise {
         this.timeInSeconds = 0;
     }
 
+    protected calculateGrade(): void {
+        this.exerciseService.setGrade(8.0);
+    }
+
     protected exit(): void {
-        alert('Exercise completed!');
+        this.calculateGrade();
+        this.exerciseService.setLessonTime(this.timeInSeconds);
+        this.exerciseService.setExerciseMethod('Flashcards');
+
+        this.stopTimer();
+        this.router.navigate(['/user/exercisecompleted']);
     }
 }

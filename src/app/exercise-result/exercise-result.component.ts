@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExerciseService } from '../exercise.service';
+import { ExerciseResult } from '../structures/exerciseresult';
 
 @Component({
   selector: 'app-exercise-result',
@@ -8,9 +9,13 @@ import { ExerciseService } from '../exercise.service';
 })
 export class ExerciseResultComponent implements OnInit {
 
-    constructor(private _exerciseService: ExerciseService) { }
+    result: ExerciseResult;
+
+    constructor(private _exerciseService: ExerciseService) {
+        this.result = this._exerciseService.getResults();
+    }
 
     ngOnInit() {
-        console.log(this._exerciseService.getVocabulary());
+        
     }
 }

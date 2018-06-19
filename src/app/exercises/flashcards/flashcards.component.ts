@@ -17,9 +17,9 @@ export class FlashcardsComponent extends Exercise implements OnInit {
 
     constructor(private _lessonService: LessonService,
                 private _activatedRoute: ActivatedRoute,
-                private _router: Router,
+                router: Router,
                 exerciseService: ExerciseService) {
-        super(exerciseService);
+        super(exerciseService, router);
         this.lesson = new Lesson;
     }
 
@@ -29,7 +29,7 @@ export class FlashcardsComponent extends Exercise implements OnInit {
         this._lessonService.getLesson(this.id).subscribe(lesson => {
             this.lesson = lesson[0];
             this.exerciseService.setVocabulary(this.lesson.vocabulary);
-            this.initialize();
+            this.initialize(lesson[0]);
         });
 
         document.getElementById('enterTranslation').addEventListener('click', e => this.handleInput(e, this));
@@ -56,9 +56,5 @@ export class FlashcardsComponent extends Exercise implements OnInit {
             exercise.next();
             document.getElementById('correct_answer').innerHTML = '';
         }, exercise.getTimeout(isCorrect));
-    }
-
-    protected exit(): void {
-        this._router.navigate(['/user/exercisecompleted']);
     }
 }
