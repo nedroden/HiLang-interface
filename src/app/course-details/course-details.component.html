@@ -16,9 +16,14 @@
 				<hr class="my-4" />
 
 				<p id="course_desc"> {{ courseDesc }}</p>
-				<button id="course_edit" class="btn btn-primary" (click)="edit()">Edit</button>
+				<button id="course_edit" class="btn btn-primary" style="display: none" (click)="edit()">Edit</button>
 				<textarea id="course_desc_edit" type='text' style="display: none"></textarea>
 				<button id="saveDesc" type="button" class="btn btn-primary" style="display: none" (click)="saveEdit()">Save</button>
+				
+				<select id="select_lang" class="btn btn-primary" style="margin-top: 5px" (click)="selectLang()">
+					<option selected disabled>Select Language</option>
+					<option *ngFor="let language of languages">{{ language.name }}</option>
+				</select>
 			</div>
 
 			<div class="card-footer">
@@ -55,9 +60,9 @@
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-light">Report error</button>
             <button type="button" class="btn btn-light">Rate course</button>
-            <button id="subscribeBtn" style="display: block" type="button" class="btn btn-light" (click)="subscribe()">Subscribe</button>
-            <button id="UnSubscribeBtn" style="display: block" type="button" class="btn btn-danger" (click)="unSubscribe()">Unsubscribe</button>
-            <button id="addFavorite" style="display: block" type="button" class="btn btn-light" (click)="addFavorite()">Favorite</button>
+            <button id="subscribeBtn" style="display: none" type="button" class="btn btn-light" (click)="subscribe()">Subscribe</button>
+            <button id="UnSubscribeBtn" style="display: none" type="button" class="btn btn-danger" (click)="unSubscribe()">Unsubscribe</button>
+            <button id="addFavorite" style="display: none" type="button" class="btn btn-light" (click)="addFavorite()">Favorite</button>
             <button id="delFavorite" style="display: none" type="button" class="btn btn-light" (click)="delFavorite()">Unfavorite</button>
         </div>
 

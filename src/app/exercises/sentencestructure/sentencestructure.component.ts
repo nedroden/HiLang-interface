@@ -44,7 +44,6 @@ export class SentenceStructureComponent implements OnInit extends Exercise {
             }
             this.questions.push(newQuestion)
         }
-
         this.questions = this.shuffle(this.questions);
         this.nextTurn();
     });

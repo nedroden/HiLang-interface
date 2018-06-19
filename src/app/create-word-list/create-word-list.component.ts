@@ -20,7 +20,6 @@ export class CreateWordListComponent implements OnInit {
     private listCounter = 0;
 
     constructor(private _lesson: LessonService, private _activatedRoute: ActivatedRoute, private _api: HilangApiService, private lesDetService: LessonDetailsService, private router: Router) {
-        this.lesson_id = 0;
     }
 
     ngOnInit() {

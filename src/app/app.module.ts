@@ -38,6 +38,7 @@ import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component'
 
 import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
 import { CompletionComponent } from './exercises/completion/completion.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
     {
@@ -47,7 +48,7 @@ const appRoutes: Routes = [
     },
     {
         path: 'home',
-        component: LandingpageComponent,
+        component: LandingpageComponent
     },
     {
         path: 'login',
@@ -122,9 +123,13 @@ const appRoutes: Routes = [
                 component: AccountsettingsComponent
             },
             {
-                path: "exercise-result",
+                path: "exercisecompleted",
                 component: ExerciseResultComponent
-            }
+            },
+            {
+                path: '**',
+                component: PageNotFoundComponent
+            },
         ]
     },
 ];
@@ -154,7 +159,8 @@ const appRoutes: Routes = [
         UserinfoblockComponent,
         ExerciseResultComponent,
         DialogComponent,
-        CompletionComponent
+        CompletionComponent,
+        PageNotFoundComponent
     ],
     entryComponents: [
         HeaderComponent,
@@ -174,7 +180,7 @@ const appRoutes: Routes = [
         RouterModule.forRoot(
             appRoutes,
             {
-                enableTracing: false
+                enableTracing: true
             }
         )
     ],
