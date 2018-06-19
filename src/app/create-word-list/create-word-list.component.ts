@@ -17,6 +17,7 @@ export class CreateWordListComponent implements OnInit {
     details;
     private types;
     private lesson_id: number;
+    private listCounter = 0;
 
     constructor(private _lesson: LessonService, private _activatedRoute: ActivatedRoute, private _api: HilangApiService, private lesDetService: LessonDetailsService, private router: Router) {
         this.lesson_id = 0;
@@ -34,6 +35,7 @@ export class CreateWordListComponent implements OnInit {
 
     	this.lesDetService.emptyDetails();
     	this.addExistingData(this.details);
+
     }
 
     addExistingData(details) {
@@ -67,67 +69,86 @@ export class CreateWordListComponent implements OnInit {
     }
 
 	createRows(){
-		for(let x = 0; x < 5; x ++){
+        var table = document.getElementById("input_field") as HTMLTableElement;
 
-			var table = document.getElementById("input_field") as HTMLTableElement;
+		for(let x = 0; x < 5; x ++){
 			var i = table.getElementsByTagName("tr").length;
 			var row = table.insertRow(i);
 
-			var cell1 = row.insertCell(0);
 			var newDiv = document.createElement("span");
 			newDiv.classList.add("input-group-text");
 			newDiv.id = "basic-addon1";
 			newDiv.innerHTML = "" + (i -1);
-			cell1.appendChild(newDiv);
+			row.insertCell(0).appendChild(newDiv);
 
-			var cell2 = row.insertCell(1);
 			var cell2_input = document.createElement("input");
 			cell2_input.classList.add("form-control");
-			cell2.appendChild(cell2_input);
+			row.insertCell(1).appendChild(cell2_input);
 
-			var cell3 = row.insertCell(2);
 			var cell3_input = document.createElement("input");
 			cell3_input.classList.add("form-control");
-			cell3.appendChild(cell3_input);
+            cell3_input.id = "answer_" + (this.listCounter + x);
+			row.insertCell(2).appendChild(cell3_input);
 
+            var cell4_input = <HTMLInputElement>document.createElement("input");
+            cell4_input.type = "checkbox";
+            cell4_input.id = "checkSentence_" + (this.listCounter + x);
+            row.insertCell(3).appendChild(cell4_input);
+            this.updateCheckbox(cell3_input, this);
 		}
+
+        this.listCounter += 5;
 	}
 
+    updateCheckbox(element: HTMLInputElement, scope: CreateWordListComponent) {
+        element.addEventListener('input', function() {
+            document.getElementById("checkSentence_" + element.id.split('_')[1])['checked'] = scope.checkSentence(element.value.split(' '));
+        });
+    }
+
+    checkSentence(input: string[]) {
+        let valid = true;
+        if (input.length > 2) {
+            input.forEach(function(item) {
+                if (item.length < 1) valid = false;
+            });
+        } else valid = false;
+        return valid;
+    }
+
 	handleData() {
-    	this.data = {};
 		var table = document.getElementById("input_field") as HTMLTableElement;
 		var rowLength = table.rows.length;
-        var lessonTitle = (<HTMLInputElement>document.getElementById("inputTitle")).value;
-		this.data['title'] = lessonTitle;
-		var lessonCategory = (<HTMLInputElement>document.getElementById("inputCategory")).value;
-		this.data['category'] = lessonCategory;
-		var lessonDescription = (<HTMLInputElement>document.getElementById("inputDescription")).value;
-		this.data['description'] = lessonDescription;
-		var lessonGrammar = (<HTMLInputElement>document.getElementById("inputGrammar")).value;
-		this.data['grammar'] = lessonGrammar;
-		this.data['course_id'] = this.course_id;
-        this.data['lessonType'] = (<HTMLSelectElement>document.getElementById("inputExerciseType")).value;
-		this.data['words'] = {};
+        var data = {
+            'title' : (<HTMLInputElement>document.getElementById("inputTitle")).value,
+            'category' : (<HTMLInputElement>document.getElementById("inputCategory")).value,
+            'description' : (<HTMLInputElement>document.getElementById("inputDescription")).value,
+            'grammar' : (<HTMLInputElement>document.getElementById("inputGrammar")).value,
+            'course_id' : this.course_id,
+            'questions' : [],
+        };
 
 		for(let i = 1; i < rowLength; i++){
 			var cells = table.rows.item(i).cells;
-			var word1 = (<HTMLInputElement>cells.item(1).children[0]).value;
 			var word2 = (<HTMLInputElement>cells.item(2).children[0]).value;
-			if(word1 != undefined && word2 != undefined && word1 != "" && word2 != ""){
-				this.data.words[word1] = word2;
+            var word1 = (<HTMLInputElement>cells.item(1).children[0]).value;
+
+            if (word1 != undefined && word2 != undefined && word1 != "" && word2 != "") {
+                data.questions.push({
+                    'native' : word1,
+                    'translation' : word2,
+                    'sentence': (this.checkSentence(word2.split(' '))) ? <HTMLInputElement>cells.item(3).children[0]['checked'] : false,
+                });
 			}
 		}
-        if (this.data['title'] != "" &&
-            this.data['category'] != "" &&
-            this.data['description'] != "" &&
-            this.data['course_id'] != "" &&
-            this.data['lessonType'] != "" &&
-            this.data['words'] != "") {
-    		this._lesson.postLessonData(this.data, this.course_id).subscribe(response => {
-                console.log(response);
+
+        if (data['title'] != "" &&
+            data['category'] != "" &&
+            data['description'] != "" &&
+            data['questions'].length > 0) {
+    		this._lesson.postLessonData(data, this.course_id).subscribe(response => {
                 if (response['length'] > 0)
-                    console.log("DEZE DOET HET, JE MAG DE GEBRUIKER DOORSTUREN");
-                    //this._router.navigate(['user/course/' + this.course_id]);
+                    this.router.navigate(['/user/course-details/' + this.course_id + '/']);
             });
         } else {
             alert("Vul alle velden in!");
