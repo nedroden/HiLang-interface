@@ -55,7 +55,7 @@ export abstract class Exercise {
     }
 
     protected next(): void {
-        if (this.queue.length > 0)
+        if (this.hasNext())
             this.currentWord = this.queue[0];
         else if (this.incorrectWords.length > 0)
             this.nextRound();
@@ -71,9 +71,8 @@ export abstract class Exercise {
         return input === this.queue[0].translation;
     }
 
-
     protected clear(isCorrect: boolean, input: HTMLInputElement): boolean {
-        if (this.queue.length === 0)
+        if (!this.hasNext())
             return false;
 
         if (isCorrect) {
@@ -85,13 +84,15 @@ export abstract class Exercise {
         this.queue.shift();
 
         this.updateProgress();
-        input.value = '';
+        
+        if (input !== null)
+            input.value = '';
 
         return true;
     }
 
     protected nextRound(): void {
-        this.queue = this.incorrectWords.slice();
+        this.queue = this.incorrectWords.slice().sort((a, b) => 0.5 - Math.random());
         this.incorrectWords = [];
 
         if (this.queue.length > 0)
