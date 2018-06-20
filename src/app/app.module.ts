@@ -87,6 +87,10 @@ const appRoutes: Routes = [
                     {
                         path: 'completion',
                         component: CompletionComponent
+                    },
+                    {
+                        path: 'sentencestructure',
+                        component: SentenceStructureComponent
                     }
                 ]
             },
