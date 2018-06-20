@@ -1,5 +1,11 @@
+import { Exercise } from '../../exercise';
 import { Component, OnInit } from '@angular/core';
-import { SentenceStructureAnswer } from '../../SentenceStructureAnswer';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HilangApiService } from '../../hilang-api.service';
+import { ExerciseService } from '../../exercise.service';
+import { Lesson } from '../../structures/lesson';
+import { LessonService } from '../../lesson.service';
+import { Flashcard } from '../../structures/flashcard';
 
 @Component({
   selector: 'app-sentencestructure',
@@ -7,19 +13,70 @@ import { SentenceStructureAnswer } from '../../SentenceStructureAnswer';
   styleUrls: ['./sentencestructure.component.css']
 })
 
-export class SentenceStructureComponent implements OnInit {
+export class SentenceStructureComponent extends Exercise implements OnInit {
 
-  placedAnswers: SentenceStructureAnswer[];
-  availableAnswers: SentenceStructureAnswer[];
+  private id: number;
+  private placedAnswers = [];
+  private availableAnswers = [];
+  private lesson: Lesson;
 
-  constructor() { }
+  constructor(private _api: HilangApiService,
+              private _router: Router,
+              private _exerciseService : ExerciseService,
+              private _activatedRoute: ActivatedRoute,
+              private _lessonService: LessonService) {
+      super(_exerciseService, _router);
+      this.currentWord = new Flashcard();
+  }
 
   ngOnInit() {
-    this.placedAnswers = [];
-    this.availableAnswers = [{id: 1, value: "I"},
-                             {id: 2, value: "want to"},
-                             {id: 3, value: "ride"},
-                             {id: 4, value: "my bicycle"}];
+    this.lesson = new Lesson;
+    this._activatedRoute.params.subscribe(params => this.id = params.id);
+
+    this._lessonService.getLesson(this.id).subscribe(lesson => {
+        this.lesson = lesson;
+        this.exerciseService.setVocabulary(this.lesson.vocabulary);
+        this.initialize(lesson);
+    });
+
+    document.getElementById('answer').addEventListener('click', e => this.handleInput(e, this));
+  }
+
+  protected initialize(lesson: Lesson): void {
+      this._api.call('http://localhost:8000/api/course/' + '34' + '/get_questions', {}).subscribe(data => {
+          for (let x = 0; x < data['length']; x++) {
+              let question = data[x];
+              let newQuestion = <Flashcard>{
+                                    id: question.pk,
+                                    native: question.fields.native,
+                                    translation: question.fields.translation,
+                                    options: [],
+                                };
+              let options = question.fields.translation.split(' ');
+              for (let key in options) {
+                  newQuestion.options.push({id: key, value: options[key]});
+              }
+              this.queue.push(newQuestion);
+          }
+          this.queue = this.queue.sort((a, b) => 0.5 - Math.random());
+          this.currentWord = this.queue[0];
+          this.placedAnswers = [];
+          this.availableAnswers = this.currentWord.options.sort((a, b) => 0.5 - Math.random());
+          this.startTimer();
+      });
+
+      this.currentWord = new Flashcard();
+      this.exerciseService.setLesson(lesson);
+  }
+
+  private handleInput(event, exercise): void {
+      event.preventDefault();
+
+      let isCorrect = true;
+      exercise.clear(true, null);
+      exercise.next();
+      this.placedAnswers = [];
+      this.availableAnswers = this.currentWord.options.sort((a, b) => 0.5 - Math.random());
   }
 
   toPlaced(index: number): void {

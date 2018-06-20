@@ -8,7 +8,7 @@ export abstract class Exercise {
     protected timeout = 2000;
 
     protected score: number = 0;
-    
+
     protected vocabulary: Flashcard[];
 
     protected queue: Flashcard[];
@@ -85,7 +85,8 @@ export abstract class Exercise {
         this.queue.shift();
 
         this.updateProgress();
-        input.value = '';
+        if (input != null)
+            input.value = '';
 
         return true;
     }
