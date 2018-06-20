@@ -48,6 +48,8 @@ export class LandingpageComponent implements OnInit {
                     this._cookie.createCookie(data);
                 }
             });
+        } else {
+            alert('Vul alle velden in!');
         }
     }
 }

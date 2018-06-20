@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ExerciseService } from '../exercise.service';
+import { ExerciseResult } from '../structures/exerciseresult';
 
 @Component({
   selector: 'app-exercise-result',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExerciseResultComponent implements OnInit {
 
-  constructor() { }
+    result: ExerciseResult;
 
-  ngOnInit() {
-  }
+    constructor(private _exerciseService: ExerciseService, private _route: Router) {
+        this.result = this._exerciseService.getResults();
+        this._exerciseService.clearResults();
 
+        if (this.result.lesson === undefined)
+            this._route.navigate(['/user']);
+    }
+
+    ngOnInit() {
+    }
 }
