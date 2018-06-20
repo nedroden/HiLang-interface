@@ -1,9 +1,11 @@
 import { Exercise } from '../../exercise';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HilangApiService } from '../../hilang-api.service';
-import { ExerciceService } from '../../exercise.service';
-import { SentenceStructureAnswer, SentenceStructureQuestion } from '../../SentenceStructure';
+import { ExerciseService } from '../../exercise.service';
+import { Lesson } from '../../structures/lesson';
+import { LessonService } from '../../lesson.service';
+import { Flashcard } from '../../structures/flashcard';
 
 @Component({
   selector: 'app-sentencestructure',
@@ -11,59 +13,70 @@ import { SentenceStructureAnswer, SentenceStructureQuestion } from '../../Senten
   styleUrls: ['./sentencestructure.component.css']
 })
 
-export class SentenceStructureComponent implements OnInit extends Exercise {
+export class SentenceStructureComponent extends Exercise implements OnInit {
 
-  private questions : SentenceStructureQuestion[];
-  private finishedQuestions: SentenceStructureQuestion[];
-  private currentQuestion: SentenceStructureQuestion;
-  private placedAnswers: SentenceStructureAnswer[];
-  private availableAnswers: SentenceStructureAnswer[];
+  private id: number;
+  private placedAnswers = [];
+  private availableAnswers = [];
+  private lesson: Lesson;
 
-  constructor(private _api: HilangApiService, private _router: Router, private _exerciseService : ExerciceService) {
+  constructor(private _api: HilangApiService,
+              private _router: Router,
+              private _exerciseService : ExerciseService,
+              private _activatedRoute: ActivatedRoute,
+              private _lessonService: LessonService) {
       super(_exerciseService, _router);
+      this.currentWord = new Flashcard();
   }
 
   ngOnInit() {
-    this.currentQuestion = {
-                            id: '',
-                            native: '',
-                            options: [],
-                        };
-    this.questions = [];
-    this._api.call('http://localhost:8000/api/course/' + '34' + '/get_questions', {}).subscribe(data => {
-        for (let x = 0; x < data['length']; x++) {
-            let question = data[x];
-            let newQuestion = {
-                                id: question.pk,
-                                native: question.fields.native,
-                                options: [],
-                            };
-            let options = question.fields.translation.split(' ');
-            for (let key in options) {
-                newQuestion.options.push({id: key, value: options[key]});
-            }
-            this.questions.push(newQuestion)
-        }
-        this.questions = this.shuffle(this.questions);
-        this.nextTurn();
+    this.lesson = new Lesson;
+    this._activatedRoute.params.subscribe(params => this.id = params.id);
+
+    this._lessonService.getLesson(this.id).subscribe(lesson => {
+        this.lesson = lesson;
+        this.exerciseService.setVocabulary(this.lesson.vocabulary);
+        this.initialize(lesson);
     });
+
+    document.getElementById('answer').addEventListener('click', e => this.handleInput(e, this));
   }
 
-  nextTurn() {
-      this.currentQuestion = this.questions[0];
-      this.finishedQuestions = this.questions.splice(0, 1);
+  protected initialize(lesson: Lesson): void {
+      this._api.call('http://localhost:8000/api/course/' + '34' + '/get_questions', {}).subscribe(data => {
+          for (let x = 0; x < data['length']; x++) {
+              let question = data[x];
+              let newQuestion = <Flashcard>{
+                                    id: question.pk,
+                                    native: question.fields.native,
+                                    translation: question.fields.translation,
+                                    options: [],
+                                };
+              let options = question.fields.translation.split(' ');
+              for (let key in options) {
+                  newQuestion.options.push({id: key, value: options[key]});
+              }
+              this.queue.push(newQuestion);
+          }
+          this.queue = this.queue.sort((a, b) => 0.5 - Math.random());
+          this.currentWord = this.queue[0];
+          this.placedAnswers = [];
+          this.availableAnswers = this.currentWord.options.sort((a, b) => 0.5 - Math.random());
+          this.startTimer();
+      });
+
+      this.currentWord = new Flashcard();
+      this.exerciseService.setLesson(lesson);
+  }
+
+  private handleInput(event, exercise): void {
+      event.preventDefault();
+
+      let isCorrect = true;
+      exercise.clear(true, null);
+      exercise.next();
       this.placedAnswers = [];
-      this.availableAnswers = this.shuffle(this.currentQuestion.options);
-  }
-
-  answer() {
-      // if (this.availableAnswers.length > 0) {
-      //
-      // }
-      if (this.questions.length)
-        this.nextTurn();
-      else
-        alert("Oefening is klaar");
+      this.availableAnswers = this.currentWord.options.sort((a, b) => 0.5 - Math.random());
   }
 
   toPlaced(index: number): void {
@@ -72,18 +85,5 @@ export class SentenceStructureComponent implements OnInit extends Exercise {
 
   toAvailable(index: number): void {
       this.availableAnswers.push(this.placedAnswers.splice(index, 1)[0]);
-  }
-
-  shuffle(array: []): void {
-      var original = array.slice(0);
-        var m = array.length, t, i;
-        while (m) {
-        i = Math.floor(Math.random() * m--);
-        array[m] = [array[i] array[i]=array[m]][0];
-        }
-        if (array == original) {
-          array = shuffle(array);
-        }
-      return array;
   }
 }

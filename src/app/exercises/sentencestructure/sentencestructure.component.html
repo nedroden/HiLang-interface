@@ -6,7 +6,7 @@
             <div class="form-group">
                 <div class="pull-left col-sm-5">
                     <label for="local_language">Native:</label>
-                    <h3 id="local_language">{{ currentQuestion.native }}</h3>
+                    <h3 id="local_language">{{ currentWord.native }}</h3>
                 </div>
                 <div class="pull-right col-sm-6">
                     <label for="translation">Translation:</label>
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <button (click)="answer()" type="button" class="btn btn-success">Answer</button>
+                        <button (click)="answer()" type="button" id="answer" class="btn btn-success">Answer</button>
                     </div>
                 </div>
                 <br class="clear" />
