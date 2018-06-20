@@ -108,6 +108,12 @@ export class CreateWordListComponent implements OnInit {
         this.data['lessonType'] = (<HTMLSelectElement>document.getElementById("inputExerciseType")).value;
 		this.data['words'] = {};
 
+        if(this.lesson_id != null) {
+            this.data['lesson_id'] = this.lesson_id;
+        } else {
+            this.data['lesson_id'] = "";
+        }
+
 		for(let i = 1; i < rowLength; i++){
 			var cells = table.rows.item(i).cells;
 			var word1 = (<HTMLInputElement>cells.item(1).children[0]).value;
@@ -123,9 +129,8 @@ export class CreateWordListComponent implements OnInit {
             this.data['lessonType'] != "" &&
             this.data['words'] != "") {
     		this._lesson.postLessonData(this.data, this.course_id).subscribe(response => {
-                console.log(response);
                 if (response['length'] > 0)
-                    this.router.navigate(['user/course/' + this.course_id]);
+                    this.router.navigate(['user/course-details/' + this.course_id]);
             });
         } else {
             alert("Vul alle velden in!");
