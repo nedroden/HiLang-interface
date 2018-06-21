@@ -29,17 +29,51 @@ export class LandingpageComponent implements OnInit {
 		});
 	}
 
-    // let errorNotification = new ErrorNotification('Unable to login', 'error', 'danger');
-    // errorNotification.setTimeout(3000);
-    // errorNotification.render();
+    
 
     register() {
         let name = document.getElementById('registerName');
         let email = document.getElementById('registerEmail');
         let password = document.getElementById('registerPassword');
         let confirmPassword = document.getElementById('registerConfirm');
+        var upperCaseLetters = /[A-Z]/g;
+        var lowerCaseLetters = /[A-Z]/g;
+        var numbers = /[0-9]/g;
 
-        if (email['value'] != '' && name['value'] != '' && password['value'] != '' && password['value'] == confirmPassword['value']) {
+
+        if (email['value'] == '' || name['value'] == '' || password['value'] == '' ) {
+            let errorNotification = new ErrorNotification("Please fill in all fields", 'registerError', 'danger');
+            errorNotification.setTimeout(3000);
+            errorNotification.render();
+            return
+        }
+        else if(email['value'] != '' && !email['value'].includes('@')){
+            let errorNotification = new ErrorNotification('Please enter a valid email address', 'registerError', 'danger');
+            errorNotification.setTimeout(3000);
+            errorNotification.render();
+            return
+        }   
+
+        else if(password['value'] != confirmPassword['value']){
+            let errorNotification = new ErrorNotification("Paswords don't match", 'registerError', 'danger');
+            errorNotification.setTimeout(3000);
+            errorNotification.render();
+            return
+        }
+/*
+         ||
+         !password['value'].match(lowerCaseLetters) ||
+          !password['value'].match(numbers) ||
+           !password['value'].length < 8*/
+        
+        else if(!password['value'].match(upperCaseLetters)|| !password['value'].match(lowerCaseLetters) || !password['value'].match(numbers) || password['value'].length < 8) {
+            let errorNotification = new ErrorNotification("Your password must contain atleast one capital letter and number", 'registerError', 'danger');
+            errorNotification.setTimeout(3000);
+            errorNotification.render();
+            return
+        }
+
+        else {
             let params = {
                 name: name['value'],
                 email: email['value'],
@@ -52,8 +86,6 @@ export class LandingpageComponent implements OnInit {
                     this._cookie.createCookie(data);
                 }
             });
-        } else {
-            alert('Vul alle velden in!');
         }
     }
 }
