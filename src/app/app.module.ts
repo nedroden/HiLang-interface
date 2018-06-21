@@ -83,7 +83,7 @@ const appRoutes: Routes = [
                         component: GrammarComponent
                     },
                     {
-                        path: 'sentence',
+                        path: 'sentencestructure',
                         component: SentenceStructureComponent
                     },
                 ]
@@ -180,7 +180,7 @@ const appRoutes: Routes = [
         RouterModule.forRoot(
             appRoutes,
             {
-                enableTracing: true
+                enableTracing: false
             }
         )
     ],

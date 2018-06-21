@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../login.service';
 import { CookieService } from '../cookie.service';
+import { ErrorNotification } from '../utils/errornotification';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,9 @@ export class LoginComponent implements OnInit {
             if (data['user_id'] && data['token']) {
                 this._cookie.createCookie(data);
             } else {
-                // Iets van een melding ofzo
+                let errorNotification = new ErrorNotification('Unable to login', 'error', 'danger');
+                errorNotification.setTimeout(3000);
+                errorNotification.render();
             }
         });
     }

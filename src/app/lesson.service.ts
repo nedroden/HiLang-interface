@@ -14,20 +14,31 @@ export class LessonService {
   constructor(private _http: HttpClient, private _api: HilangApiService, private _cookie: CookieService) { }
 
     public getLesson(id: number): Observable<Lesson> {
-  	 let data = {
-    	    user_id: this._cookie.getValue()['user_id'],
-    	    token: this._cookie.getValue()['token'],
-    	    params: {id: id}
-    	}
-      return this._http.post<Lesson>('http://localhost:8000/api/lesson/' + id, data);
-  }
+      	 let data = {
+        	    user_id: this._cookie.getValue()['user_id'],
+        	    token: this._cookie.getValue()['token'],
+        	    params: {id: id}
+        	}
+          return this._http.post<Lesson>('http://localhost:8000/api/lesson/' + id, data);
+      }
+
+    public getSentenceLesson(id: number) {//: Observable<Lesson> {
+        return this._api.call('http://localhost:8000/api/course/' + id + '/get_questions', {});
+    }
 
     postLessonData(lessonData, course_id) {
     	return this._api.call('http://localhost:8000/api/course/' + course_id + '/create-lesson', lessonData);
     }
 
     getLessonLanguages(course_id: number) {
-        console.log(course_id);
         return this._api.call('http://localhost:8000/api/course/' + course_id + '/languages', {});
+    }
+
+    setLessonCompleted(sendData) {
+        return this._api.call('http://localhost:8000/api/lesson/' + sendData['user_id'] + '/' + sendData['lesson_id'] + '/completed', sendData);
+    }
+
+    getCompletedLessons(userData) {
+        return this._api.call('http://localhost:8000/api/lesson/' + userData['user_id'] + '/getcompleted', userData);
     }
 }
