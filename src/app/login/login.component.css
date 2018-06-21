@@ -43,14 +43,15 @@
     color: #263238;
 }
 
-#login-button {
-    color: #263238;
-    border-color: #263238;
-    border-width: medium;
-    font-weight: bold;
-}
 
 #login-button:hover {
     background: #263238;
     color: #ffffff;
+}
+
+.login-button {
+    color: #263238;
+    border-color: #263238;
+    border-width: medium;
+    font-weight: bold;
 }
