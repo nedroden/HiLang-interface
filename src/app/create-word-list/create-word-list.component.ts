@@ -151,8 +151,9 @@ export class CreateWordListComponent implements OnInit {
             data['description'] != "" &&
             data['questions'].length > 0) {
     		this._lesson.postLessonData(data, this.course_id).subscribe(response => {
-                if (response['length'] > 0)
-                    this.router.navigate(['/user/course-details/' + this.course_id);
+                if (response['length'] > 0){
+                    this.router.navigate(['/user/course-details/' + this.course_id]);
+                }
             });
         } else {
             alert("Vul alle velden in!");
