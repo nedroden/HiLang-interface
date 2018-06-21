@@ -22,6 +22,10 @@
 
     <p id="correctAnswer"></p>
 
+    <div class="progress mt-sm-5">
+        <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': progress + '%'}"></div>
+    </div>
+
     <div class="container-fluid action_buttons">
         <div class="row">
             <div class="col-sm align-left">
@@ -29,6 +33,12 @@
                     <button type="button" class="btn btn-light">End lesson</button>
                     <button type="button" class="btn btn-light">Grammar</button>
                     <button type="button" class="btn btn-danger">Report error</button>
+                </div>
+            </div>
+
+            <div class="pull-right">
+                <div class="col-sm align-right">
+                    <strong>Current time:</strong> {{ timeInSeconds }} {{ timeInSeconds === 1 ? 'second' : 'seconds' }}
                 </div>
             </div>
 

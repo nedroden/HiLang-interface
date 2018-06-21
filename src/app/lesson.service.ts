@@ -27,7 +27,14 @@ export class LessonService {
     }
 
     getLessonLanguages(course_id: number) {
-        console.log(course_id);
         return this._api.call('http://localhost:8000/api/course/' + course_id + '/languages', {});
+    }
+
+    setLessonCompleted(sendData) {
+        return this._api.call('http://localhost:8000/api/lesson/' + sendData['user_id'] + '/' + sendData['lesson_id'] + '/completed', sendData);
+    }
+
+    getCompletedLessons(userData) {
+        return this._api.call('http://localhost:8000/api/lesson/' + userData['user_id'] + '/getcompleted', userData);
     }
 }

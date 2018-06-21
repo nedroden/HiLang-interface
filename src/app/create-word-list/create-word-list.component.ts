@@ -127,6 +127,12 @@ export class CreateWordListComponent implements OnInit {
             'questions' : [],
         };
 
+        if(this.lesson_id != null) {
+            this.data['lesson_id'] = this.lesson_id;
+        } else {
+            this.data['lesson_id'] = "";
+        }
+
 		for(let i = 1; i < rowLength; i++){
 			var cells = table.rows.item(i).cells;
 			var word2 = (<HTMLInputElement>cells.item(2).children[0]).value;
@@ -140,14 +146,13 @@ export class CreateWordListComponent implements OnInit {
                 });
 			}
 		}
-
         if (data['title'] != "" &&
             data['category'] != "" &&
             data['description'] != "" &&
             data['questions'].length > 0) {
     		this._lesson.postLessonData(data, this.course_id).subscribe(response => {
                 if (response['length'] > 0)
-                    this.router.navigate(['/user/course-details/' + this.course_id + '/']);
+                    this.router.navigate(['/user/course-details/' + this.course_id);
             });
         } else {
             alert("Vul alle velden in!");
