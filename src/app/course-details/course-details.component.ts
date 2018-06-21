@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
 import { CookieService } from '../cookie.service';
+import { LessonService } from '../lesson.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -23,11 +24,11 @@ export class CourseDetailsComponent implements OnInit {
     lessons;
     languages;
     editable = false;
-    course_id: number;
 
 	constructor(private courseService: CourseService,
                 private _activatedRoute: ActivatedRoute,
-                private _cookies: CookieService) {}
+                private _cookies: CookieService,
+                private _lessonService: LessonService) {}
 
 
     author = {
@@ -109,11 +110,13 @@ export class CourseDetailsComponent implements OnInit {
             'id': this.courseId,
             'desc': newDesc,
         }
-        this.courseService.editCourseDesc(courseData).subscribe(response => console.log(response));
+        this.courseService.editCourseDesc(courseData).subscribe();
         document.getElementById("course_desc_edit").style.display = "none";
         document.getElementById("saveDesc").style.display = "none";
         document.getElementById("course_desc").style.display = "block";
         document.getElementById("course_edit").style.display = "block";
+        this.searchCourse(this.courseId);
+        this.getLanguages();
     }
 
     getLessons() {
@@ -130,6 +133,19 @@ export class CourseDetailsComponent implements OnInit {
             }
             this.lessons = subLessons;
         });
+        let userData = {
+            user_id: this._cookies.getValue()['user_id']
+        }
+        this._lessonService.getCompletedLessons(userData).subscribe(response => {
+            for(let completedLesson of response as Array<any>) {
+                for(let lesson of this.lessons) {
+                    if(lesson['id'] === completedLesson['lesson_id']) {
+                        document.getElementById('lesson_' + completedLesson['lesson_id']).className += " list-group-item-success";
+                    }
+                }
+            } 
+        });
+
     }
 
     addFavorite() {
@@ -138,6 +154,8 @@ export class CourseDetailsComponent implements OnInit {
         this.courseService.addFavorite(this._cookies.getValue()['user_id'], courseId).subscribe();
         document.getElementById('addFavorite').style.display = "none";
         document.getElementById('delFavorite').style.display = "block";
+        this.searchCourse(this.courseId);
+        this.getLanguages();
     }
     
     delFavorite() {
@@ -146,6 +164,8 @@ export class CourseDetailsComponent implements OnInit {
         this.courseService.delFavorite(this._cookies.getValue()['user_id'], courseId).subscribe();
         document.getElementById('addFavorite').style.display = "block";
         document.getElementById('delFavorite').style.display = "none";
+        this.searchCourse(this.courseId);
+        this.getLanguages();
     }
 
     subscribe() {
@@ -154,6 +174,8 @@ export class CourseDetailsComponent implements OnInit {
         this.courseService.subscribe(this._cookies.getValue()['user_id'], courseId).subscribe();
         document.getElementById('subscribeBtn').style.display = "none";
         document.getElementById('UnSubscribeBtn').style.display = "block";
+        this.searchCourse(this.courseId);
+        this.getLanguages();
     }
 
     unSubscribe() {
@@ -162,6 +184,8 @@ export class CourseDetailsComponent implements OnInit {
         this.courseService.unSubscribe(this._cookies.getValue()['user_id'], courseId).subscribe();
         document.getElementById('subscribeBtn').style.display = "block";
         document.getElementById('UnSubscribeBtn').style.display = "none";
+        this.searchCourse(this.courseId);
+        this.getLanguages();
     }
 
     selectLang() {

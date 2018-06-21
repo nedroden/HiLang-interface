@@ -1,7 +1,6 @@
 import { Flashcard } from './flashcard';
 
 export class Lesson {
-
     id: number;
     name: string;
     category: string;

@@ -20,10 +20,7 @@ export class CourseService {
   }
 
   getCourseDetails(c_id: number) {
-  	return interval(5000).pipe(
-  			//replace 1 in url with user id
-  			concatMap(() =>this._api.call('http://localhost:8000/api/course/' + this._cookies.getValue()['user_id'] + '/' + c_id + '/', {}))
-  		);
+  	return this._api.call('http://localhost:8000/api/course/' + c_id + '/', {});
   }
 
   getCourseLessons(c_id: number) {

@@ -32,51 +32,49 @@ export class SentenceStructureComponent extends Exercise implements OnInit {
   ngOnInit() {
     this.lesson = new Lesson;
     this._activatedRoute.params.subscribe(params => this.id = params.id);
-
+    this.id = 34;
     this._lessonService.getLesson(this.id).subscribe(lesson => {
         this.lesson = lesson;
         this.exerciseService.setVocabulary(this.lesson.vocabulary);
-        this.initialize(lesson);
+        this.initialize();
     });
-
     document.getElementById('answer').addEventListener('click', e => this.handleInput(e, this));
   }
 
-  protected initialize(lesson: Lesson): void {
-      this._api.call('http://localhost:8000/api/course/' + '34' + '/get_questions', {}).subscribe(data => {
+  protected initialize(): void {
+      this.id = 34;
+      this._lessonService.getSentenceLesson(this.id).subscribe(data => {
+          this.exerciseService.setVocabulary(this.lesson.vocabulary);
+
           for (let x = 0; x < data['length']; x++) {
               let question = data[x];
-              let newQuestion = <Flashcard>{
-                                    id: question.pk,
-                                    native: question.fields.native,
-                                    translation: question.fields.translation,
-                                    options: [],
-                                };
-              let options = question.fields.translation.split(' ');
-              for (let key in options) {
-                  newQuestion.options.push({id: key, value: options[key]});
-              }
+              let newQuestion = <Flashcard>{ id: question.pk,
+                                             native: question.fields.native,
+                                             translation: question.fields.translation, };
               this.queue.push(newQuestion);
           }
           this.queue = this.queue.sort((a, b) => 0.5 - Math.random());
           this.currentWord = this.queue[0];
           this.placedAnswers = [];
-          this.availableAnswers = this.currentWord.options.sort((a, b) => 0.5 - Math.random());
+          this.availableAnswers = this.currentWord.translation.split(' ').sort((a, b) => 0.5 - Math.random());
           this.startTimer();
       });
 
       this.currentWord = new Flashcard();
-      this.exerciseService.setLesson(lesson);
+      this.exerciseService.setLesson(this.lesson);
   }
 
   private handleInput(event, exercise): void {
       event.preventDefault();
+      let isCorrect = false;
+      if (this.currentWord.translation == this.placedAnswers.join(' '))
+           isCorrect = true;
 
-      let isCorrect = true;
-      exercise.clear(true, null);
+      exercise.clear(isCorrect, null);
       exercise.next();
+      console.log(this.currentWord);
       this.placedAnswers = [];
-      this.availableAnswers = this.currentWord.options.sort((a, b) => 0.5 - Math.random());
+      this.availableAnswers = this.currentWord.translation.split(' ').sort((a, b) => 0.5 - Math.random());
   }
 
   toPlaced(index: number): void {
