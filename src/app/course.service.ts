@@ -20,10 +20,7 @@ export class CourseService {
   }
 
   getCourseDetails(c_id: number) {
-  	return interval(500).pipe(
-  			//replace 1 in url with user id
-  			concatMap(() =>this._api.call('http://localhost:8000/api/course/' + this._cookies.getValue()['user_id'] + '/' + c_id + '/', {}))
-  		);
+  	return this._api.call('http://localhost:8000/api/course/' + c_id + '/', {});
   }
 
   getCourseLessons(c_id: number) {
@@ -31,13 +28,13 @@ export class CourseService {
   }
 
   getLessonDet(l_id: number) {
-  	return interval(500).pipe(
+  	return interval(5000).pipe(
   		concatMap(() => this._api.call('http://localhost:8000/api/lesson/' + l_id + '/details', {}))
   	);
   }
 
   getLesson(l_id: number) {
-  	return interval(500).pipe(
+  	return interval(5000).pipe(
   		concatMap(() => this._api.call('http://localhost:8000/api/lesson/' + l_id, {}))
   	);
   }

@@ -44,17 +44,45 @@ export class FlashcardsComponent extends Exercise implements OnInit {
 
         input.classList.add(className);
         input.disabled = true;
+        input.blur();
 
-        if (!isCorrect)
+        let correct_answer = document.getElementById('correct_answer');
+
+        if (!isCorrect && correct_answer !== null)
             document.getElementById('correct_answer').innerHTML = '<strong>Correct answer:</strong> ' + exercise.currentWord.translation.replace(/<(?:.|\n)*?>/gm, '');
 
-        setTimeout(() => {
+        let timeout: Function = () => {
             input.classList.remove(className);
             input.disabled = false;
 
             exercise.clear(isCorrect, input);
             exercise.next();
-            document.getElementById('correct_answer').innerHTML = '';
-        }, exercise.getTimeout(isCorrect));
+
+            if (correct_answer !== null)
+                correct_answer.innerHTML = '';
+
+            window.removeEventListener('keypress', whatever);
+            window.clearInterval(interval);
+            input.focus();
+        };
+
+        let timeoutValue = exercise.getTimeout(isCorrect);
+        let interval = window.setInterval(() => {
+            if (timeoutValue <= 10) {
+                timeout();
+                return;
+            }
+            else
+                timeoutValue -= 10;
+        }, 10);
+
+        let whatever = function(event) {
+            if ((event.keyCode ? event.keyCode : event.which) == 13) {
+                timeout();
+                return;
+            }
+        };
+
+        window.addEventListener('keypress', whatever, false);
     }
 }
