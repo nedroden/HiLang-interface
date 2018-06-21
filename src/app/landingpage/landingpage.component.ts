@@ -3,6 +3,7 @@ import { CourseService } from '../course.service';
 import { HilangApiService } from '../hilang-api.service';
 import { CookieService } from '../cookie.service';
 import { ErrorNotification } from '../utils/errornotification';
+import { LoadingScreen } from '../utils/loadingScreen';
 
 @Component({
   selector: 'app-landingpage',
@@ -29,8 +30,6 @@ export class LandingpageComponent implements OnInit {
 		});
 	}
 
-    
-
     register() {
         let name = document.getElementById('registerName');
         let email = document.getElementById('registerEmail');
@@ -39,7 +38,6 @@ export class LandingpageComponent implements OnInit {
         var upperCaseLetters = /[A-Z]/g;
         var lowerCaseLetters = /[A-Z]/g;
         var numbers = /[0-9]/g;
-
 
         if (email['value'] == '' || name['value'] == '' || password['value'] == '' ) {
             let errorNotification = new ErrorNotification("Please fill in all fields", 'registerError', 'danger');
@@ -52,7 +50,7 @@ export class LandingpageComponent implements OnInit {
             errorNotification.setTimeout(3000);
             errorNotification.render();
             return
-        }   
+        }
 
         else if(password['value'] != confirmPassword['value']){
             let errorNotification = new ErrorNotification("Paswords don't match", 'registerError', 'danger');
@@ -60,12 +58,7 @@ export class LandingpageComponent implements OnInit {
             errorNotification.render();
             return
         }
-/*
-         ||
-         !password['value'].match(lowerCaseLetters) ||
-          !password['value'].match(numbers) ||
-           !password['value'].length < 8*/
-        
+
         else if(!password['value'].match(upperCaseLetters)|| !password['value'].match(lowerCaseLetters) || !password['value'].match(numbers) || password['value'].length < 8) {
             let errorNotification = new ErrorNotification("Your password must contain atleast one capital letter and number", 'registerError', 'danger');
             errorNotification.setTimeout(3000);
@@ -74,6 +67,8 @@ export class LandingpageComponent implements OnInit {
         }
 
         else {
+            let loadingScreen = new LoadingScreen();
+            loadingScreen.render();
             let params = {
                 name: name['value'],
                 email: email['value'],
@@ -84,6 +79,7 @@ export class LandingpageComponent implements OnInit {
                     alert(data['error']);
                 else {
                     this._cookie.createCookie(data);
+                    loadingScreen.disable();
                 }
             });
         }

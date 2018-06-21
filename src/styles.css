@@ -152,3 +152,19 @@ form#exercise input[type="text"]:focus {
         display: none!important;
     }
 }
+
+#loadingScreen {
+    background-color: #263238;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    position: fixed;
+    margin: 0;
+    left: 0;
+    top: 0;
+}
+
+#load-icon {
+    margin: 0 auto;
+    color: white;
+}
