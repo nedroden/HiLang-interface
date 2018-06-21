@@ -21,12 +21,6 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        console.log('test6');
-        console.log('tes5t');
-        console.log('test4');
-        console.log('test3');
-        console.log('test2');
-        console.log('test1');
         let loadingScreen = new LoadingScreen();
         loadingScreen.render();
 
