@@ -15,7 +15,7 @@
                         <div *ngFor="let answer of placedAnswers; index as i"
                              class="answer"
                              (click)="toAvailable(i)">
-                            <span class="answer-content">{{ answer.value }}</span>
+                            <span class="answer-content">{{ answer }}</span>
                             <br class="clear" />
                         </div>
                     </div>
@@ -24,12 +24,12 @@
                         <div *ngFor="let answer of availableAnswers; index as i"
                              class="answer"
                              (click)="toPlaced(i)">
-                            <span class="answer-content">{{ answer.value }}</span>
+                            <span class="answer-content">{{ answer }}</span>
                             <br class="clear" />
                         </div>
                     </div>
                     <div class="row">
-                        <button (click)="answer()" type="button" id="answer" class="btn btn-success">Answer</button>
+                        <button type="button" id="answer" class="btn btn-success">Answer</button>
                     </div>
                 </div>
                 <br class="clear" />

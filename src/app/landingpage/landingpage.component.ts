@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
 import { HilangApiService } from '../hilang-api.service';
 import { CookieService } from '../cookie.service';
+import { ErrorNotification } from '../utils/errornotification';
 
 @Component({
   selector: 'app-landingpage',
@@ -17,17 +18,20 @@ export class LandingpageComponent implements OnInit {
 		this._course.getLanguages().subscribe(response => {
 			let subLanguages = [];
 			for(let language of <Array<any>>response) {
-				subLanguages.push({
-					name: language['fields']['name'],
-					flag: language['fields']['flag']
-				});
+                if (subLanguages.length < 6) {
+    				subLanguages.push({
+    					name: language['fields']['name'],
+    					flag: language['fields']['flag']
+    				});
+                }
 			}
 			this.languages = subLanguages;
 		});
-  		//let dispatch = Dispatch.getInstance();
-  		//var loginButton = document.getElementById("login-button");
-  		//loginButton.onclick = dispatch.do("login");
 	}
+
+    // let errorNotification = new ErrorNotification('Unable to login', 'error', 'danger');
+    // errorNotification.setTimeout(3000);
+    // errorNotification.render();
 
     register() {
         let name = document.getElementById('registerName');
