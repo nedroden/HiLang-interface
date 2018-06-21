@@ -3,6 +3,7 @@ import { CourseService } from '../course.service';
 import { HilangApiService } from '../hilang-api.service';
 import { CookieService } from '../cookie.service';
 import { ErrorNotification } from '../utils/errornotification';
+import { LoadingScreen } from '../utils/loadingScreen';
 
 @Component({
   selector: 'app-landingpage',
@@ -29,10 +30,6 @@ export class LandingpageComponent implements OnInit {
 		});
 	}
 
-    // let errorNotification = new ErrorNotification('Unable to login', 'error', 'danger');
-    // errorNotification.setTimeout(3000);
-    // errorNotification.render();
-
     register() {
         let name = document.getElementById('registerName');
         let email = document.getElementById('registerEmail');
@@ -40,6 +37,8 @@ export class LandingpageComponent implements OnInit {
         let confirmPassword = document.getElementById('registerConfirm');
 
         if (email['value'] != '' && name['value'] != '' && password['value'] != '' && password['value'] == confirmPassword['value']) {
+            let loadingScreen = new LoadingScreen();
+            loadingScreen.render();
             let params = {
                 name: name['value'],
                 email: email['value'],
@@ -50,6 +49,7 @@ export class LandingpageComponent implements OnInit {
                     alert(data['error']);
                 else {
                     this._cookie.createCookie(data);
+                    loadingScreen.disable();
                 }
             });
         } else {

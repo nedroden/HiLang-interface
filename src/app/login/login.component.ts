@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '../login.service';
 import { CookieService } from '../cookie.service';
 import { ErrorNotification } from '../utils/errornotification';
+import { LoadingScreen } from '../utils/loadingScreen';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,15 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
+        console.log('test6');
+        console.log('tes5t');
+        console.log('test4');
+        console.log('test3');
+        console.log('test2');
+        console.log('test1');
+        let loadingScreen = new LoadingScreen();
+        loadingScreen.render();
+
         let userData = {
         	email: document.getElementById('loginEmail')['value'],
         	password: document.getElementById('loginPassword')['value'],
@@ -28,8 +38,10 @@ export class LoginComponent implements OnInit {
         this._con.postLoginData(userData).subscribe(data => {
             if (data['user_id'] && data['token']) {
                 this._cookie.createCookie(data);
+                loadingScreen.disable();
             } else {
                 let errorNotification = new ErrorNotification('Unable to login', 'error', 'danger');
+                loadingScreen.disable();
                 errorNotification.setTimeout(3000);
                 errorNotification.render();
             }
