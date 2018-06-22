@@ -116,8 +116,8 @@ export class CourseService {
     //replace native_lang with interface language
 	let testData = {name: courseData.name,
   				    user: this._cookies.getValue()['user_id'],
-                    native_lang: 2,
-                    trans_lang: 7}
+                    native_lang: courseData.nativeLang,
+                    trans_lang: courseData.targetLang}
 	return this._api.call('http://localhost:8000/api/course/create/', testData);
 
   }

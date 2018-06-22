@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HilangApiService } from '../hilang-api.service';
+import { CookieService } from '../cookie.service';
 
 @Component({
     selector: 'app-userwelcome',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./userwelcome.component.css']
 })
 export class UserwelcomeComponent implements OnInit {
-
-    user = {
-        name: "Lang"
-    }
+    private user = <Object>{
+                    pk: 0,
+                    fields: {
+                                name: ""
+                    }};
 
     links = [
         {
@@ -26,32 +29,13 @@ export class UserwelcomeComponent implements OnInit {
         }
     ];
 
-    courses = [
-        {
-            title: "French for beginners",
-            description: "An introductory course to the French language.",
-            author: "Vladimir Putin",
-            lastPracticed: "today",
-            href: "/user/course-details/1"
-        },
-        {
-            title: "La lingua Italiana #2",
-            description: "The Italian language for advanced students.",
-            author: "Morgan Freeman",
-            lastPracticed: "two days ago",
-            href: "/user/course-details/1"
-        },
-        {
-            title: "Dutch, the language of the world",
-            description: "Dutch: the language of the most powerful country on Earth.",
-            author: "Robert Monden",
-            lastPracticed: "three days ago",
-            href: "/user/course-details/1"
-        }
-    ];
-
-    constructor() {}
+    constructor(private _api: HilangApiService,
+                private _cookie: CookieService) {}
 
     ngOnInit() {
+        this._api.call('http://localhost:8000/api/user/' + this._cookie.getValue()['user_id'] + "/", {}).subscribe(data => {
+            this.user = data;
+            console.log(this.user);
+        });
     }
 }

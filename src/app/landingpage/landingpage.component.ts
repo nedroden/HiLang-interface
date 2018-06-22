@@ -68,7 +68,7 @@ export class LandingpageComponent implements OnInit {
 
         else {
             let loadingScreen = new LoadingScreen();
-            loadingScreen.render();
+            loadingScreen.render(document.body);
             let params = {
                 name: name['value'],
                 email: email['value'],

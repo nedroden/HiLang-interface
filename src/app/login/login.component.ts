@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
     login() {
         let loadingScreen = new LoadingScreen();
-        loadingScreen.render();
+        loadingScreen.render(document.body);
 
         let userData = {
         	email: document.getElementById('loginEmail')['value'],
