@@ -19,6 +19,10 @@ export class CourseService {
   	return this._api.call('http://localhost:8000/api/course/language/' + id + '/', {});
   }
 
+  updateCourse(data: object) {
+      return this._api.call('http://localhost:8000/api/course/update/', data);
+  }
+
   getCourseDetails(c_id: number) {
   	return this._api.call('http://localhost:8000/api/course/' + c_id + '/', {});
   }
@@ -28,15 +32,11 @@ export class CourseService {
   }
 
   getLessonDet(l_id: number) {
-  	return interval(5000).pipe(
-  		concatMap(() => this._api.call('http://localhost:8000/api/lesson/' + l_id + '/details', {}))
-  	);
+  	return this._api.call('http://localhost:8000/api/lesson/' + l_id + '/details', {}))
   }
 
   getLesson(l_id: number) {
-  	return interval(5000).pipe(
-  		concatMap(() => this._api.call('http://localhost:8000/api/lesson/' + l_id, {}))
-  	);
+  	return this._api.call('http://localhost:8000/api/lesson/' + l_id, {}))
   }
 
   getLangDetails(lang_id: number) {
@@ -47,8 +47,7 @@ export class CourseService {
   }
 
   getLanguages() {
-      return this._api.unsafeGet('http://localhost:8000/api/languages/');
-  	//return this._api.call('http://localhost:8000/api/languages/', {});
+    return this._api.unsafeGet('http://localhost:8000/api/languages/');
   }
 
   getSubCourses(u_id: number) {

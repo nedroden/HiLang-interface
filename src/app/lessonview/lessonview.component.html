@@ -1,31 +1,26 @@
-<h1><strong>Lesson {{ lesson.counter }}</strong> {{ lesson.name }} </h1>
+<h1><strong>Lesson {{ lesson.counter }}</strong></h1>
 <hr />
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm align-left">
             <div class="jumbotron">
                 <h1 class="display-4">
-                    Lesson {{ lesson.counter }}
-                </h1>
-                <p class="lead">
                     {{ lesson.name }}
-                </p>
-
-                <hr class="my-4" />
+                </h1>
+                <hr class="my-2" />
 
                 <p id='lesson_desc'> {{ lesson.desc }}</p>
+
+                <hr *ngIf="lesson.grammar != null" class="my-4" />
+                <h3 *ngIf="lesson.grammar != null">
+                    Grammar
+                </h3>
+                <hr class="my-2" />
+
+                <p *ngIf="lesson.grammar != null" id='lesson_desc' style="white-space: pre-wrap;"> {{ lesson.grammar }}</p>
             </div>
 
             <hr />
-
-            <div class="card" style="width: 45%;">
-                <img class="card-img-top" src="{{ lesson.author.avatar }}" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">About this course</h5>
-                    <p class="card-text">{{ lesson.author.about }}</p>
-                    <button class="btn btn-primary">Contact author</button>
-                </div>
-            </div>
         </div>
 
         <div class="col-sm">
@@ -46,12 +41,10 @@
                 </tbody>
             </table>
 
-            <br />
-
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-danger">Report error</button>
-                <button id="lesson_edit" class="btn btn-primary" (click)="edit()">Edit</button>
                 <button type="button" class="btn btn-success" routerLink="pre-exercise">Start</button>
+                <button id="lesson_edit" class="btn btn-primary" (click)="edit()">Edit</button>
+                <button type="button" class="btn btn-danger" routerLink="/user/course-details/{{ courseId }}/">Back to course</button>
             </div>
         </div>
     </div>

@@ -1,33 +1,63 @@
-<h1>{{courseName}}</h1>
+<h1>Course overview</h1>
 <hr>
 <div class="container-fluid">
 	<div class="col-sm-5 pull-left">
 		<div class="card">
-			<div class="card-body">
-				<div class="pull-left col-sm-2 mr-sm-3">
+			<div class="card-body" *ngIf="!editing">
+				<!-- <div class="pull-left col-sm-2 mr-sm-3">
 					<img class="course-img" src="{{ courseImg }}" alt="Course image">
 				</div>
-				<div class="pull-right col-sm-8">
+				<div class="pull-right col-sm-8">-->
+				<div class="col-12">
 					<h2 class="display-5">{{ courseName }}</h2>
-					<p class="lead">Taught by {{ courseAuthor }}</p>
 				</div>
 
-				<br class="clear" />
 				<hr class="my-4" />
 
-				<p id="course_desc"> {{ courseDesc }}</p>
-				<button id="course_edit" class="btn btn-primary" style="display: none" (click)="edit()">Edit</button>
-				<textarea id="course_desc_edit" type='text' style="display: none"></textarea>
-				<button id="saveDesc" type="button" class="btn btn-primary" style="display: none" (click)="saveEdit()">Save</button>
-				
-				<select id="select_lang" class="btn btn-primary" style="margin-top: 5px" (click)="selectLang()">
-					<option selected disabled>Select Language</option>
-					<option *ngFor="let language of languages">{{ language.name }}</option>
-				</select>
+				<div class="col-12">
+					<p id="course_desc"> {{ courseDesc }}</p>
+				</div>
+			</div>
+
+			<div class="card-body" *ngIf="editing">
+				<div class="col-12">
+
+					<div class="form-group">
+						<label for="native_lang">Course name*</label>
+						<br />
+						<input id="courseNameInput" type="text" value="{{ courseName }}" placeholder="Name">
+					</div>
+
+
+					<div class="form-group">
+						<label for="native_lang">Course description</label>
+						<textarea class="form-control" id="courseDescInput" rows="3" placeholder="Description">{{ courseDesc }}</textarea>
+					</div>
+
+					<div class="form-group">
+						<label for="native_lang">Native language*</label>
+						<select class="custom-select" id="native_lang">
+							<option *ngFor="let language of languages" [selected]="nativeLang == language.id" value="{{language.id}}">{{language.name}}</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="target_lang">Target language*</label>
+						<select class="custom-select" id="target_lang">
+							<option *ngFor="let language of languages" [selected]="transLang == language.id" value="{{language.id}}">{{language.name}}</option>
+						</select>
+					</div>
+				</div>
 			</div>
 
 			<div class="card-footer">
-				<small>Created on <strong>May 21, 2018</strong></small>
+				<div id="errorMessage"></div>
+
+				<small *ngIf="editing"><strong>* = required</strong><br /></small>
+				<small *ngIf="editable && !editing">Created on <strong>{{ courseDate }}</strong></small>
+				<button id="addLesson" *ngIf="editable && !editing" (click)="editCourse()" class="btn btn-primary float-right">Edit</button>
+				<button style="margin-left: 10px;" *ngIf="editable && editing" (click)="disableEditing()" class="btn btn-danger float-right">Cancel</button>
+				<button id="addLesson" *ngIf="editable && editing" (click)="saveCourse()" class="btn btn-success float-right">Save</button>
 			</div>
 		</div>
 
@@ -36,9 +66,8 @@
 			<div class="card">
 			    <img class="card-img-top" src="http://cdn.guardian.ng/wp-content/uploads/2016/05/Vladimir-Putin.jpg" alt="No image available">
 			    <div class="card-body">
-			        <h5 class="card-title">{{ courseAuthor }}</h5>
-			        <p class="card-text">{{ author.about }}</p>
-			        <button class="btn btn-primary">Contact author</button>
+			        <h5 class="card-title">{{ courseAuthor.name }}</h5>
+			        <p class="card-text">{{ courseAuthor.bio }}</p>
 			    </div>
 			</div>
 		</div>
@@ -58,17 +87,13 @@
         <br />
 
         <div class="btn-group" role="group">
-            <button type="button" class="btn btn-light">Report error</button>
-            <button type="button" class="btn btn-light">Rate course</button>
-            <button id="subscribeBtn" style="display: none" type="button" class="btn btn-light" (click)="subscribe()">Subscribe</button>
-            <button id="UnSubscribeBtn" style="display: none" type="button" class="btn btn-danger" (click)="unSubscribe()">Unsubscribe</button>
-            <button id="addFavorite" style="display: none" type="button" class="btn btn-light" (click)="addFavorite()">Favorite</button>
-            <button id="delFavorite" style="display: none" type="button" class="btn btn-light" (click)="delFavorite()">Unfavorite</button>
+            <button id="subscribeBtn" *ngIf="!subscribed" type="button" class="btn btn-light" (click)="subscribe()">Subscribe</button>
+            <button id="UnSubscribeBtn" *ngIf="subscribed" type="button" class="btn btn-danger" (click)="unSubscribe()">Unsubscribe</button>
+            <button id="addFavorite" *ngIf="!favorite" type="button" class="btn btn-light" (click)="addFavorite()">Favorite</button>
+            <button id="delFavorite" *ngIf="favorite" type="button" class="btn btn-danger" (click)="delFavorite()">Unfavorite</button>
+			<button id="addLesson" *ngIf="editable" routerLink="/user/course-details/{{courseId}}/create-list" class="btn btn-primary">Add a lesson</button>
         </div>
 
-		<a id="addLesson" style="display: none" routerLink="/user/course-details/{{courseId}}/create-list" class="btn btn-primary">
-			add a lesson
-		</a>
 	</div>
 
 	<br class="clear" />

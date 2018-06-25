@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
 import { CookieService } from '../cookie.service';
 import { LessonService } from '../lesson.service';
+import { ErrorNotification } from '../utils/errornotification';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -15,15 +16,21 @@ export class CourseDetailsComponent implements OnInit {
     myCourses;
     favCourses;
     lessonCounter;
-    courseId;
-    courseName;
-    courseAuthor;
-    courseAuthorId;
-    courseDesc;
-    courseImg;
-    lessons;
-    languages;
-    editable = false;
+    private courseId: number;
+    private courseName: string;
+    private courseAuthor = {name: "", bio: ""};
+    private editing = false;
+    private courseAuthorId: number;
+    private courseDesc: string;
+    private courseImg: string;
+    private lessons;
+    private nativeLang: number;
+    private transLang: number;
+    private courseDate;
+    private languages;
+    private favorite: boolean;
+    private subscribed: boolean;
+    private editable = false;
 
 	constructor(private courseService: CourseService,
                 private _activatedRoute: ActivatedRoute,
@@ -47,33 +54,20 @@ export class CourseDetailsComponent implements OnInit {
 
 	searchCourse(id) {
         this.courseService.getCourseDetails(id).subscribe(response => {
+            console.log(response);
             this.courseId = response['id'];
             this.courseName = response['name'];
             this.courseAuthor = response['author'];
             this.courseAuthorId = response['authorId'];
             this.courseDesc = response['description'];
             this.courseImg = response['image'];
-            if(document.getElementById('addFavorite') != null) {
-                if(response['favorite']) {
-                    document.getElementById('addFavorite').style.display = "none";
-                    document.getElementById('delFavorite').style.display = "block";
-                } else {
-                    document.getElementById('addFavorite').style.display = "block";
-                    document.getElementById('delFavorite').style.display = "none";
-                }
-            }
-            if(document.getElementById('subscribeBtn') != null) {
-                if(response['subscription']) {
-                    document.getElementById('subscribeBtn').style.display = "none";
-                    document.getElementById('UnSubscribeBtn').style.display = "block";
-                } else {
-                    document.getElementById('subscribeBtn').style.display = "block";
-                    document.getElementById('UnSubscribeBtn').style.display = "none";
-                }
-            }
-            if(this.courseAuthorId === this._cookies.getValue()['user_id'] && document.getElementById('addLesson') != null) {
-                document.getElementById('addLesson').style.display="block";
-                document.getElementById('course_edit').style.display="block";
+            this.nativeLang = response['native_lang'];
+            this.transLang = response['trans_lang'];
+            this.subscribed = response['subscription'];
+            this.favorite = response['favorite'];
+            this.courseDate = response['created_at'];
+
+            if(this.courseAuthorId === this._cookies.getValue()['user_id']) {
                 this.editable = true;
             }
             this.getLessons();
@@ -104,21 +98,6 @@ export class CourseDetailsComponent implements OnInit {
         }
     }
 
-    saveEdit() {
-        let newDesc = (<HTMLInputElement>document.getElementById("course_desc_edit")).value;
-        let courseData = {
-            'id': this.courseId,
-            'desc': newDesc,
-        }
-        this.courseService.editCourseDesc(courseData).subscribe();
-        document.getElementById("course_desc_edit").style.display = "none";
-        document.getElementById("saveDesc").style.display = "none";
-        document.getElementById("course_desc").style.display = "block";
-        document.getElementById("course_edit").style.display = "block";
-        this.searchCourse(this.courseId);
-        this.getLanguages();
-    }
-
     getLessons() {
         this.courseService.getCourseLessons(this.courseId).subscribe(response => {
             let subLessons = [];
@@ -143,49 +122,71 @@ export class CourseDetailsComponent implements OnInit {
                         document.getElementById('lesson_' + completedLesson['lesson_id']).className += " list-group-item-success";
                     }
                 }
-            } 
+            }
         });
 
     }
 
-    addFavorite() {
-        let ulrParts = (window.location.href).split("/");
-        let courseId = parseInt(ulrParts[ulrParts.length - 1]);
-        this.courseService.addFavorite(this._cookies.getValue()['user_id'], courseId).subscribe();
-        document.getElementById('addFavorite').style.display = "none";
-        document.getElementById('delFavorite').style.display = "block";
-        this.searchCourse(this.courseId);
-        this.getLanguages();
+    editCourse() {
+        this.editing = true;
     }
-    
+
+    disableEditing() {
+        this.editing = false;
+    }
+
+    saveCourse() {
+        let name = (<HTMLInputElement>document.getElementById('courseNameInput'))['value'];
+        let description = (<HTMLInputElement>document.getElementById('courseDescInput'))['value'];
+        let native_lang = (<HTMLInputElement>document.getElementById('native_lang'))['value'];
+        let target_lang = (<HTMLInputElement>document.getElementById('target_lang'))['value'];
+
+        if (name != '' && native_lang != '' && target_lang != '' ) {
+                this.courseService.updateCourse({
+                    id: this.courseId,
+                    name: name,
+                    description: description,
+                    native_lang: native_lang,
+                    target_lang: target_lang,
+                }).subscribe(response => {
+                    if (response) {
+                        console.log(response);
+                        this.courseName = name;
+                        this.courseDesc = description;
+                        this.nativeLang = +native_lang;
+                        this.transLang = +target_lang;
+                    } else {
+                        let errorNotification = new ErrorNotification('Oops, something went wrong..', 'errorMessage', 'danger');
+                        errorNotification.setTimeout(3000);
+                        errorNotification.render();
+                    }
+                });
+                this.disableEditing();
+            } else {
+                let errorNotification = new ErrorNotification('Fill in the required fields!', 'errorMessage', 'danger');
+                errorNotification.setTimeout(3000);
+                errorNotification.render();
+            }
+    }
+
+    addFavorite() {
+        this.courseService.addFavorite(this._cookies.getValue()['user_id'], this.courseId).subscribe();
+        this.favorite = true;
+    }
+
     delFavorite() {
-        let ulrParts = (window.location.href).split("/");
-        let courseId = parseInt(ulrParts[ulrParts.length - 1]);
-        this.courseService.delFavorite(this._cookies.getValue()['user_id'], courseId).subscribe();
-        document.getElementById('addFavorite').style.display = "block";
-        document.getElementById('delFavorite').style.display = "none";
-        this.searchCourse(this.courseId);
-        this.getLanguages();
+        this.courseService.delFavorite(this._cookies.getValue()['user_id'], this.courseId).subscribe();
+        this.favorite = false;
     }
 
     subscribe() {
-        let ulrParts = (window.location.href).split("/");
-        let courseId = parseInt(ulrParts[ulrParts.length - 1]);
-        this.courseService.subscribe(this._cookies.getValue()['user_id'], courseId).subscribe();
-        document.getElementById('subscribeBtn').style.display = "none";
-        document.getElementById('UnSubscribeBtn').style.display = "block";
-        this.searchCourse(this.courseId);
-        this.getLanguages();
+        this.courseService.subscribe(this._cookies.getValue()['user_id'], this.courseId).subscribe();
+        this.subscribed = true;
     }
 
     unSubscribe() {
-        let ulrParts = (window.location.href).split("/");
-        let courseId = parseInt(ulrParts[ulrParts.length - 1]);
-        this.courseService.unSubscribe(this._cookies.getValue()['user_id'], courseId).subscribe();
-        document.getElementById('subscribeBtn').style.display = "block";
-        document.getElementById('UnSubscribeBtn').style.display = "none";
-        this.searchCourse(this.courseId);
-        this.getLanguages();
+        this.courseService.unSubscribe(this._cookies.getValue()['user_id'], this.courseId).subscribe();
+        this.subscribed = false;
     }
 
     selectLang() {

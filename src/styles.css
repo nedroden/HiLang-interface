@@ -60,7 +60,7 @@ br.clear {
     -moz-transition: background-color 100ms;
     -o-transition: background-color 100ms;
     transition: background-color 100ms;
-    max-height: 300px;
+    /*max-height: 300px;*/
 }
 
 .card-image {
