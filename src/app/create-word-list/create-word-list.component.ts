@@ -44,7 +44,10 @@ export class CreateWordListComponent implements OnInit {
     		(<HTMLInputElement>document.getElementById('inputTitle')).value = details['name'];
     		(<HTMLInputElement>document.getElementById('inputCategory')).value = details['category'];
     		(<HTMLInputElement>document.getElementById('inputDescription')).value = details['description'];
-    		(<HTMLInputElement>document.getElementById('inputGrammar')).value = details['grammar'];
+    		if((<HTMLInputElement>document.getElementById('inputGrammar')).value == undefined){
+                (<HTMLInputElement>document.getElementById('inputGrammar')).value = details['grammar'];
+            }
+
     		let vocabulary = details['vocabulary'];
     		console.log(vocabulary);
     		for(let i=5; i<vocabulary.length; i+=5) {
@@ -129,9 +132,13 @@ export class CreateWordListComponent implements OnInit {
         };
 
         if(this.lesson_id != null) {
-            this.data['lesson_id'] = this.lesson_id;
+            data['lesson_id'] = this.lesson_id;
         } else {
-            this.data['lesson_id'] = "";
+            data['lesson_id'] = "";
+        }
+
+        if(data['grammar'] == 'undefined'){
+            data['grammar'] = '';
         }
 
 		for(let i = 1; i < rowLength; i++){

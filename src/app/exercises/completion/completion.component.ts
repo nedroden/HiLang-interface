@@ -18,62 +18,66 @@ export class CompletionComponent extends Exercise implements OnInit {
     nativeName: string;
     transName: string;
 
-  	constructor(private lessonService: LessonService, private activatedRoute: ActivatedRoute, router: Router, exerciseService: ExerciseService) {
-  		super(exerciseService, router);
-  		this.lesson = new Lesson;
-  	}
-	
-  	ngOnInit() {
-  		this.activatedRoute.params.subscribe(params => this.id = params.id);
+    constructor(private lessonService: LessonService, private activatedRoute: ActivatedRoute, router: Router, exerciseService: ExerciseService) {
+      super(exerciseService, router);
+    }
+  
+    ngOnInit() {
+      this.lesson = new Lesson;
+      this.activatedRoute.params.subscribe(params => this.id = params.id);
+      
+      this.lessonService.getLesson(this.id).subscribe(lesson => {
+        this.lesson = lesson;
+        this.exerciseService.setVocabulary(this.lesson.vocabulary);
+        this.initialize(lesson);
+        this.makeIncomplete(this.currentWord)
+        console.log(lesson)
+      });
 
-  		this.lessonService.getLesson(this.id).subscribe(lesson => {
-  			this.lesson = lesson[0];
-  			this.vocabulary = this.lesson['vocabulary'];
-  			this.initialize(this.lesson);
-  			this.makeIncomplete(this.currentWord);
-  			this.lessonService.getLessonLanguages(this.lesson['course_id']).subscribe(response => {
-  				this.nativeName = response['native'];
-  				this.transName = response['trans'];
-  			});
-  		});
-  		document.getElementById('enterAnswer').addEventListener('click', e => this.handleInput(e, this));
-  	}
+      document.getElementById('enterAnswer').addEventListener('click', e => this.handleInput(e, this));
+    }
 
-  	makeIncomplete(currentWord) {
-  		let question = ""
-  		for(let index = 0; index < currentWord.translation.length; index++) {
-  			if(index != 0 && index != currentWord.translation.length -1 && index != Math.floor(currentWord.translation.length / 2)) {
-  				question += ".";
-  			} else {
-  				question += currentWord.translation[index];
-  			}
-  		}
-  		this.correctAnswer = currentWord.translation;
-  		this.question = question;
-  	}
+    makeIncomplete(currentWord) {
+      let question = ""
+      for(let index = 0; index < currentWord.translation.length; index++) {
+        if(currentWord.translation[index] == ' '){
+          question += " ";
+          continue;
+        }
+        if(index != 0 && index != currentWord.translation.length -1 && index != Math.floor(currentWord.translation.length / 2)) {
+          console.log(currentWord.translation[index])
+          question += ".";
 
-  	private handleInput(event, exercise): void {
-  		event.preventDefault();
-  		let answer = (<HTMLInputElement>document.getElementById('answer'));
-  		let isCorrect = (exercise.isCorrect(answer.value));
-  		let className = isCorrect ? 'correct' : 'incorrect';
+        } else {
+          question += currentWord.translation[index];
+        }
+      }
+      this.correctAnswer = currentWord.translation;
+      this.question = question;
+    }
+
+    private handleInput(event, exercise): void {
+      event.preventDefault();
+      let answer = (<HTMLInputElement>document.getElementById('answer'));
+      let isCorrect = (exercise.isCorrect(answer.value));
+      let className = isCorrect ? 'correct' : 'incorrect';
 
         answer.classList.add(className);
         answer.disabled = true;
 
-  		if(!isCorrect) {
-  			document.getElementById('correctAnswer').innerHTML = '<strong>Correct answer: </strong>' + this.correctAnswer;  		
-  		}
+      if(!isCorrect) {
+        document.getElementById('correctAnswer').innerHTML = '<strong>Correct answer: </strong>' + this.correctAnswer;      
+      }
 
-  		setTimeout(() => {
-  			answer.classList.remove(className);
+      setTimeout(() => {
+        answer.classList.remove(className);
             answer.disabled = false;
 
             exercise.clear(isCorrect, answer);
             exercise.next();
             this.makeIncomplete(exercise.currentWord);
 
-  			document.getElementById('correctAnswer').innerHTML = "";
-  		}, exercise.getTimeout(isCorrect));
-  	}
+        document.getElementById('correctAnswer').innerHTML = "";
+      }, exercise.getTimeout(isCorrect));
+    }
 }
