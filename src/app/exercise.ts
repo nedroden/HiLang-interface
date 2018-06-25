@@ -5,7 +5,7 @@ import { Lesson } from './structures/lesson';
 
 export abstract class Exercise {
 
-    protected timeout = 2000;
+    protected timeout = 1000;
 
     protected score: number = 0;
 
