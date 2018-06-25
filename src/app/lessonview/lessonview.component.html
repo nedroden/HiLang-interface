@@ -9,7 +9,7 @@
                 </h1>
                 <hr class="my-2" />
 
-                <p id='lesson_desc'> {{ lesson.desc }}</p>
+                <p id='lesson_desc' style="white-space: pre-wrap;"> {{ lesson.desc }}</p>
 
                 <hr *ngIf="lesson.grammar != null" class="my-4" />
                 <h3 *ngIf="lesson.grammar != null">
@@ -44,7 +44,8 @@
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-success" routerLink="pre-exercise">Start</button>
                 <button id="lesson_edit" class="btn btn-primary" (click)="edit()">Edit</button>
-                <button type="button" class="btn btn-danger" routerLink="/user/course-details/{{ courseId }}/">Back to course</button>
+                <button type="button" class="btn btn-primary" routerLink="/user/course-details/{{ courseId }}/">Back to course</button>
+                <button id="lesson_edit" class="btn btn-danger" (click)="delete()">Delete</button>
             </div>
         </div>
     </div>

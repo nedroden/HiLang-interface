@@ -5,13 +5,11 @@
 		<div class="col-sm-2 pull-left">
 			<h4>Filter the courses</h4>
 			<hr />
-
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-
+			<div *ngFor="let language of languages" class="form-group form-check">
+				<input type="checkbox" (change)="updateFilter(language.pk)" id="{{language.fields.name}}" class="form-check-input" value="{{language.pk}}">
+				<label class="form-check-label" for="{{language.fields.name}}">{{language.fields.name}}</label>
+			</div>
+			<hr />
 
 			<h4>Create a course</h4>
 			<hr />
@@ -43,54 +41,44 @@
 				<h4>Created by me</h4>
 				<hr />
 
-
-
 				<div class="scrolling-wrapper">
-						<!-- <h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.name }}</h3>   col-md-6 col-sm-6 col-lg-3-->
-						<div *ngFor="let course of myCourses" routerLink="/user/course-details/{{course.id}}" class="card">
-							<div class="card-body">
-								<p class="card-title">
-									{{ course.name }}
-								</p>
-								<div class="card-image">
-									<div class="card-image-overlay"></div>
-									<img class="course-img" src="assets/images/courses/7.png" alt="Course image">
-								</div>
-
-								<div class="col-12">
-									<p class="card-text col-12">{{ course.description }}</p>
-								</div>
-
-								<br class="clear" />
+					<!-- <h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.name }}</h3>   col-md-6 col-sm-6 col-lg-3-->
+					<div *ngFor="let course of courses.myCourses.active" routerLink="/user/course-details/{{course.id}}" class="card">
+						<div class="card-body">
+							<p class="card-title">
+								{{ course.name }}
+							</p>
+							<div class="card-image">
+								<div class="card-image-overlay"></div>
+								<img class="course-img" src="assets/images/courses/7.png" alt="Course image">
 							</div>
 
-							<div class="card-footer">
-								<div>Taught by <b>{{ course.author }}</b></div>
-								<br />
-								<div class="pull-left">
-									<i class="fa fa-users"></i> {{ course.subscribers }}
-								</div>
-								<div class="pull-right">
-								</div>
+							<div class="col-12">
+								<p class="card-text col-12">{{ course.description }}</p>
+							</div>
+
+							<br class="clear" />
+						</div>
+
+						<div class="card-footer">
+							<div>Taught by <b>{{ course.author }}</b></div>
+							<br />
+							<div class="pull-left">
+								<i class="fa fa-users"></i> {{ course.subscribers }}
+							</div>
+							<div class="pull-right">
 							</div>
 						</div>
+					</div>
 				</div>
-
-
 			</div>
-
-
-
-
-
-
 
 			<div id='myCourses'>
 				<h4>Subscribed courses</h4>
 				<hr />
 				<div class="scrolling-wrapper">
 					<!-- <h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.name }}</h3>   col-md-6 col-sm-6 col-lg-3-->
-					<div *ngFor="let course of subCourses" routerLink="/user/course-details/{{course.id}}" class="card">
+					<div *ngFor="let course of courses.subCourses.active" routerLink="/user/course-details/{{course.id}}" class="card">
 						<div class="card-body">
 							<p class="card-title">
 								{{ course.name }}
@@ -125,7 +113,7 @@
 				<hr />
 				<div class="scrolling-wrapper">
 					<!-- <h3><img src="assets/images/flags/{{ courseGroup.flag }}.svg" /> {{ courseGroup.name }}</h3>   col-md-6 col-sm-6 col-lg-3-->
-					<div *ngFor="let course of favCourses" routerLink="/user/course-details/{{course.id}}" class="card">
+					<div *ngFor="let course of courses.favCourses.active" routerLink="/user/course-details/{{course.id}}" class="card">
 						<div class="card-body">
 							<p class="card-title">
 								{{ course.name }}
@@ -154,16 +142,6 @@
 					</div>
 				</div>
 			</div>
-
-
-
-
-
-
-
-
-
-
 		</div>
 	</div>
 </div>

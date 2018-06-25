@@ -32,11 +32,11 @@ export class CourseService {
   }
 
   getLessonDet(l_id: number) {
-  	return this._api.call('http://localhost:8000/api/lesson/' + l_id + '/details', {}))
+  	return this._api.call('http://localhost:8000/api/lesson/' + l_id + '/details', {});
   }
 
   getLesson(l_id: number) {
-  	return this._api.call('http://localhost:8000/api/lesson/' + l_id, {}))
+  	return this._api.call('http://localhost:8000/api/lesson/' + l_id, {});
   }
 
   getLangDetails(lang_id: number) {
@@ -92,6 +92,14 @@ export class CourseService {
   		course: c_id
   	};
   	return this._api.call('http://localhost:8000/api/course/unfavorite', favoriteToDel);
+  }
+
+  delCourse(c_id: number) {
+      return this._api.call('http://localhost:8000/api/course/' + c_id + '/delete/', {});
+  }
+
+  delLesson(l_id: number) {
+      return this._api.call('http://localhost:8000/api/lesson/' + l_id + '/delete/', {});
   }
 
   subscribe(u_id: number, c_id: number) {
