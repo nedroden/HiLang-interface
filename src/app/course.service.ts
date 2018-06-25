@@ -94,6 +94,14 @@ export class CourseService {
   	return this._api.call('http://localhost:8000/api/course/unfavorite', favoriteToDel);
   }
 
+  delCourse(c_id: number) {
+      return this._api.call('http://localhost:8000/api/course/' + c_id + '/delete/', {});
+  }
+
+  delLesson(l_id: number) {
+      return this._api.call('http://localhost:8000/api/lesson/' + l_id + '/delete/', {});
+  }
+
   subscribe(u_id: number, c_id: number) {
   	let subscription = {
   		user: u_id,

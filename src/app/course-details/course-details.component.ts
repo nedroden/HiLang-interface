@@ -3,7 +3,7 @@ import { CourseService } from '../course.service';
 import { CookieService } from '../cookie.service';
 import { LessonService } from '../lesson.service';
 import { ErrorNotification } from '../utils/errornotification';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-details',
@@ -35,7 +35,8 @@ export class CourseDetailsComponent implements OnInit {
 	constructor(private courseService: CourseService,
                 private _activatedRoute: ActivatedRoute,
                 private _cookies: CookieService,
-                private _lessonService: LessonService) {}
+                private _lessonService: LessonService,
+                private _router: Router) {}
 
 
     author = {
@@ -55,22 +56,26 @@ export class CourseDetailsComponent implements OnInit {
 	searchCourse(id) {
         this.courseService.getCourseDetails(id).subscribe(response => {
             console.log(response);
-            this.courseId = response['id'];
-            this.courseName = response['name'];
-            this.courseAuthor = response['author'];
-            this.courseAuthorId = response['authorId'];
-            this.courseDesc = response['description'];
-            this.courseImg = response['image'];
-            this.nativeLang = response['native_lang'];
-            this.transLang = response['trans_lang'];
-            this.subscribed = response['subscription'];
-            this.favorite = response['favorite'];
-            this.courseDate = response['created_at'];
+            if (!response)
+                this._router.navigate(['user']);
+            else {
+                this.courseId = response['id'];
+                this.courseName = response['name'];
+                this.courseAuthor = response['author'];
+                this.courseAuthorId = response['authorId'];
+                this.courseDesc = response['description'];
+                this.courseImg = response['image'];
+                this.nativeLang = response['native_lang'];
+                this.transLang = response['trans_lang'];
+                this.subscribed = response['subscription'];
+                this.favorite = response['favorite'];
+                this.courseDate = response['created_at'];
 
-            if(this.courseAuthorId === this._cookies.getValue()['user_id']) {
-                this.editable = true;
+                if(this.courseAuthorId === this._cookies.getValue()['user_id']) {
+                    this.editable = true;
+                }
+                this.getLessons();
             }
-            this.getLessons();
         });
 	}
 
@@ -200,5 +205,13 @@ export class CourseDetailsComponent implements OnInit {
                 this.courseService.editCourseLang(langData).subscribe();
             }
         }
+    }
+
+    deleteCourse() {
+        if (confirm("Are you sure you want to delete this course?"))
+            this.courseService.delCourse(this.courseId).subscribe(response => {
+                if (response)
+                    this._router.navigate(['user/courses']);
+            });
     }
 }

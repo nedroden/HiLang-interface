@@ -92,6 +92,7 @@
             <button id="addFavorite" *ngIf="!favorite" type="button" class="btn btn-light" (click)="addFavorite()">Favorite</button>
             <button id="delFavorite" *ngIf="favorite" type="button" class="btn btn-danger" (click)="delFavorite()">Unfavorite</button>
 			<button id="addLesson" *ngIf="editable" routerLink="/user/course-details/{{courseId}}/create-list" class="btn btn-primary">Add a lesson</button>
+			<button id="addLesson" *ngIf="editable" (click)="deleteCourse()" class="btn btn-danger">Delete course</button>
         </div>
 
 	</div>

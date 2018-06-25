@@ -13,10 +13,22 @@ import { LoadingScreen } from '../utils/loadingScreen';
 
 export class MyCoursesComponent implements OnInit {
     private subLanguages = [];
-    private subCourses = [];
-    private myCourses = [];
-    private favCourses = [];
-    private languages;
+    private courses = {
+        myCourses : {
+            active : [],
+            courses : []
+        },
+        subCourses : {
+            active : [],
+            courses : []
+        },
+        favCourses : {
+            active : [],
+            courses : []
+        }
+    }
+    private languages = [];
+    private filteredLanguages = [];
     private knownUsers = {};
     private currentId: number;
     private loadingCounter: number;
@@ -26,39 +38,23 @@ export class MyCoursesComponent implements OnInit {
                 private _api: HilangApiService,
                 private _router: Router) {}
 
-    //for debug no other use
-    //---------------------------
-    getCourses() {
-        this._courses.getCourses().subscribe(
-            data => {this.doWithData(data)},
-            err => console.error(err)
-        );
-    }
-
-    doWithData(data) {
-        for(let i=0; i<data['length']; i++) {
-            this.subCourses[0].courses.push(data[i].fields);
-        }
-    }
-    //---------------------------
-
     getMyCourses(callback: (u_id: number) => any) {
         let courses = [];
         callback(this._cookies.getValue()['user_id']).subscribe(
             data => {
                 for(let course of <Object[]>data) {
-                    // Check if user exists in user array (used for caching)
-                    //if (!(course['fields']['user'] in this.knownUsers)) {
                     this._courses.getUser(course['fields']['user']).subscribe(userName => {
                         this.knownUsers[course['fields']['user']] = (userName['name']);
-                        this.myCourses.push({id: course['pk'],
-                                            description: course['fields']['description'],
-                                            image: course['fields']['image'],
-                                            name: course['fields']['name'],
-                                            subscribers: course['fields']['subscribers'],
-                                            author: userName['name']});
+                        courses.push({
+                            id          : course['pk'],
+                            description : course['fields']['description'],
+                            name        : course['fields']['name'],
+                            subscribers : course['fields']['subscribers'],
+                            author      : userName['name'],
+                            trans_lang  : course['fields']['trans_lang'],
+                            native_lang : course['fields']['native_lang']
+                        });
                     });
-                    //}
                 }
                 this.loadingCounter += 1;
                 if (this.loadingCounter < 3)
@@ -72,22 +68,28 @@ export class MyCoursesComponent implements OnInit {
     ngOnInit() {
         this.loadingCounter = 0;
         this.loadingScreen = new LoadingScreen();
+        this.loadingScreen.render(document.body);
         this._api.call('http://localhost:8000/api/languages/', {}).subscribe(data => {
-            this.languages = data;
+            this.languages = <Object[]>data;
         });
 
-        this.subCourses = this.getMyCourses((u_id: number) => {
+        this.courses.subCourses.courses = this.getMyCourses((u_id: number) => {
           return this._api.call('http://localhost:8000/api/user/subscriptions/' + u_id + '/', {});
         });
+        this.courses.subCourses.active = this.courses.subCourses.courses;
 
-        this.favCourses = this.getMyCourses((u_id: number) => {
+        this.courses.favCourses.courses = this.getMyCourses((u_id: number) => {
           return this._api.call('http://localhost:8000/api/user/favorites/' + u_id + '/', {});
         });
-        this.myCourses = this.getMyCourses((u_id: number) => {
+        this.courses.favCourses.active = this.courses.favCourses.courses
+
+        this.courses.myCourses.courses = this.getMyCourses((u_id: number) => {
             return this._api.call('http://localhost:8000/api/courses/' + u_id + '/', {});
         });
-        this.loadingScreen.render(document.body);
-        console.log('loading.....');
+        this.courses.myCourses.active = this.courses.myCourses.courses
+
+        console.log(this.filteredLanguages);
+        console.log(this.courses);
     }
 
     addCourse() {
@@ -97,10 +99,35 @@ export class MyCoursesComponent implements OnInit {
         if (courseInput.value != "") {
             let newCourse = {id: this.currentId, name: courseInput.value, author: ""}
             this._courses.createCourse({name: courseInput.value, targetLang: targetLang, nativeLang: nativeLang}).subscribe(data => {
-                //this._router.navigate('/user/course/' + data[0].pk + '/');
-                // navigate to course page!
+                this._router.navigate(['/user/course-details/' + data[0].pk + '/']);
             });
             courseInput.value = "";
+        }
+    }
+
+    updateFilter(languageId: number) {
+        if (this.filteredLanguages.includes(languageId)) {
+            for (let index in this.filteredLanguages) {
+                if (this.filteredLanguages[index] == languageId)
+                    this.filteredLanguages.splice(+index, 1);
+            }
+        } else
+            this.filteredLanguages.push(languageId);
+
+        this.updateCourses();
+    }
+
+    private updateCourses() {
+        for (let category in this.courses) {
+            if (this.filteredLanguages.length == 0) {
+                this.courses[category].active = this.courses[category].courses;
+                continue;
+            } else
+                this.courses[category].active = [];
+            for (let course of this.courses[category].courses) {
+                if (this.filteredLanguages.includes(course.trans_lang))
+                    this.courses[category].active.push(course);
+            }
         }
     }
 }

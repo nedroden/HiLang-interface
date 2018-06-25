@@ -40,7 +40,10 @@ export class LessonviewComponent implements OnInit {
         this.authorId = parseInt(ulrParts[ulrParts.length - 3]);
         this.lesson['counter'] = parseInt(ulrParts[ulrParts.length - 4]);
         this.courseService.getLessonDet(this.id).subscribe(response => {
-            if(response != null) {
+            if (!response){
+                console.log('test');
+                this.router.navigate(['user/'])
+            } else {
                 this.lesson['id'] = response['id'];
                 this.lesson['name'] = response['name'];
                 this.lesson['desc'] = response['desc'];
@@ -92,4 +95,11 @@ export class LessonviewComponent implements OnInit {
         this.router.navigate(['/user/course-details/' + this.courseId + '/create-list']);
     }
 
+    delete() {
+        if(confirm("Are you sure you want to delete this lesson?")) {
+            this.courseService.delLesson(this.id).subscribe(response => {
+                this.router.navigate(['user/course-details/' + this.courseId])
+            });
+        }
+    }
 }
