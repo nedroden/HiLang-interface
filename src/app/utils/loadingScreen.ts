@@ -15,11 +15,12 @@ export class LoadingScreen {
         this.element.appendChild(icon);
     }
 
-    public render(): void {
-        document.body.appendChild(this.element);
+    public render(parent: HTMLElement): void {
+        this.parent = parent;
+        this.parent.appendChild(this.element);
     }
 
     public disable(): void {
-        document.body.removeChild(this.element)
+        this.parent.removeChild(this.element)
     }
 }

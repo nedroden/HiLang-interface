@@ -37,6 +37,64 @@ br.clear {
     text-shadow: 1px 1px #962116;
 }
 
+
+
+.scrolling-wrapper {
+    overflow-x: scroll;
+    width: 100%;
+    height: 300px;
+    display: inline-block;
+    float: right;
+}
+
+.card:hover .card-image .card-image-overlay {
+    background-color: black;
+    background-color: rgba(38, 50, 56, 0.7);
+}
+
+
+.card {
+    width: 400px;
+    cursor: pointer;
+    -webkit-transition: background-color 100ms;
+    -moz-transition: background-color 100ms;
+    -o-transition: background-color 100ms;
+    transition: background-color 100ms;
+    /*max-height: 300px;*/
+}
+
+.card-image {
+    position: relative;
+    height: 150px;
+}
+
+.card-image * {
+    position: absolute;
+    height: 150px !important;
+}
+
+.card-image-overlay {
+    width: 100%;
+    z-index: 100;
+}
+
+.card-title {
+    padding: 5px 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.card-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.card-body, .card {
+    padding: 0;
+}
+
 .nav-item:hover, .nav-item-active {
     background: #4f5b62;
 }
@@ -64,15 +122,12 @@ br.clear {
 
 /* Courses */
 #addCourse {
-    margin-left: 35%;
-    margin-right: 35%;
-    margin-top: 8%;
+    margin-top: 10px;
 }
 
 #courseInput {
-    margin-left: 23%;
+    width: 100%;
 }
-
 #courses {
     text-align: left;
 }
@@ -83,9 +138,8 @@ br.clear {
 }
 
 .course-img {
-    max-height: 100px;
-    max-width: 100px;
-    border-radius: 8px;
+    width: 100%;
+    height: auto;
 }
 
 #courses .nav-item, #myCourses .nav-item {

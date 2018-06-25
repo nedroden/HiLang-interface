@@ -10,7 +10,7 @@ import { LessonDetailsService } from '../lesson-details.service';
 })
 export class LessonviewComponent implements OnInit {
 
-    lesson = {
+    private lesson = {
         counter: 0,
         id: "",
         name: "",

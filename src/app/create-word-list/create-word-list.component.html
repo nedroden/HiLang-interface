@@ -23,7 +23,9 @@
         </table>
     </form>
     <div id="buttons">
-        <button id="addRowsButton" type="button" class="btn btn-secondary">Add new rows</button>
-        <button id="saveButton" type="button" class="btn btn-secondary">Save</button>
+        <button id="saveButton" type="button" class="btn btn-success">Save</button>
+        <button id="addRowsButton" type="button" class="btn btn-primary">Add new rows</button>
+        <button (click)="cancel()" type="button" class="btn btn-danger">Cancel</button>
     </div>
 </div>
+<div id="errorField"></div>

@@ -3,6 +3,7 @@ import { LessonService } from '../lesson.service';
 import { HilangApiService } from '../hilang-api.service';
 import { LessonDetailsService } from '../lesson-details.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ErrorNotification } from '../utils/errornotification';
 
 @Component({
   selector: 'app-create-word-list',
@@ -12,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CreateWordListComponent implements OnInit {
 
 	number = 5;
-	data;
+	private data = {};
 	private course_id: number;
     details;
     private types;
@@ -156,7 +157,14 @@ export class CreateWordListComponent implements OnInit {
                 }
             });
         } else {
-            alert("Vul alle velden in!");
+            let errorNotification = new ErrorNotification("Please fill in all fields", 'errorField', 'danger');
+            errorNotification.setTimeout(3000);
+            errorNotification.render();
+            return
         }
 	}
+
+    cancel() {
+        this.router.navigate(['/user/course-details/' + this.course_id]);
+    }
 }
