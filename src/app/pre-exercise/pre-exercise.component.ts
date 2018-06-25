@@ -44,7 +44,7 @@ export class PreExerciseComponent implements OnInit {
 				selectedExercise = exercises[i].value;
 			}
 		}
-{/*		this.router.navigate(["user/lesson/" + this.lesson_id + "/" + selectedExercise]);
-*/}		console.log(this.selectedOptions);
+		this.router.navigate(["user/lesson/" + this.lesson_id + "/" + selectedExercise]);
+		console.log(this.selectedOptions);
 	}
 }

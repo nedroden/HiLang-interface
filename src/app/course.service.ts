@@ -32,11 +32,11 @@ export class CourseService {
   }
 
   getLessonDet(l_id: number) {
-  	return this._api.call('http://localhost:8000/api/lesson/' + l_id + '/details', {}))
+  	return this._api.call('http://localhost:8000/api/lesson/' + l_id + '/details', {});
   }
 
   getLesson(l_id: number) {
-  	return this._api.call('http://localhost:8000/api/lesson/' + l_id, {}))
+  	return this._api.call('http://localhost:8000/api/lesson/' + l_id, {});
   }
 
   getLangDetails(lang_id: number) {
