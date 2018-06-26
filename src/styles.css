@@ -226,6 +226,14 @@ input[type="text"].incorrect {
     background: #fceeed;
 }
 
+button.correct {
+    background: #6be22b !important;
+}
+
+button.incorrect {
+    background: #f43f3f !important;
+}
+
 form#exercise input[type="text"]:focus {
     box-shadow: none;
     border-color: inherit;
