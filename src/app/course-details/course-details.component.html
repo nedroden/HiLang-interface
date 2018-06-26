@@ -15,7 +15,7 @@
 				<hr class="my-4" />
 
 				<div class="col-12">
-					<p id="course_desc"> {{ courseDesc }}</p>
+					<p id="course_desc" style="white-space: pre-wrap;"> {{ courseDesc }}</p>
 				</div>
 			</div>
 
@@ -23,15 +23,20 @@
 				<div class="col-12">
 
 					<div class="form-group">
-						<label for="native_lang">Course name*</label>
+						<label for="courseNameInput">Course name*</label>
 						<br />
-						<input id="courseNameInput" type="text" value="{{ courseName }}" placeholder="Name">
+						<input id="courseNameInput" class="form-control" type="text" value="{{ courseName }}" placeholder="Name">
 					</div>
 
+					<div class="form-group">
+						<label for="courseDescInput">Course description</label>
+						<textarea class="form-control" id="courseDescInput" rows="3" placeholder="Description">{{ courseDesc }}</textarea>
+					</div>
 
 					<div class="form-group">
-						<label for="native_lang">Course description</label>
-						<textarea class="form-control" id="courseDescInput" rows="3" placeholder="Description">{{ courseDesc }}</textarea>
+						<label for="courseImgInput">Course image (external url only)</label>
+						<br />
+						<input id="courseImgInput" class="form-control" type="text" value="{{ courseImg }}" placeholder="Image (external url only)">
 					</div>
 
 					<div class="form-group">
