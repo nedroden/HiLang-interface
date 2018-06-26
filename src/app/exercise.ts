@@ -14,6 +14,7 @@ export abstract class Exercise {
     protected queue: Flashcard[];
     protected correctWords: Flashcard[];
     protected incorrectWords: Flashcard[];
+    protected allWords: Flashcard[];
 
     protected currentWord: Flashcard;
 
@@ -24,6 +25,8 @@ export abstract class Exercise {
 
     protected round: number;
 
+    protected mcOptions;
+
     constructor(protected exerciseService: ExerciseService,
                 protected router: Router) {
         this.exerciseService.setVocabulary([]);
@@ -32,6 +35,7 @@ export abstract class Exercise {
         this.queue = [];
         this.correctWords = [];
         this.incorrectWords = [];
+        this.allWords = [];
 
         this.currentWord = new Flashcard;
         this.progress = 0;
@@ -43,8 +47,10 @@ export abstract class Exercise {
     protected initialize(lesson: Lesson): void {
         for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random()))
             this.queue.push(word);
-
+        this.allWords = this.queue.slice(0);
         this.currentWord = this.queue[0];
+        this.addOptions(this.currentWord);
+
         this.startTimer();
 
         this.exerciseService.setLesson(lesson);
@@ -55,12 +61,16 @@ export abstract class Exercise {
     }
 
     protected next(): void {
-        if (this.hasNext())
+        if (this.hasNext()){
             this.currentWord = this.queue[0];
+            this.addOptions(this.currentWord)
+        }
         else if (this.incorrectWords.length > 0)
             this.nextRound();
         else
             this.exit();
+
+        console.log(this.queue)
     }
 
     private updateProgress(): void {
@@ -69,6 +79,10 @@ export abstract class Exercise {
 
     protected isCorrect(input: string): boolean {
         return input === this.queue[0].translation;
+    }
+
+    protected getCorrectValue(){
+        return this.queue[0].translation;
     }
 
     protected clear(isCorrect: boolean, input: HTMLInputElement): boolean {
@@ -139,5 +153,18 @@ export abstract class Exercise {
 
         this.stopTimer();
         this.router.navigate(['/user/exercisecompleted']);
+    }
+
+    protected addOptions(word: Flashcard){
+        var options = [this.queue[0].translation,];
+
+        for(let i = 0; i < 3; i++){
+            var rand = this.allWords[Math.floor(Math.random() * this.allWords.length)].translation;
+            while(options.includes(rand)){
+                rand = this.allWords[Math.floor(Math.random() * this.allWords.length)].translation;
+            }
+            options.push(rand);
+        }
+        word.options = options.sort((a, b) => 0.5 - Math.random());
     }
 }
