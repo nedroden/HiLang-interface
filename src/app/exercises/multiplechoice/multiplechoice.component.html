@@ -2,24 +2,26 @@
 <hr />
 <div class="col-sm-10">
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-header">
-                1 / 20
-            </div>
+        <div id="mc-card" class="card">
             <div class="card-body">
                 <div class="form-group">
-                    <label for="local_language">English:</label>
-                    <h3 id="local_language">{{ question }}</h3>
+                    <label for="local_language">Source language:</label>
+                    <h3 id="local_language">{{ currentWord.native }}</h3>
                 </div>
 
                 <div class="form-group">
+                    <label for="translation">Choose the correct answer:</label>
                     <div id="mc-buttons">
-                        <button *ngFor="let answer of answers" type="button" class="btn btn-primary btn-lg btn-block text-left"><strong>{{ answer.index }} -</strong> {{ answer.value  }}</button>
+                        <button *ngFor="let answer of answers" (click)="handleInput(this, answer.id, exercise)" id={{answer.id}} type="button" value={{answer.value}} class="btn btn-primary btn-lg btn-block text-left"><strong>{{ answer.id[7] }} -</strong> {{ answer.value  }}</button>
                     </div>
                 </div>
 
             </div>
         </div>
+    </div>
+
+    <div class="progress mt-sm-5">
+        <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': progress + '%'}"></div>
     </div>
 
     <div class="container-fluid action_buttons">
@@ -29,6 +31,12 @@
                     <button type="button" class="btn btn-light">End lesson</button>
                     <button type="button" class="btn btn-light">Grammar</button>
                     <button type="button" class="btn btn-danger">Report error</button>
+                </div>
+            </div>
+
+            <div class="pull-right">
+                <div class="col-sm align-right">
+                    <strong>Current time:</strong> {{ timeInSeconds }} {{ timeInSeconds === 1 ? 'second' : 'seconds' }}
                 </div>
             </div>
 
