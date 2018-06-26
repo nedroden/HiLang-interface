@@ -12,7 +12,6 @@ import { LoadingScreen } from '../utils/loadingScreen';
 })
 
 export class MyCoursesComponent implements OnInit {
-    private subLanguages = [];
     private courses = {
         myCourses : {
             active : [],
@@ -28,6 +27,7 @@ export class MyCoursesComponent implements OnInit {
         }
     }
     private languages = [];
+    private flags = {};
     private filteredLanguages = [];
     private knownUsers = {};
     private currentId: number;
@@ -43,6 +43,7 @@ export class MyCoursesComponent implements OnInit {
         callback(this._cookies.getValue()['user_id']).subscribe(
             data => {
                 for(let course of <Object[]>data) {
+                    console.log(course);
                     this._courses.getUser(course['fields']['user']).subscribe(userName => {
                         this.knownUsers[course['fields']['user']] = (userName['name']);
                         courses.push({
@@ -50,9 +51,11 @@ export class MyCoursesComponent implements OnInit {
                             description : course['fields']['description'],
                             name        : course['fields']['name'],
                             subscribers : course['fields']['subscribers'],
+                            image       : course['fields']['image'],
                             author      : userName['name'],
                             trans_lang  : course['fields']['trans_lang'],
-                            native_lang : course['fields']['native_lang']
+                            native_lang : course['fields']['native_lang'],
+                            flag_name   : course['fields']['flag_name'],
                         });
                     });
                 }
@@ -71,6 +74,9 @@ export class MyCoursesComponent implements OnInit {
         this.loadingScreen.render(document.body);
         this._api.call('http://localhost:8000/api/languages/', {}).subscribe(data => {
             this.languages = <Object[]>data;
+            for (let flag of <Object[]>data) {
+                this.flags[flag['pk']] = flag['fields']['flag'];
+            }
         });
 
         this.courses.subCourses.courses = this.getMyCourses((u_id: number) => {
@@ -87,9 +93,6 @@ export class MyCoursesComponent implements OnInit {
             return this._api.call('http://localhost:8000/api/courses/' + u_id + '/', {});
         });
         this.courses.myCourses.active = this.courses.myCourses.courses
-
-        console.log(this.filteredLanguages);
-        console.log(this.courses);
     }
 
     addCourse() {

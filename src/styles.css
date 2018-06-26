@@ -40,58 +40,95 @@ br.clear {
 
 
 .scrolling-wrapper {
-    overflow-x: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
     width: 100%;
-    height: 300px;
-    display: inline-block;
+    height: 350px;
     float: right;
+    max-height: 350px;
+    display: inline;
 }
 
-.card:hover .card-image .card-image-overlay {
-    background-color: black;
+.course-card:hover .course-card-image .course-card-image-overlay {
     background-color: rgba(38, 50, 56, 0.7);
 }
 
 
-.card {
-    width: 400px;
+.course-card {
+    border: 1px solid rgba(0,0,0,.125);
+    display: inline-block;
+    max-width: 200px;
+    width: 200px;
     cursor: pointer;
+    white-space:normal;
     -webkit-transition: background-color 100ms;
     -moz-transition: background-color 100ms;
     -o-transition: background-color 100ms;
     transition: background-color 100ms;
-    /*max-height: 300px;*/
+    max-height: 316px;
+    height: 316px;
+    margin-right: 10px;
+    font-size: 14px;
+    background-color: rgba(0,0,0,.03);
+    border-radius: 5px;
 }
 
-.card-image {
+.course-card:last-child {
+    margin-right: 0;
+}
+
+.course-card-image {
     position: relative;
-    height: 150px;
+    height: 100px;
+    width: 100%;
+    background-color: white;
+    border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
-.card-image * {
+.course-card-image * {
     position: absolute;
-    height: 150px !important;
+    height: 110px !important;
+    margin-bottom: 10px;
 }
 
-.card-image-overlay {
+.course-card-image-overlay {
     width: 100%;
     z-index: 100;
 }
 
-.card-title {
+.course-card-title {
     padding: 5px 10px;
     text-align: center;
     font-weight: bold;
-    font-size: 18px;
+    line-height: 16px;
+    height: 32px;
+    max-height: 32px;
+    max-width: 180px;
+    margin: 0 10px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
-.card-text {
+.course-card-text {
     overflow: hidden;
-    white-space: nowrap;
+    white-space: pre-wrap;
     text-overflow: ellipsis;
+    max-width: 180px;
+    margin: 0 10px;
+    line-height: 16px;
+    height: 32px;
+    max-height: 32px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
-.card-body, .card {
+.course-card-footer {
+    max-width: 180px;
+    margin: 10px;
+}
+
+.course-card-body, .course-card {
     padding: 0;
 }
 

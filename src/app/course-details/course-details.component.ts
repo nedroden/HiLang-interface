@@ -143,6 +143,7 @@ export class CourseDetailsComponent implements OnInit {
     saveCourse() {
         let name = (<HTMLInputElement>document.getElementById('courseNameInput'))['value'];
         let description = (<HTMLInputElement>document.getElementById('courseDescInput'))['value'];
+        let image = (<HTMLInputElement>document.getElementById('courseImgInput'))['value'];
         let native_lang = (<HTMLInputElement>document.getElementById('native_lang'))['value'];
         let target_lang = (<HTMLInputElement>document.getElementById('target_lang'))['value'];
 
@@ -151,6 +152,7 @@ export class CourseDetailsComponent implements OnInit {
                     id: this.courseId,
                     name: name,
                     description: description,
+                    image: image,
                     native_lang: native_lang,
                     target_lang: target_lang,
                 }).subscribe(response => {
@@ -158,6 +160,7 @@ export class CourseDetailsComponent implements OnInit {
                         console.log(response);
                         this.courseName = name;
                         this.courseDesc = description;
+                        this.courseImg = image;
                         this.nativeLang = +native_lang;
                         this.transLang = +target_lang;
                     } else {
