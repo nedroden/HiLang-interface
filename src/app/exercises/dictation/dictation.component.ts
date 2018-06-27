@@ -39,8 +39,7 @@ export class DictationComponent extends Exercise implements OnInit {
     }
 
      protected initialize(lesson: Lesson){
-		for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random()))
-            this.queue.push(word);
+		this.initQueue();
         this.allWords = this.queue.slice(0);
         this.currentWord = this.queue[0];
         this.message = this.currentWord.translation;
@@ -63,7 +62,7 @@ export class DictationComponent extends Exercise implements OnInit {
         var correct_answer = document.getElementById('correctAnswer');
 
         if (!isCorrect && correct_answer !== null){
-            correct_answer.innerHTML = '<strong>Correct answer:</strong> ' + exercise.currentWord.translation;
+            correct_answer.innerHTML = '<strong>Correct answer:</strong> ' + exercise.currentWord.translation);
         }
 
         let timeout: Function = () => {

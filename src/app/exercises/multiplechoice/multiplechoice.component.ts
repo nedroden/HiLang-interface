@@ -30,7 +30,7 @@ export class MultipleChoiceComponent extends Exercise implements OnInit {
         this._lessonService.getLesson(this.id).subscribe(lesson => {
             this.lesson = lesson;
             this.exerciseService.setVocabulary(this.lesson.vocabulary);
-            this.initialize(lesson);
+            this.initialize(lesson);    
             this.setOptions();
         });
     }   
