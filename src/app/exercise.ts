@@ -62,14 +62,18 @@ export abstract class Exercise {
 
     protected next(): void {
         if (this.hasNext()){
+            console.log('1')
             this.currentWord = this.queue[0];
             this.addOptions(this.currentWord)
         }
-        else if (this.incorrectWords.length > 0)
+        else if (this.incorrectWords.length > 0){
+            console.log('2')
             this.nextRound();
-        else
+        }
+        else{
+            console.log('3')
             this.exit();
-
+        }
         console.log(this.queue)
     }
 
@@ -78,6 +82,7 @@ export abstract class Exercise {
     }
 
     protected isCorrect(input: string): boolean {
+        console.log('Nr 1 in queue ' + this.queue[0].translation )
         return input === this.queue[0].translation;
     }
 
@@ -96,6 +101,7 @@ export abstract class Exercise {
 
         (isCorrect ? this.correctWords : this.incorrectWords).push(this.queue[0]);
         this.queue.shift();
+        console.log(this.queue)
 
         this.updateProgress();
 
