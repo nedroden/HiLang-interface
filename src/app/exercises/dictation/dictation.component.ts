@@ -60,10 +60,11 @@ export class DictationComponent extends Exercise implements OnInit {
         input.disabled = true;
         input.blur();
 
-        let correct_answer = document.getElementById('correct_answer');
+        var correct_answer = document.getElementById('correctAnswer');
 
-        if (!isCorrect && correct_answer !== null)
-            document.getElementById('correct_answer').innerHTML = '<strong>Correct answer:</strong> ' + exercise.currentWord.translation.replace(/<(?:.|\n)*?>/gm, '');
+        if (!isCorrect && correct_answer !== null){
+            correct_answer.innerHTML = '<strong>Correct answer:</strong> ' + exercise.currentWord.translation;
+        }
 
         let timeout: Function = () => {
             input.classList.remove(className);
@@ -110,6 +111,7 @@ export class DictationComponent extends Exercise implements OnInit {
     private repeat(){
     	var msg = new SpeechSynthesisUtterance(this.message);
     	msg.lang = 'es';
+    	console.log(msg.voice)
 		window.speechSynthesis.speak(msg);
     }
 }
