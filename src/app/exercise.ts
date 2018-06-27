@@ -238,7 +238,7 @@ export abstract class Exercise {
         word.options = options.sort((a, b) => 0.5 - Math.random());
     }
 
-    protected removeAccents(strAccents) {
+    protected removeAccents(strAccents): string {
         var strAccents = strAccents.split('');
         var strAccentsOut = new Array();
         var strAccentsLen = strAccents.length;
@@ -250,7 +250,7 @@ export abstract class Exercise {
             } else
                 strAccentsOut[y] = strAccents[y];
         }
-        strAccentsOut = strAccentsOut.join('');
-        return strAccentsOut;
+        let output = strAccentsOut.join('');
+        return output
     }
 }
