@@ -6,6 +6,8 @@ import { HilangApiService } from './hilang-api.service';
 import { Lesson } from './structures/lesson';
 import { CookieService } from './cookie.service';
 
+import { environment } from '../environments/environment';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -19,7 +21,7 @@ export class LessonService {
         	    token: this._cookie.getValue()['token'],
         	    params: {id: id}
         	}
-          return this._http.post<Lesson>('/lesson/' + id, data);
+          return this._http.post<Lesson>(environment.api_url + '/lesson/' + id, data);
       }
 
     public getSentenceLesson(id: number) {//: Observable<Lesson> {
