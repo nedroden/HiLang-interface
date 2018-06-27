@@ -26,6 +26,7 @@ import { AccountsettingsComponent } from './accountsettings/accountsettings.comp
 import { UserinfoblockComponent } from './userinfoblock/userinfoblock.component';
 import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
 import { CompletionComponent } from './exercises/completion/completion.component';
+import { DictationComponent } from './exercises/dictation/dictation.component';
 import { PreExerciseComponent } from './pre-exercise/pre-exercise.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
@@ -85,6 +86,10 @@ const appRoutes: Routes = [
                     {
                         path: 'sentencestructure',
                         component: SentenceStructureComponent
+                    },
+                    {
+                        path: 'dictation',
+                        component: DictationComponent
                     },
                 ]
             },
@@ -160,7 +165,8 @@ const appRoutes: Routes = [
         DialogComponent,
         CompletionComponent,
         PreExerciseComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        DictationComponent
     ],
     entryComponents: [
         HeaderComponent,
