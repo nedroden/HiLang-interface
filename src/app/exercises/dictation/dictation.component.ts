@@ -62,7 +62,7 @@ export class DictationComponent extends Exercise implements OnInit {
         var correct_answer = document.getElementById('correctAnswer');
 
         if (!isCorrect && correct_answer !== null){
-            correct_answer.innerHTML = '<strong>Correct answer:</strong> ' + exercise.currentWord.translation);
+            correct_answer.innerHTML = '<strong>Correct answer:</strong> ' + exercise.currentWord.translation;
         }
 
         let timeout: Function = () => {
