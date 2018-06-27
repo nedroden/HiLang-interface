@@ -17,6 +17,10 @@ export class BrowseComponent implements OnInit {
         newest : {
             active : [],
             courses : []
+        },
+        searchResults : {
+            active : [],
+            courses : []
         }
     }
     private languages = [];
@@ -65,7 +69,7 @@ export class BrowseComponent implements OnInit {
         });
         this.courses.newest.active = this.courses.newest.courses
 
-
+        //this.searchResults.push(1);
         // this.addKeyEvent();
         // let ulrParts = (window.location.href).split("/");
         // if(ulrParts[5] != null) {
@@ -93,12 +97,11 @@ export class BrowseComponent implements OnInit {
     // }
     //
     search() {
+        this.courses.searchResults.courses = [];
         let searchFor = document.getElementById('browseBar')['value'];
         this._courses.searchForPublicCourse(searchFor).subscribe(response => {
-            console.log(response);
             for(let course of <any[]>response) {
-
-                this.searchResults.push({
+                this.courses.searchResults.courses.push({
                     id          : course['id'],
                     description : course['description'],
                     name        : course['name'],
@@ -109,8 +112,14 @@ export class BrowseComponent implements OnInit {
                     native_lang : course['native_lang']
                 });
             }
-            console.log(this.searchResults);
+            this.courses.searchResults.active = this.courses.searchResults.courses;
+            this.updateCourses();
         });
+    }
+
+    clearSearch() {
+        this.courses.searchResults.courses = [];
+        this.courses.searchResults.active = [];
     }
 
     // SORT FUNCTION MAKEN
