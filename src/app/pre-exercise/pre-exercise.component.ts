@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ExerciseService } from '../exercise.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class PreExerciseComponent implements OnInit {
 			tillend: false
 		};
 
-	constructor(private _activatedRoute: ActivatedRoute, private router: Router) { }
+	constructor(private _activatedRoute: ActivatedRoute, private router: Router, private exerciseService: ExerciseService) { }
 
 	ngOnInit() {
 		this._activatedRoute.params.subscribe(params => this.lesson_id = params.lesson_id);
@@ -28,7 +29,7 @@ export class PreExerciseComponent implements OnInit {
 	}
 
 	createExercise() {
-		var options = <NodeListOf<HTMLInputElement>>document.getElementsByName("options");
+		var options = <NodeListOf<HTMLInputElement>>document.getElementsByName("option");
 		var exercises = <NodeListOf<HTMLInputElement>>document.getElementsByName("exercise");
 		var selectedExercise;		
 
@@ -36,7 +37,7 @@ export class PreExerciseComponent implements OnInit {
 			if(options[i].checked){
 				console.log(options[i].value)
 				this.selectedOptions[options[i].value] = true;
-			}
+			} 
 		}
 
 		for(var i = 0; i < exercises.length; i++){
@@ -44,6 +45,11 @@ export class PreExerciseComponent implements OnInit {
 				selectedExercise = exercises[i].value;
 			}
 		}
+		this.exerciseService.setRandom(this.selectedOptions.random);
+		this.exerciseService.setCapital(this.selectedOptions.capital);
+		this.exerciseService.setPunctuation(this.selectedOptions.punctuation);
+		this.exerciseService.setTillEnd(this.selectedOptions.tillend);
+
 		this.router.navigate(["user/lesson/" + this.lesson_id + "/" + selectedExercise]);
 		console.log(this.selectedOptions);
 	}

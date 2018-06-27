@@ -10,6 +10,11 @@ export class ExerciseService {
 
     private _vocabulary: Flashcard[];
     private _exerciseResult: ExerciseResult;
+    private _random: boolean;
+    private _capital: boolean;
+    private _punctuation: boolean;
+    private _tillend: boolean;
+
 
     constructor() {
         this.clearResults();
@@ -50,4 +55,37 @@ export class ExerciseService {
     public addCorrectWord(word: Flashcard): void {
         this._exerciseResult.vocabulary.push(word);
     }
+
+    public setRandom(bool: boolean){
+        this._random = bool;
+    }
+
+    public setCapital(bool: boolean){
+        this._capital = bool;
+    }
+
+    public setPunctuation(bool: boolean){
+        this._punctuation = bool;
+    }
+
+    public setTillEnd(bool: boolean){
+        this._tillend = bool;
+    }
+
+    public getRandom(){
+        return this._random;
+    }
+
+    public getCapital(){
+        return this._capital;
+    }
+
+    public getPunctuation(){
+        return this._punctuation;
+    }
+
+    public getTillEnd(){
+        return this._tillend;
+    }
+
 }

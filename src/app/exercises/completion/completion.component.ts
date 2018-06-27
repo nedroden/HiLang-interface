@@ -31,7 +31,6 @@ export class CompletionComponent extends Exercise implements OnInit {
         this.exerciseService.setVocabulary(this.lesson.vocabulary);
         this.initialize(lesson);
         this.makeIncomplete(this.currentWord)
-        console.log(lesson)
       });
 
       document.getElementById('enterAnswer').addEventListener('click', e => this.handleInput(e, this));
@@ -45,7 +44,6 @@ export class CompletionComponent extends Exercise implements OnInit {
           continue;
         }
         if(index != 0 && index != currentWord.translation.length -1 && index != Math.floor(currentWord.translation.length / 2)) {
-          console.log(currentWord.translation[index])
           question += ".";
 
         } else {

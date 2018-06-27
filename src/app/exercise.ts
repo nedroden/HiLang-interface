@@ -45,15 +45,81 @@ export abstract class Exercise {
     }
 
     protected initialize(lesson: Lesson): void {
-        for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random()))
-            this.queue.push(word);
+        this.initQueue();
         this.allWords = this.queue.slice(0);
-        this.currentWord = this.queue[0];
+        this.setCurrentWord();
         this.addOptions(this.currentWord);
-
         this.startTimer();
 
         this.exerciseService.setLesson(lesson);
+    }
+
+    protected initQueue(){
+        //Punctuation unchecked, capital unchecked
+        if(!this.exerciseService.getPunctuation() && !this.exerciseService.getCapital()){
+            if(this.exerciseService.getRandom()){
+                for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random())){
+                    word.native = this.removeAccents(word.native).toLowerCase();
+                    word.translation = this.removeAccents(word.translation).toLowerCase();
+                    this.queue.push(word);
+                }
+            } else {
+                for (let word of this.exerciseService.getVocabulary()){
+                    word.native = this.removeAccents(word.native).toLowerCase();
+                    word.translation = this.removeAccents(word.translation).toLowerCase();
+                    this.queue.push(word);
+                }
+            }
+        }
+        //Punctuation unchecked, capital checked        
+        else if(!this.exerciseService.getPunctuation() && this.exerciseService.getCapital()){
+            if(this.exerciseService.getRandom()){
+                for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random())){
+                    word.native = this.removeAccents(word.native);
+                    word.translation = this.removeAccents(word.translation);
+                    this.queue.push(word);
+                }
+            } else {
+                for (let word of this.exerciseService.getVocabulary()){
+                    word.native = this.removeAccents(word.native);
+                    word.translation = this.removeAccents(word.translation);
+                    this.queue.push(word);
+                }
+            }
+        }
+        //Punctuation checked, capital unchecked
+        else if(this.exerciseService.getPunctuation() && !this.exerciseService.getCapital()){
+            if(this.exerciseService.getRandom()){
+                for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random())){
+                    word.native = word.native.toLowerCase();
+                    word.translation = word.translation.toLowerCase();
+                    this.queue.push(word);
+                }
+            } else {
+                for (let word of this.exerciseService.getVocabulary()){
+                    word.native = word.native.toLowerCase();
+                    word.translation = word.translation.toLowerCase();
+                    this.queue.push(word);
+                }
+            }
+        }
+        //Punctuation checked, capital checked
+        else {
+            if(this.exerciseService.getRandom()){
+                for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random())){
+                    this.queue.push(word);
+                }
+            } else {
+                for (let word of this.exerciseService.getVocabulary()){
+                    this.queue.push(word);
+                }
+
+            }
+        }     
+    }
+
+    protected setCurrentWord(){
+        this.currentWord = this.queue[0];
     }
 
     protected hasNext(): boolean {
@@ -63,7 +129,7 @@ export abstract class Exercise {
     protected next(): void {
         if (this.hasNext()){
             console.log('1')
-            this.currentWord = this.queue[0];
+            this.setCurrentWord();
             this.addOptions(this.currentWord)
         }
         else if (this.incorrectWords.length > 0){
@@ -82,12 +148,11 @@ export abstract class Exercise {
     }
 
     protected isCorrect(input: string): boolean {
-        console.log('Nr 1 in queue ' + this.queue[0].translation )
         return input === this.queue[0].translation;
     }
 
     protected getCorrectValue(){
-        return this.queue[0].translation;
+        return this.currentWord.translation;
     }
 
     protected clear(isCorrect: boolean, input: HTMLInputElement): boolean {
@@ -101,7 +166,6 @@ export abstract class Exercise {
 
         (isCorrect ? this.correctWords : this.incorrectWords).push(this.queue[0]);
         this.queue.shift();
-        console.log(this.queue)
 
         this.updateProgress();
 
@@ -172,5 +236,21 @@ export abstract class Exercise {
             options.push(rand);
         }
         word.options = options.sort((a, b) => 0.5 - Math.random());
+    }
+
+    protected removeAccents(strAccents) {
+        var strAccents = strAccents.split('');
+        var strAccentsOut = new Array();
+        var strAccentsLen = strAccents.length;
+        var accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
+        var accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz";
+        for (var y = 0; y < strAccentsLen; y++) {
+            if (accents.indexOf(strAccents[y]) != -1) {
+                strAccentsOut[y] = accentsOut.substr(accents.indexOf(strAccents[y]), 1);
+            } else
+                strAccentsOut[y] = strAccents[y];
+        }
+        strAccentsOut = strAccentsOut.join('');
+        return strAccentsOut;
     }
 }
