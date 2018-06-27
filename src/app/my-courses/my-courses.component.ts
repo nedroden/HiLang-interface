@@ -72,7 +72,7 @@ export class MyCoursesComponent implements OnInit {
         this.loadingCounter = 0;
         this.loadingScreen = new LoadingScreen();
         this.loadingScreen.render(document.body);
-        this._api.call('http://localhost:8000/api/languages/', {}).subscribe(data => {
+        this._api.call('/languages/', {}).subscribe(data => {
             this.languages = <Object[]>data;
             for (let flag of <Object[]>data) {
                 this.flags[flag['pk']] = flag['fields']['flag'];
@@ -80,17 +80,17 @@ export class MyCoursesComponent implements OnInit {
         });
 
         this.courses.subCourses.courses = this.getMyCourses((u_id: number) => {
-          return this._api.call('http://localhost:8000/api/user/subscriptions/' + u_id + '/', {});
+          return this._api.call('/user/subscriptions/' + u_id + '/', {});
         });
         this.courses.subCourses.active = this.courses.subCourses.courses;
 
         this.courses.favCourses.courses = this.getMyCourses((u_id: number) => {
-          return this._api.call('http://localhost:8000/api/user/favorites/' + u_id + '/', {});
+          return this._api.call('/user/favorites/' + u_id + '/', {});
         });
         this.courses.favCourses.active = this.courses.favCourses.courses
 
         this.courses.myCourses.courses = this.getMyCourses((u_id: number) => {
-            return this._api.call('http://localhost:8000/api/courses/' + u_id + '/', {});
+            return this._api.call('/courses/' + u_id + '/', {});
         });
         this.courses.myCourses.active = this.courses.myCourses.courses
     }

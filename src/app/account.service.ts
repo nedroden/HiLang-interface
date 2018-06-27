@@ -9,12 +9,10 @@ export class AccountService {
 
 	constructor(private _api: HilangApiService, private _cookie: CookieService) { }
 
-	userInfoUrl = 'http://localhost:8000/api/user/1/';
-
-
+	userInfoUrl = '/user/1/';
 
 	getAccountSettings() {
 		let user_id = this._cookie.getValue()['user_id'];
-		return this._api.call('http://localhost:8000/api/user/' + user_id + '/', {});
+		return this._api.call('/user/' + user_id + '/', {});
 	}
 }
