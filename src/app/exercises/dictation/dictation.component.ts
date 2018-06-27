@@ -11,14 +11,17 @@ import { ExerciseService } from '../../exercise.service';
   templateUrl: './dictation.component.html',
   styleUrls: ['./dictation.component.css']
 })
-export class DictationComponent extends Exercise implements OnInit {
 
+export class DictationComponent extends Exercise implements OnInit {
     id: number;
     lesson: Lesson;
     correctAnswer: string;
     question: string;
     nativeName: string;
     transName: string;
+
+    message;
+
 
     constructor(private lessonService: LessonService, private activatedRoute: ActivatedRoute, router: Router, exerciseService: ExerciseService) {
       super(exerciseService, router);
@@ -27,19 +30,86 @@ export class DictationComponent extends Exercise implements OnInit {
     ngOnInit() {
       this.lesson = new Lesson;
       this.activatedRoute.params.subscribe(params => this.id = params.id);
-      var msg = new SpeechSynthesisUtterance('Hostia, me cago en ti');
-      msg.lang = 'es';
-		window.speechSynthesis.speak(msg);
       this.lessonService.getLesson(this.id).subscribe(lesson => {
         this.lesson = lesson;
         this.exerciseService.setVocabulary(this.lesson.vocabulary);
         this.initialize(lesson);
       });
+   		document.getElementById('enterAnswer').addEventListener('click', e => this.handleInput(e, this));
+    }
 
-      document.getElementById('enterAnswer').addEventListener('click', e => this.handleInput(e, this));
+     protected initialize(lesson: Lesson){
+		for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random()))
+            this.queue.push(word);
+        this.allWords = this.queue.slice(0);
+        this.currentWord = this.queue[0];
+        this.message = this.currentWord.translation;
+	  	this.repeat();
+        this.startTimer();
+        this.exerciseService.setLesson(lesson);
     }
 
     private handleInput(event, exercise): void {
-     
+        event.preventDefault();
+
+        let input = <HTMLInputElement>document.getElementById('answer');
+        let isCorrect = exercise.isCorrect(input.value);
+        let className = isCorrect ? 'correct' : 'incorrect';
+
+        input.classList.add(className);
+        input.disabled = true;
+        input.blur();
+
+        let correct_answer = document.getElementById('correct_answer');
+
+        if (!isCorrect && correct_answer !== null)
+            document.getElementById('correct_answer').innerHTML = '<strong>Correct answer:</strong> ' + exercise.currentWord.translation.replace(/<(?:.|\n)*?>/gm, '');
+
+        let timeout: Function = () => {
+            input.classList.remove(className);
+            input.disabled = false;
+
+            exercise.clear(isCorrect, input);
+            exercise.next();
+            this.updateMessage();
+            this.repeat();
+
+            if (correct_answer !== null)
+                correct_answer.innerHTML = '';
+
+            window.removeEventListener('keypress', whatever);
+            window.clearInterval(interval);
+            input.focus();
+        };
+
+        let timeoutValue = exercise.getTimeout(isCorrect);
+        let interval = window.setInterval(() => {
+            if (timeoutValue <= 10) {
+                timeout();
+                return;
+            }
+            else
+                timeoutValue -= 10;
+        }, 10);
+
+        let whatever = function(event) {
+            if ((event.keyCode ? event.keyCode : event.which) == 13) {
+                timeout();
+                return;
+            }
+        };
+
+        window.addEventListener('keypress', whatever, false);
+    }
+
+
+  	private updateMessage(){
+  		this.message = this.currentWord.translation;
+  	}
+
+    private repeat(){
+    	var msg = new SpeechSynthesisUtterance(this.message);
+    	msg.lang = 'es';
+		window.speechSynthesis.speak(msg);
     }
 }

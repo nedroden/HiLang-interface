@@ -3,14 +3,13 @@
 <div class="col-sm-10">
     <form id="exercise">
         <div class="form-group">
-            <div class="pull-left col-sm-5">
-                <label for="trans_language">Source language:</label>
-                <h3 id="questionTrans">{{ currentWord.native}}</h3>
-                <label for="native_language">Target language:</label>
-                <h3 id="questionWord">{{ question }}</h3>
-            </div>
+            <span class="pull-left col-sm-5">
+                <button type='button' id="repeatButton" class="btn btn-warning" (click)="repeat()">
+                     Repeat question
+                </button>
+            </span>
             <div class="pull-right col-sm-5">
-                <label for="translation">Answer:</label>
+                <label for="translation">Enter the spoken word:</label>
                 <div class="form-inline">
                     <input id="answer" type="text" class="form-control form-control-lg form-control mr-sm-3" placeholder="Enter translation here" autocomplete="off" />
                     <button id="enterAnswer" type="submit" class="btn btn-success btn-lg">Proceed</button>
@@ -30,7 +29,7 @@
         <div class="row">
             <div class="col-sm align-left">
                 <div class="btn-group pull-left" role="group">
-                    <button type="button" class="btn btn-light">End lesson</button>
+                    <button type="button" class="btn btn-light" routerLink="/user/courses/">End lesson</button>
                     <button type="button" class="btn btn-light">Grammar</button>
                     <button type="button" class="btn btn-danger">Report error</button>
                 </div>
