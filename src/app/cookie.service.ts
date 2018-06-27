@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { environment } from '../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,7 +30,7 @@ export class CookieService {
 
   checkValidity() {
     this.getCookie();
-    this._http.post('http://localhost:8000/api/checkToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).subscribe(response => {
+    this._http.post(environment.api_url + '/checkToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).subscribe(response => {
         if (!response['approved'] && this.value != null)
             this.destroy();
         });
@@ -36,7 +38,7 @@ export class CookieService {
 
   checkValidityPost() {
       this.getCookie();
-      return this._http.post('http://localhost:8000/api/checkToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
+      return this._http.post(environment.api_url + '/checkToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 
   createCookie(data: object ) {
@@ -51,7 +53,7 @@ export class CookieService {
   }
 
   destroy() {
-      this._http.post('http://localhost:8000/api/destroyToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).subscribe();
+      this._http.post(environment.api_url + '/destroyToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).subscribe();
       document.cookie = "hl_cred=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       this.value = null;
   }

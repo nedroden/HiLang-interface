@@ -60,12 +60,12 @@ export class BrowseComponent implements OnInit {
 
     ngOnInit() {
         this.courses.popular.courses = this.getCourses(() => {
-          return this._api.call('http://localhost:8000/api/course/popular/', {});
+          return this._api.call('/course/popular/', {});
         });
         this.courses.popular.active = this.courses.popular.courses;
 
         this.courses.newest.courses = this.getCourses(() => {
-          return this._api.call('http://localhost:8000/api/course/newest/', {});
+          return this._api.call('/course/newest/', {});
         });
         this.courses.newest.active = this.courses.newest.courses
 

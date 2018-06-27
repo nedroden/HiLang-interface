@@ -27,7 +27,7 @@ export class CreateWordListComponent implements OnInit {
     	this._activatedRoute.params.subscribe(params => this.course_id = params.id);
 	   	this.addOnClick();
     	this.createRows();
-        this._api.call('http://localhost:8000/api/lessontypes', {}).subscribe(data => {
+        this._api.call('/lessontypes', {}).subscribe(data => {
             this.types = data;
         });
 

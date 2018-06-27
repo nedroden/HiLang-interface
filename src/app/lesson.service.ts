@@ -19,26 +19,26 @@ export class LessonService {
         	    token: this._cookie.getValue()['token'],
         	    params: {id: id}
         	}
-          return this._http.post<Lesson>('http://localhost:8000/api/lesson/' + id, data);
+          return this._http.post<Lesson>('/lesson/' + id, data);
       }
 
     public getSentenceLesson(id: number) {//: Observable<Lesson> {
-        return this._api.call('http://localhost:8000/api/course/' + id + '/get_questions', {});
+        return this._api.call('/course/' + id + '/get_questions', {});
     }
 
     postLessonData(lessonData, course_id) {
-    	return this._api.call('http://localhost:8000/api/course/' + course_id + '/create-lesson', lessonData);
+    	return this._api.call('/course/' + course_id + '/create-lesson', lessonData);
     }
 
     getLessonLanguages(course_id: number) {
-        return this._api.call('http://localhost:8000/api/course/' + course_id + '/languages', {});
+        return this._api.call('/course/' + course_id + '/languages', {});
     }
 
     setLessonCompleted(sendData) {
-        return this._api.call('http://localhost:8000/api/lesson/' + sendData['user_id'] + '/' + sendData['lesson_id'] + '/completed', sendData);
+        return this._api.call('/lesson/' + sendData['user_id'] + '/' + sendData['lesson_id'] + '/completed', sendData);
     }
 
     getCompletedLessons(userData) {
-        return this._api.call('http://localhost:8000/api/lesson/' + userData['user_id'] + '/getcompleted', userData);
+        return this._api.call('/lesson/' + userData['user_id'] + '/getcompleted', userData);
     }
 }

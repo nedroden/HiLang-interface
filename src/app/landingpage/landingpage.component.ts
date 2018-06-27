@@ -74,7 +74,7 @@ export class LandingpageComponent implements OnInit {
                 email: email['value'],
             	password: password['value']
             };
-            this._api.unsafePost('http://localhost:8000/api/user/create/', params).subscribe(data => {
+            this._api.unsafePost('/user/create/', params).subscribe(data => {
                 if (data['error'])
                     alert(data['error']);
                 else {
