@@ -18,7 +18,7 @@ export class AccountsettingsComponent implements OnInit {
 
 
 	ngOnInit() {
-		this.showUserSettings()
+		//this.showUserSettings()
 	}
 
 	
@@ -30,7 +30,6 @@ export class AccountsettingsComponent implements OnInit {
             () => console.log('Done loading user data')
         )
 	}
-
 
 	user = {
 		email: "email@example.com",
@@ -68,6 +67,4 @@ export class AccountsettingsComponent implements OnInit {
 			id: 2,
 		}
 	]
-
-
 }

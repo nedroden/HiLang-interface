@@ -48,7 +48,6 @@ export class PreExerciseComponent implements OnInit {
 		this.exerciseService.setRandom(this.selectedOptions.random);
 		this.exerciseService.setCapital(this.selectedOptions.capital);
 		this.exerciseService.setPunctuation(this.selectedOptions.punctuation);
-		this.exerciseService.setTillEnd(this.selectedOptions.tillend);
 
 		this.router.navigate(["user/lesson/" + this.lesson_id + "/" + selectedExercise]);
 		console.log(this.selectedOptions);

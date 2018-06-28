@@ -110,7 +110,6 @@ export class DictationComponent extends Exercise implements OnInit {
     private repeat(){
     	var msg = new SpeechSynthesisUtterance(this.message);
     	msg.lang = 'es';
-    	console.log(msg.voice)
 		window.speechSynthesis.speak(msg);
     }
 }
