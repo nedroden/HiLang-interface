@@ -21,6 +21,7 @@ export class LessonviewComponent implements OnInit {
         source_language: "",
         target_language: "",
         vocabulary: [],
+        language_short: "",
         author: {
             avatar: "https://4.bp.blogspot.com/-O5q3YjRkago/UI9JEEXttiI/AAAAAAAAK8E/IijPhTpQJCw/s1600/Statue+of+Liberty+NY+%282%29.jpg",
             about: "Some quick example text to build on the card title and make up the bulk of the card's content."
@@ -54,6 +55,7 @@ export class LessonviewComponent implements OnInit {
                 this.lesson['grammar'] = response['grammar'];
                 this.lesson['source_language'] = response['native'];
                 this.lesson['target_language'] = response['trans'];
+                this.lesson['language_short'] = response['language_short'];
             }
         });
         this.courseService.getLesson(this.id).subscribe(response => {

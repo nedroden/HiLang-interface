@@ -39,8 +39,7 @@ export class UserwelcomeComponent implements OnInit {
             console.log(this.user);
         });
         this._api.call('/last_accessed/', {}).subscribe(data => {
-            console.log(data);
-            this.lastAccessed.push(data);
+            this.lastAccessed = <any[]>data;
         });
     }
 }
