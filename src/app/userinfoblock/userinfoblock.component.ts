@@ -13,7 +13,7 @@ export class UserinfoblockComponent implements OnInit {
     user = {
             avatar: "",
             name: "",
-            email: "";
+            email: "",
             bio: "",
             type: "",
             memberSince: "",
