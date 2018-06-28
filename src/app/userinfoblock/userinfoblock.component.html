@@ -1,13 +1,12 @@
             <div class="col-sm-10">
                 <div class="card">
-                    <img class="card-img-top" src="{{ user.avatar }}" alt="Avatar">
+                    <img class="card-img-top" src="{{ user.avatar }}" alt="Image not found">
                     <div class="card-body">
                         <h5 class="card-title">{{ user.name }}</h5>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Biography:</strong> {{ user.bio }}</li>
                         <li class="list-group-item"><strong>Access level:</strong> {{ user.type }}</li>
-                        <li class="list-group-item"><strong>Native language:</strong> {{ user.nativeLanguage }}</li>
                         <li class="list-group-item"><strong>Member since:</strong> {{ user.memberSince }}</li>
                     </ul>
                     <div class="card-body">
