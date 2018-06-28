@@ -13,7 +13,7 @@ export class LessonDetailsService {
 		course: "",
 		vocabulary: []
 	}
-	
+
 
 	constructor() { }
 

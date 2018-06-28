@@ -11,7 +11,6 @@ import { ErrorNotification } from '../utils/errornotification';
   styleUrls: ['./create-word-list.component.css']
 })
 export class CreateWordListComponent implements OnInit {
-
 	number = 5;
 	private data = {};
 	private course_id: number;
@@ -32,10 +31,8 @@ export class CreateWordListComponent implements OnInit {
         });
 
     	this.details = this.lesDetService.getDetails();
-
     	this.lesDetService.emptyDetails();
     	this.addExistingData(this.details);
-
     }
 
     addExistingData(details) {
@@ -47,7 +44,7 @@ export class CreateWordListComponent implements OnInit {
     		if((<HTMLInputElement>document.getElementById('inputGrammar')).value == undefined){
                 (<HTMLInputElement>document.getElementById('inputGrammar')).value = details['grammar'];
             }
-
+            console.log(details);
     		let vocabulary = details['vocabulary'];
     		console.log(vocabulary);
     		for(let i=5; i<vocabulary.length; i+=5) {
@@ -59,6 +56,7 @@ export class CreateWordListComponent implements OnInit {
 				let cells = table.rows.item(i+1).cells;
 				(<HTMLInputElement>cells.item(1).children[0]).value = vocabulary[i].native;
 				(<HTMLInputElement>cells.item(2).children[0]).value = vocabulary[i].translation;
+                (<HTMLInputElement>cells.item(3).children[0]).checked = vocabulary[i].sentence;
 			}
     	}
     }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CourseService } from '../course.service';
 import { LessonDetailsService } from '../lesson-details.service';
+import { CookieService } from '../cookie.service';
 
 @Component({
   selector: 'app-lessonview',
@@ -30,7 +31,10 @@ export class LessonviewComponent implements OnInit {
     authorId: number;
     editable;
 
-    constructor(private courseService: CourseService, private lesDetService: LessonDetailsService, public router: Router) { }
+    constructor(private courseService: CourseService,
+                private lesDetService: LessonDetailsService,
+                private _cookie: CookieService,
+                public router: Router) { }
 
     ngOnInit() {
         this.editable = false;
@@ -41,7 +45,6 @@ export class LessonviewComponent implements OnInit {
         this.lesson['counter'] = parseInt(ulrParts[ulrParts.length - 4]);
         this.courseService.getLessonDet(this.id).subscribe(response => {
             if (!response){
-                console.log('test');
                 this.router.navigate(['user/'])
             } else {
                 this.lesson['id'] = response['id'];
@@ -60,13 +63,16 @@ export class LessonviewComponent implements OnInit {
                 subVoc.push({
                     index: ++counter,
                     native: entry['native'],
-                    translation: entry['translation']
+                    translation: entry['translation'],
+                    sentence: entry['sentenceStructure'],
                 })
             }
             this.lesson['vocabulary'] = subVoc;
         });
-        //replace 1 with user id
-        if(this.authorId === 1) {
+
+        console.log(this.lesson);
+
+        if(this.authorId === this._cookie.getValue()['user_id']) {
             this.editable = true;
         }
     }
