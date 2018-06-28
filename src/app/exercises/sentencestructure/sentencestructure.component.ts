@@ -5,6 +5,7 @@ import { HilangApiService } from '../../hilang-api.service';
 import { ExerciseService } from '../../exercise.service';
 import { Lesson } from '../../structures/lesson';
 import { LessonService } from '../../lesson.service';
+import { CookieService } from '../../cookie.service';
 import { Flashcard } from '../../structures/flashcard';
 
 @Component({
@@ -20,12 +21,13 @@ export class SentenceStructureComponent extends Exercise implements OnInit {
   private availableAnswers = [];
   private lesson: Lesson;
 
-  constructor(private _api: HilangApiService,
+  constructor(api: HilangApiService,
               private _router: Router,
               private _exerciseService : ExerciseService,
               private _activatedRoute: ActivatedRoute,
-              private _lessonService: LessonService) {
-      super(_exerciseService, _router);
+              private _lessonService: LessonService,
+              cookie: CookieService) {
+      super(_exerciseService, _router, api, cookie);
       this.currentWord = new Flashcard();
   }
 

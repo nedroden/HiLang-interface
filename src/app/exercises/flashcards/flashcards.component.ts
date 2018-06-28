@@ -4,6 +4,8 @@ import { LessonService } from '../../lesson.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Exercise } from '../../exercise';
 import { ExerciseService } from '../../exercise.service';
+import { HilangApiService } from '../../hilang-api.service';
+import { CookieService } from '../../cookie.service';
 
 @Component({
   selector: 'app-flashcards',
@@ -18,8 +20,10 @@ export class FlashcardsComponent extends Exercise implements OnInit {
     constructor(private _lessonService: LessonService,
                 private _activatedRoute: ActivatedRoute,
                 router: Router,
-                exerciseService: ExerciseService) {
-        super(exerciseService, router);
+                exerciseService: ExerciseService,
+                api: HilangApiService,
+                cookie: CookieService) {
+        super(exerciseService, router, api, cookie);
     }
 
     ngOnInit() {
