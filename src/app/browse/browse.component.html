@@ -6,6 +6,7 @@
         <button class="btn btn-lg btn-danger" (click)="search()" style="margin: 10px;" >Submit</button>
         <button *ngIf="courses.searchResults.courses.length" style="margin: 10px;" class="btn btn-lg btn-danger" (click)="clearSearch()">Clear search</button>
     </div>
+    <div  class="row" id="errorField"></div>
 
     <br />
 
@@ -55,9 +56,8 @@
         <div *ngIf="courses.searchResults.courses.length" id='content'>
             <h4>Search results</h4>
             <hr />
-
             <div class="scrolling-wrapper">
-                <div *ngFor="let course of courses.searchResults.courses" routerLink="/user/course-details/{{course.id}}" class="course-card">
+                <div *ngFor="let course of courses.searchResults.active" routerLink="/user/course-details/{{course.id}}" class="course-card">
                     <div class="course-card-body">
                         <p class="course-card-title">
                             {{ course.name }}
@@ -65,7 +65,6 @@
                         <hr style="margin-bottom: 0px;">
                         <div class="course-card-image">
                             <div class="course-card-image-overlay"></div>
-                            <!-- <img class="course-card-image" src="assets/images/flags/{{ this.flags[course.trans_lang] }}.svg" /> -->
                             <img class="course-card-image" src="{{(course.image != null) ? course.image : 'assets/images/courses/null.jpeg' }}" />
                         </div>
                         <hr style="margin-top: 0px;">
@@ -88,13 +87,10 @@
         </div>
 
         <div *ngIf="courses.searchResults.courses.length == 0" id='content'>
-            <!-- HIER EEN NG IF ELSE VOOR SEARCHRESULTS -->
-
             <h4>Most popular courses</h4>
             <hr />
-
             <div class="scrolling-wrapper">
-                <div *ngFor="let course of courses.popular.active" routerLink="/user/course-details/{{course.id}}" class="course-card">
+                <div *ngFor="let course of courses.subscribers.active" routerLink="/user/course-details/{{course.id}}" class="course-card">
                     <div class="course-card-body">
                         <p class="course-card-title">
                             {{ course.name }}

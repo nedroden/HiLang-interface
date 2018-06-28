@@ -33,7 +33,7 @@ export class UserwelcomeComponent implements OnInit {
                 private _cookie: CookieService) {}
 
     ngOnInit() {
-        this._api.call('http://localhost:8000/api/user/' + this._cookie.getValue()['user_id'] + "/", {}).subscribe(data => {
+        this._api.call('/user/' + this._cookie.getValue()['user_id'] + "/", {}).subscribe(data => {
             this.user = data;
             console.log(this.user);
         });

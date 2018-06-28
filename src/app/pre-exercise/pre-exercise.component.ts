@@ -49,7 +49,7 @@ export class PreExerciseComponent implements OnInit {
 		this.exerciseService.setCapital(this.selectedOptions.capital);
 		this.exerciseService.setPunctuation(this.selectedOptions.punctuation);
 
-		this.router.navigate(["user/lesson/" + this.lesson_id + "/" + selectedExercise]);
+		this.router.navigate(["/user/lesson/" + this.lesson_id + "/" + selectedExercise]);
 		console.log(this.selectedOptions);
 	}
 }

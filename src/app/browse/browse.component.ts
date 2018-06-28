@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
 import { HilangApiService } from '../hilang-api.service';
+import { ErrorNotification } from '../utils/errornotification';
 
 @Component({
   selector: 'app-browse',
@@ -10,7 +11,7 @@ import { HilangApiService } from '../hilang-api.service';
 export class BrowseComponent implements OnInit {
     private searchResults = [];
     private courses = {
-        popular : {
+        subscribers : {
             active : [],
             courses : []
         },
@@ -33,10 +34,8 @@ export class BrowseComponent implements OnInit {
         let courses = [];
         callback().subscribe(
             data => {
-                console.log(data)
                 for(let course of <Object[]>data) {
                     this._courses.getUser(course['fields']['user']).subscribe(userName => {
-                        //this.knownUsers[course['fields']['user']] = (userName['name']);
                         courses.push({
                             id          : course['pk'],
                             description : course['fields']['description'],
@@ -45,13 +44,11 @@ export class BrowseComponent implements OnInit {
                             image       : course['fields']['image'],
                             author      : userName['name'],
                             trans_lang  : course['fields']['trans_lang'],
-                            native_lang : course['fields']['native_lang']
+                            native_lang : course['fields']['native_lang'],
                         });
                     });
                 }
-                // this.loadingCounter += 1;
-                // if (this.loadingCounter < 3)
-                //     this.loadingScreen.disable();
+                this.updateCourses();
             },
             err => console.log(err)
         );
@@ -59,74 +56,72 @@ export class BrowseComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.courses.popular.courses = this.getCourses(() => {
-          return this._api.call('http://localhost:8000/api/course/popular/', {});
+        this.courses.subscribers.courses = this.getCourses(() => {
+          return this._api.call('/course/popular/', {});
         });
-        this.courses.popular.active = this.courses.popular.courses;
+        this.courses.subscribers.active = this.courses.subscribers.courses;
 
         this.courses.newest.courses = this.getCourses(() => {
-          return this._api.call('http://localhost:8000/api/course/newest/', {});
+          return this._api.call('/course/newest/', {});
         });
         this.courses.newest.active = this.courses.newest.courses
 
-        //this.searchResults.push(1);
-        // this.addKeyEvent();
-        // let ulrParts = (window.location.href).split("/");
-        // if(ulrParts[5] != null) {
-        //     this.search(ulrParts[5]);
-        //     let searchBar = (<HTMLInputElement>document.getElementById('browseBar'));
-        //     searchBar.value = ulrParts[5];
-        // }
         this._courses.getLanguages().subscribe(languages => {
-            console.log(languages);
             this.languages = <any[]>languages;
         });
+        (<HTMLInputElement>document.getElementById('browseBar')).onkeypress = function(event) {
+            if(event.keyCode === 13 && document.getElementById('browseBar')['value'] != '')
+                this.search();
+        }.bind(this);
     }
-    //
-    // addKeyEvent() {
-    //     let searchInput = (<HTMLInputElement>document.getElementById('browseBar'));
-    //     searchInput.onkeypress = function(event) {
-    //         if(event.keyCode === 13) {
-    //             this.search((<HTMLInputElement>document.getElementById('browseBar')).value);
-    //         }
-    //     }.bind(this);
-    // }
-    //
-    // doSearch() {
-    //     this.search((<HTMLInputElement>document.getElementById('browseBar')).value);
-    // }
-    //
+
     search() {
         this.courses.searchResults.courses = [];
         let searchFor = document.getElementById('browseBar')['value'];
         this._courses.searchForPublicCourse(searchFor).subscribe(response => {
-            for(let course of <any[]>response) {
-                this.courses.searchResults.courses.push({
-                    id          : course['id'],
-                    description : course['description'],
-                    name        : course['name'],
-                    subscribers : course['subscribers'],
-                    image       : course['image'],
-                    author      : course['author'],
-                    trans_lang  : course['trans_lang'],
-                    native_lang : course['native_lang']
-                });
+            if ((<any[]>response).length > 0) {
+                for(let course of <any[]>response) {
+                    this.courses.searchResults.courses.push({
+                        id          : course['id'],
+                        description : course['description'],
+                        name        : course['name'],
+                        subscribers : course['subscribers'],
+                        image       : course['image'],
+                        author      : course['author'],
+                        trans_lang  : course['trans_lang'],
+                        native_lang : course['native_lang'],
+                    });
+                }
+                this.courses.searchResults.active = this.courses.searchResults.courses;
+                this.updateCourses();
+            } else {
+                let errorNotification = new ErrorNotification("No search results found", 'errorField', 'danger');
+                errorNotification.setTimeout(3000);
+                errorNotification.render();
             }
-            this.courses.searchResults.active = this.courses.searchResults.courses;
-            this.updateCourses();
         });
     }
 
     clearSearch() {
         this.courses.searchResults.courses = [];
         this.courses.searchResults.active = [];
+        (<HTMLInputElement>document.getElementById('browseBar')).value = "";
     }
 
-    // SORT FUNCTION MAKEN
-    // SORT FUNCTION MAKEN
-    // SORT FUNCTION MAKEN
-    // SORT FUNCTION MAKEN
-    // SORT FUNCTION MAKEN
+    sort(array: any[]) {
+        let needNextPass = true;
+
+        for (let k = 1; k < array.length && needNextPass; k++) {
+            needNextPass = false;
+            for (let i = 0; i < array.length - k; i++) {
+                if (array[i] > array[i + 1]) {
+                    array[i] = [array[i + 1], array[i + 1] = array[i]][0];
+                    needNextPass = true;
+                }
+            }
+        }
+        return array;
+    }
 
     updateFilter(languageId: number) {
         if (this.filteredLanguages.includes(languageId)) {
@@ -140,7 +135,7 @@ export class BrowseComponent implements OnInit {
         this.updateCourses();
     }
 
-    private updateCourses() {
+    updateCourses() {
         for (let category in this.courses) {
             if (this.filteredLanguages.length == 0) {
                 this.courses[category].active = this.courses[category].courses;
@@ -150,7 +145,7 @@ export class BrowseComponent implements OnInit {
             for (let course of this.courses[category].courses) {
                 if (this.filteredLanguages.includes(course.trans_lang))
                     this.courses[category].active.push(course);
-            }
+                }
         }
     }
 

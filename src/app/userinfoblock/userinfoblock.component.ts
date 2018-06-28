@@ -35,7 +35,6 @@ export class UserinfoblockComponent implements OnInit {
             } else {
                 this.user.bio = 'Empty bio';
             }
-
         });
     }
 }
