@@ -1,6 +1,6 @@
             <div class="col-sm-10">
                 <div class="card">
-                    <img class="card-img-top" src="{{ user.avatar }}" alt="Image not found">
+                    <img class="card-img-top" src="{{ (user.avatar == '' || user.avatar == null) ? 'assets/no-avatar.png' : user.avatar }}" alt="Image not found">
                     <div class="card-body">
                         <h5 class="card-title">{{ user.name }}</h5>
                     </div>
