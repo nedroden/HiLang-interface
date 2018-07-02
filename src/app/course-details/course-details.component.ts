@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
 import { CookieService } from '../cookie.service';
 import { LessonService } from '../lesson.service';
+import { HilangApiService } from '../hilang-api.service';
 import { ErrorNotification } from '../utils/errornotification';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -23,6 +24,7 @@ export class CourseDetailsComponent implements OnInit {
     private courseAuthorId: number;
     private courseDesc: string;
     private courseImg: string;
+    private coursePublic: boolean;
     private lessons;
     private nativeLang: number;
     private transLang: number;
@@ -31,12 +33,14 @@ export class CourseDetailsComponent implements OnInit {
     private favorite: boolean;
     private subscribed: boolean;
     private editable = false;
+    private is_distributor = false;
 
 	constructor(private courseService: CourseService,
                 private _activatedRoute: ActivatedRoute,
-                private _cookies: CookieService,
+                private _cookie: CookieService,
                 private _lessonService: LessonService,
-                private _router: Router) {}
+                private _router: Router,
+                private _api: HilangApiService) {}
 
 
     author = {
@@ -51,30 +55,36 @@ export class CourseDetailsComponent implements OnInit {
         let ulrParts = (window.location.href).split("/");
 	    this.searchCourse(parseInt(ulrParts[ulrParts.length - 1]));
         this.getLanguages();
+        this._api.call('/user/distributor/', {}).subscribe(data => {
+            this.is_distributor = <boolean>data;
+        });
 	}
 
 	searchCourse(id) {
         this.courseService.getCourseDetails(id).subscribe(response => {
-            console.log(response);
-            if (!response)
+            if (!response){
                 this._router.navigate(['user']);
-            else {
-                this.courseId = response['id'];
-                this.courseName = response['name'];
-                this.courseAuthor = response['author'];
-                this.courseAuthorId = response['authorId'];
-                this.courseDesc = response['description'];
-                this.courseImg = response['image'];
-                this.nativeLang = response['native_lang'];
-                this.transLang = response['trans_lang'];
-                this.subscribed = response['subscription'];
-                this.favorite = response['favorite'];
-                this.courseDate = response['created_at'];
-
-                if(this.courseAuthorId === this._cookies.getValue()['user_id']) {
-                    this.editable = true;
+            } else {
+                if (response['public'] == true || response['authorId'] == this._cookie.getValue()['user_id']) {
+                    this.courseId       = response['id'];
+                    this.courseName     = response['name'];
+                    this.courseAuthor   = response['author'];
+                    this.courseAuthorId = response['authorId'];
+                    this.courseDesc     = response['description'];
+                    this.courseImg      = response['image'];
+                    this.nativeLang     = response['native_lang'];
+                    this.transLang      = response['trans_lang'];
+                    this.subscribed     = response['subscription'];
+                    this.favorite       = response['favorite'];
+                    this.courseDate     = response['created_at'];
+                    this.coursePublic   = response['public'];
+                    if(this.courseAuthorId === this._cookie.getValue()['user_id']) {
+                        this.editable = true;
+                    }
+                    this.getLessons();
+                } else {
+                    this._router.navigate(['user']);
                 }
-                this.getLessons();
             }
         });
 	}
@@ -118,7 +128,7 @@ export class CourseDetailsComponent implements OnInit {
             this.lessons = subLessons;
         });
         let userData = {
-            user_id: this._cookies.getValue()['user_id']
+            user_id: this._cookie.getValue()['user_id']
         }
         this._lessonService.getCompletedLessons(userData).subscribe(response => {
             for(let completedLesson of response as Array<any>) {
@@ -146,6 +156,7 @@ export class CourseDetailsComponent implements OnInit {
         let image = (<HTMLInputElement>document.getElementById('courseImgInput'))['value'];
         let native_lang = (<HTMLInputElement>document.getElementById('native_lang'))['value'];
         let target_lang = (<HTMLInputElement>document.getElementById('target_lang'))['value'];
+        let is_public = (this.is_distributor) ? document.getElementById('is_public')['checked'] : false;
 
         if (name != '' && native_lang != '' && target_lang != '' ) {
                 this.courseService.updateCourse({
@@ -155,6 +166,7 @@ export class CourseDetailsComponent implements OnInit {
                     image: image,
                     native_lang: native_lang,
                     target_lang: target_lang,
+                    is_public: is_public,
                 }).subscribe(response => {
                     if (response) {
                         console.log(response);
@@ -163,6 +175,7 @@ export class CourseDetailsComponent implements OnInit {
                         this.courseImg = image;
                         this.nativeLang = +native_lang;
                         this.transLang = +target_lang;
+                        this.coursePublic = is_public;
                     } else {
                         let errorNotification = new ErrorNotification('Oops, something went wrong..', 'errorMessage', 'danger');
                         errorNotification.setTimeout(3000);
@@ -178,22 +191,22 @@ export class CourseDetailsComponent implements OnInit {
     }
 
     addFavorite() {
-        this.courseService.addFavorite(this._cookies.getValue()['user_id'], this.courseId).subscribe();
+        this.courseService.addFavorite(this._cookie.getValue()['user_id'], this.courseId).subscribe();
         this.favorite = true;
     }
 
     delFavorite() {
-        this.courseService.delFavorite(this._cookies.getValue()['user_id'], this.courseId).subscribe();
+        this.courseService.delFavorite(this._cookie.getValue()['user_id'], this.courseId).subscribe();
         this.favorite = false;
     }
 
     subscribe() {
-        this.courseService.subscribe(this._cookies.getValue()['user_id'], this.courseId).subscribe();
+        this.courseService.subscribe(this._cookie.getValue()['user_id'], this.courseId).subscribe();
         this.subscribed = true;
     }
 
     unSubscribe() {
-        this.courseService.unSubscribe(this._cookies.getValue()['user_id'], this.courseId).subscribe();
+        this.courseService.unSubscribe(this._cookie.getValue()['user_id'], this.courseId).subscribe();
         this.subscribed = false;
     }
 
