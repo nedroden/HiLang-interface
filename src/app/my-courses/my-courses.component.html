@@ -37,7 +37,7 @@
 
 
 		<div id="courses" class="col-sm-9 pull-right">
-			<div id='myCourses'>
+			<div *ngIf="courses.myCourses.courses.length > 0" id='myCourses'>
 				<h4>Created by me</h4>
 				<hr />
 
@@ -71,7 +71,7 @@
 				</div>
 			</div>
 
-			<div id='myCourses'>
+			<div *ngIf="courses.subCourses.active.length > 0" id='myCourses'>
 				<h4>Subscribed courses</h4>
 				<hr />
 
@@ -106,7 +106,7 @@
 				</div>
 			</div>
 
-			<div id='myCourses'>
+			<div  *ngIf="courses.favCourses.active.length > 0" id='myCourses'>
 				<h4>Favourite courses</h4>
 				<hr />
 				<div class="scrolling-wrapper">

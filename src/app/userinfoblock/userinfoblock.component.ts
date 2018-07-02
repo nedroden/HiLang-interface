@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HilangApiService } from '../hilang-api.service';
 import { CookieService } from '../cookie.service';
+import { AccountService } from '../account.service';
+
 
 
 @Component({
@@ -9,7 +11,6 @@ import { CookieService } from '../cookie.service';
   styleUrls: ['./userinfoblock.component.css']
 })
 export class UserinfoblockComponent implements OnInit {
-    user_id: number;
     user = {
             avatar: "",
             name: "",
@@ -20,12 +21,10 @@ export class UserinfoblockComponent implements OnInit {
         };
 
 
-    constructor(private _api: HilangApiService, private _cookie: CookieService) { }
+    constructor(private _api: HilangApiService, private _account: AccountService) { }
 
     ngOnInit() {
-        
-        this.user_id = this._cookie.getValue()['user_id'];
-        this._api.call('/user/' + this.user_id + "/", {}).subscribe(data => {
+        this._account.getAccountSettings().subscribe(data => {
             console.log(data)
             this.user['name'] = data['name'];
             this.user['email'] = data['email'];
@@ -36,11 +35,7 @@ export class UserinfoblockComponent implements OnInit {
             } else {
                 this.user['bio'] = 'Empty bio';
             }
-            if(data['avatar'] === '' || data['avatar'] === null ){
-                this.user['avatar'] = "../../assets/no-avatar.png" ;
-            } else {
-                this.user['avatar'] = data['avatar'];
-            }
+            this.user['avatar'] = data['avatar'];
         });
     }
 }
