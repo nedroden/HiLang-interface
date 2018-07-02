@@ -4,6 +4,8 @@ import { LessonService } from '../../lesson.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Exercise } from '../../exercise';
 import { ExerciseService } from '../../exercise.service';
+import { HilangApiService } from '../../hilang-api.service';
+import { CookieService } from '../../cookie.service';
 
 @Component({
   selector: 'app-multiplechoice',
@@ -19,21 +21,23 @@ export class MultipleChoiceComponent extends Exercise implements OnInit {
     constructor(private _lessonService: LessonService,
                 private _activatedRoute: ActivatedRoute,
                 router: Router,
-                exerciseService: ExerciseService) {
-        super(exerciseService, router);
+                exerciseService: ExerciseService,
+                api: HilangApiService,
+                cookie: CookieService) {
+        super(exerciseService, router, api, cookie);
 
     }
 
     ngOnInit() {
-        this.lesson = new Lesson;   
+        this.lesson = new Lesson;
         this._activatedRoute.params.subscribe(params => this.id = params.id);
         this._lessonService.getLesson(this.id).subscribe(lesson => {
             this.lesson = lesson;
             this.exerciseService.setVocabulary(this.lesson.vocabulary);
-            this.initialize(lesson);    
+            this.initialize(lesson);
             this.setOptions();
         });
-    }   
+    }
 
     private setOptions(){
         this.answers = [
@@ -84,7 +88,7 @@ export class MultipleChoiceComponent extends Exercise implements OnInit {
 
         btn.classList.add(className);
         console.log(isCorrect);
-        
+
         let timeout: Function = () => {
             btn.classList.remove(className);
 

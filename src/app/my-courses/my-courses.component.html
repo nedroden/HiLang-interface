@@ -50,8 +50,7 @@
 							<hr style="margin-bottom: 0px;">
 							<div class="course-card-image">
 								<div class="course-card-image-overlay"></div>
-								<!-- <img class="course-card-image" src="assets/images/flags/{{ this.flags[course.trans_lang] }}.svg" /> -->
-								<img class="course-card-image" src="{{(course.image != null) ? course.image : 'assets/images/courses/null.jpeg' }}" />
+								<img class="course-card-image" src="{{(course.image != null && course.image != '') ? course.image : 'assets/images/courses/null.jpeg' }}" />
 							</div>
 							<hr style="margin-top: 0px;">
 							<div class="course-card-desc">
@@ -68,7 +67,6 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -86,8 +84,7 @@
 							<hr style="margin-bottom: 0px;">
 							<div class="course-card-image">
 								<div class="course-card-image-overlay"></div>
-								<!-- <img class="course-card-image" src="assets/images/flags/{{ this.flags[course.trans_lang] }}.svg" /> -->
-								<img class="course-card-image" src="{{(course.image != null) ? course.image : 'assets/images/courses/null.jpeg' }}" />
+								<img class="course-card-image" src="{{(course.image != null && course.image != '') ? course.image : 'assets/images/courses/null.jpeg' }}" />
 							</div>
 							<hr style="margin-top: 0px;">
 							<div class="course-card-desc">
@@ -112,7 +109,6 @@
 			<div id='myCourses'>
 				<h4>Favourite courses</h4>
 				<hr />
-
 				<div class="scrolling-wrapper">
 					<div *ngFor="let course of courses.favCourses.active" routerLink="/user/course-details/{{course.id}}" class="course-card">
 						<div class="course-card-body">
@@ -122,8 +118,7 @@
 							<hr style="margin-bottom: 0px;">
 							<div class="course-card-image">
 								<div class="course-card-image-overlay"></div>
-								<!-- <img class="course-card-image" src="assets/images/flags/{{ this.flags[course.trans_lang] }}.svg" /> -->
-								<img class="course-card-image" src="{{(course.image != null) ? course.image : 'assets/images/courses/null.jpeg' }}" />
+								<img class="course-card-image" src="{{(course.image != null && course.image != '') ? course.image : 'assets/images/courses/null.jpeg' }}" />
 							</div>
 							<hr style="margin-top: 0px;">
 							<div class="course-card-desc">
@@ -140,7 +135,6 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>

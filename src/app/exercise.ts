@@ -2,6 +2,8 @@ import { Flashcard } from './structures/flashcard';
 import { ExerciseService } from './exercise.service';
 import { Router } from '@angular/router';
 import { Lesson } from './structures/lesson';
+import { CookieService } from './cookie.service';
+import { HilangApiService } from './hilang-api.service';
 
 export abstract class Exercise {
 
@@ -28,7 +30,9 @@ export abstract class Exercise {
     protected mcOptions;
 
     constructor(protected exerciseService: ExerciseService,
-                protected router: Router) {
+                protected router: Router,
+                private _api: HilangApiService,
+                private _cookie: CookieService) {
         this.exerciseService.setVocabulary([]);
         this.exerciseService.clearResults();
 
@@ -45,13 +49,16 @@ export abstract class Exercise {
     }
 
     protected initialize(lesson: Lesson): void {
+        console.log(lesson);
         this.initQueue();
         this.allWords = this.queue.slice(0);
         this.setCurrentWord();
         this.addOptions(this.currentWord);
         this.startTimer();
-
         this.exerciseService.setLesson(lesson);
+        this._api.call('/update_activity/', {course_id : lesson['course_id']}).subscribe(data => {
+            console.log(data);
+        });
     }
 
     protected initQueue(){
@@ -71,7 +78,7 @@ export abstract class Exercise {
                 }
             }
         }
-        //Punctuation unchecked, capital checked        
+        //Punctuation unchecked, capital checked
         else if(!this.exerciseService.getPunctuation() && this.exerciseService.getCapital()){
             if(this.exerciseService.getRandom()){
                 for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random())){
@@ -115,7 +122,7 @@ export abstract class Exercise {
                 }
 
             }
-        }     
+        }
     }
 
     protected setCurrentWord(){

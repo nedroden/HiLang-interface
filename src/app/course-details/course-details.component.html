@@ -4,10 +4,6 @@
 	<div class="col-sm-5 pull-left">
 		<div class="card">
 			<div class="card-body" *ngIf="!editing">
-				<!-- <div class="pull-left col-sm-2 mr-sm-3">
-					<img class="course-img" src="{{ courseImg }}" alt="Course image">
-				</div>
-				<div class="pull-right col-sm-8">-->
 				<div class="col-12">
 					<h2 class="display-5">{{ courseName }}</h2>
 				</div>
@@ -15,7 +11,7 @@
 				<hr class="my-4" />
 
 				<div class="col-12">
-					<p id="course_desc" style="white-space: pre-wrap;"> {{ courseDesc }}</p>
+					<p id="course_desc" style="white-space: pre-wrap;">{{ courseDesc }}</p>
 				</div>
 			</div>
 
@@ -52,6 +48,11 @@
 							<option *ngFor="let language of languages" [selected]="transLang == language.id" value="{{language.id}}">{{language.name}}</option>
 						</select>
 					</div>
+
+					<div *ngIf="is_distributor" class="form-group form-check">
+						<input type="checkbox" [checked]="coursePublic" class="form-check-input" id="is_public">
+						<label class="form-check-label" for="is_public">Public</label>
+					</div>
 				</div>
 			</div>
 
@@ -69,7 +70,7 @@
 		<div class="col-sm-6 mt-sm-4">
 			<h3>About the author</h3>
 			<div class="card">
-			    <img class="card-img-top" src="http://cdn.guardian.ng/wp-content/uploads/2016/05/Vladimir-Putin.jpg" alt="No image available">
+			    <img class="card-img-top" src="{{ courseAuthor.avatar}}" alt="No image available">
 			    <div class="card-body">
 			        <h5 class="card-title">{{ courseAuthor.name }}</h5>
 			        <p class="card-text">{{ courseAuthor.bio }}</p>

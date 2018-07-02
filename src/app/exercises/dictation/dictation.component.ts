@@ -4,7 +4,8 @@ import { LessonService } from '../../lesson.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Exercise } from '../../exercise';
 import { ExerciseService } from '../../exercise.service';
-
+import { HilangApiService } from '../../hilang-api.service';
+import { CookieService } from '../../cookie.service';
 
 @Component({
   selector: 'app-dictation',
@@ -23,10 +24,15 @@ export class DictationComponent extends Exercise implements OnInit {
     message;
 
 
-    constructor(private lessonService: LessonService, private activatedRoute: ActivatedRoute, router: Router, exerciseService: ExerciseService) {
-      super(exerciseService, router);
+    constructor(private lessonService: LessonService,
+                private activatedRoute: ActivatedRoute,
+                        router: Router,
+                        exerciseService: ExerciseService,
+                        api: HilangApiService,
+                        cookie: CookieService) {
+      super(exerciseService, router, api, cookie);
     }
-  
+
     ngOnInit() {
       this.lesson = new Lesson;
       this.activatedRoute.params.subscribe(params => this.id = params.id);
@@ -34,6 +40,7 @@ export class DictationComponent extends Exercise implements OnInit {
         this.lesson = lesson;
         this.exerciseService.setVocabulary(this.lesson.vocabulary);
         this.initialize(lesson);
+        console.log(this.lesson);
       });
    		document.getElementById('enterAnswer').addEventListener('click', e => this.handleInput(e, this));
     }
@@ -109,7 +116,7 @@ export class DictationComponent extends Exercise implements OnInit {
 
     private repeat(){
     	var msg = new SpeechSynthesisUtterance(this.message);
-    	msg.lang = 'es';
+    	msg.lang = this.lesson['short_name'];
 		window.speechSynthesis.speak(msg);
     }
 }

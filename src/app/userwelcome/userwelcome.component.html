@@ -6,7 +6,43 @@
         </p>
     </div>
 
-    <div class="col-sm-3 pull-left">
+    <div class="col-sm-7 pull-left">
+        <div class="row">
+            <div id='myCourses'>
+				<h4>Continue where you left off!</h4>
+				<hr />
+
+				<div class="scrolling-wrapper">
+					<div *ngFor="let course of lastAccessed" routerLink="/user/course-details/{{course.id}}" class="course-card">
+						<div class="course-card-body">
+							<p class="course-card-title">
+								{{ course.name }}
+							</p>
+							<hr style="margin-bottom: 0px;">
+							<div class="course-card-image">
+								<div class="course-card-image-overlay"></div>
+								<img class="course-card-image" src="{{(course.image != null && course.image != '') ? course.image : 'assets/images/courses/null.jpeg' }}" />
+							</div>
+							<hr style="margin-top: 0px;">
+							<div class="course-card-desc">
+								<p class="course-card-text">{{ (course.description) ? course.description : "No description" }}</p>
+							</div>
+							<hr style="margin-bottom: 0px;">
+							<div class="course-card-footer">
+								<div>Taught by <br><b>{{ course.author }}</b></div>
+								<br />
+								<div class="pull-left">
+									<i class="fa fa-users"></i> {{ course.subscribers }}
+								</div>
+								<div class="pull-right">
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+        </div>
     </div>
 
     <div class="col-sm-5 pull-right">

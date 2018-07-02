@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CourseService } from '../course.service';
 import { LessonDetailsService } from '../lesson-details.service';
+import { CookieService } from '../cookie.service';
 
 @Component({
   selector: 'app-lessonview',
@@ -20,6 +21,7 @@ export class LessonviewComponent implements OnInit {
         source_language: "",
         target_language: "",
         vocabulary: [],
+        language_short: "",
         author: {
             avatar: "https://4.bp.blogspot.com/-O5q3YjRkago/UI9JEEXttiI/AAAAAAAAK8E/IijPhTpQJCw/s1600/Statue+of+Liberty+NY+%282%29.jpg",
             about: "Some quick example text to build on the card title and make up the bulk of the card's content."
@@ -30,7 +32,10 @@ export class LessonviewComponent implements OnInit {
     authorId: number;
     editable;
 
-    constructor(private courseService: CourseService, private lesDetService: LessonDetailsService, public router: Router) { }
+    constructor(private courseService: CourseService,
+                private lesDetService: LessonDetailsService,
+                private _cookie: CookieService,
+                public router: Router) { }
 
     ngOnInit() {
         this.editable = false;
@@ -41,7 +46,6 @@ export class LessonviewComponent implements OnInit {
         this.lesson['counter'] = parseInt(ulrParts[ulrParts.length - 4]);
         this.courseService.getLessonDet(this.id).subscribe(response => {
             if (!response){
-                console.log('test');
                 this.router.navigate(['user/'])
             } else {
                 this.lesson['id'] = response['id'];
@@ -51,6 +55,7 @@ export class LessonviewComponent implements OnInit {
                 this.lesson['grammar'] = response['grammar'];
                 this.lesson['source_language'] = response['native'];
                 this.lesson['target_language'] = response['trans'];
+                this.lesson['language_short'] = response['language_short'];
             }
         });
         this.courseService.getLesson(this.id).subscribe(response => {
@@ -60,13 +65,16 @@ export class LessonviewComponent implements OnInit {
                 subVoc.push({
                     index: ++counter,
                     native: entry['native'],
-                    translation: entry['translation']
+                    translation: entry['translation'],
+                    sentence: entry['sentenceStructure'],
                 })
             }
             this.lesson['vocabulary'] = subVoc;
         });
-        //replace 1 with user id
-        if(this.authorId === 1) {
+
+        console.log(this.lesson);
+
+        if(this.authorId === this._cookie.getValue()['user_id']) {
             this.editable = true;
         }
     }

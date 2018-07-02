@@ -68,10 +68,6 @@ export class ExerciseService {
         this._punctuation = bool;
     }
 
-    public setTillEnd(bool: boolean){
-        this._tillend = bool;
-    }
-
     public getRandom(){
         return this._random;
     }
@@ -83,9 +79,4 @@ export class ExerciseService {
     public getPunctuation(){
         return this._punctuation;
     }
-
-    public getTillEnd(){
-        return this._tillend;
-    }
-
 }

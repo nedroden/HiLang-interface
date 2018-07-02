@@ -8,6 +8,7 @@ import { CookieService } from '../cookie.service';
     styleUrls: ['./userwelcome.component.css']
 })
 export class UserwelcomeComponent implements OnInit {
+    private lastAccessed = [];
     private user = <Object>{
                     pk: 0,
                     fields: {
@@ -36,6 +37,9 @@ export class UserwelcomeComponent implements OnInit {
         this._api.call('/user/' + this._cookie.getValue()['user_id'] + "/", {}).subscribe(data => {
             this.user = data;
             console.log(this.user);
+        });
+        this._api.call('/last_accessed/', {}).subscribe(data => {
+            this.lastAccessed = <any[]>data;
         });
     }
 }
