@@ -4,10 +4,6 @@
 	<div class="col-sm-5 pull-left">
 		<div class="card">
 			<div class="card-body" *ngIf="!editing">
-				<!-- <div class="pull-left col-sm-2 mr-sm-3">
-					<img class="course-img" src="{{ courseImg }}" alt="Course image">
-				</div>
-				<div class="pull-right col-sm-8">-->
 				<div class="col-12">
 					<h2 class="display-5">{{ courseName }}</h2>
 				</div>
@@ -51,6 +47,11 @@
 						<select class="custom-select" id="target_lang">
 							<option *ngFor="let language of languages" [selected]="transLang == language.id" value="{{language.id}}">{{language.name}}</option>
 						</select>
+					</div>
+
+					<div *ngIf="is_distributor" class="form-group form-check">
+						<input type="checkbox" [checked]="coursePublic" class="form-check-input" id="is_public">
+						<label class="form-check-label" for="is_public">Public</label>
 					</div>
 				</div>
 			</div>
