@@ -17,8 +17,9 @@ export class AppComponent {
 
     checkCookie() {
         this._cookie.checkValidityPost().subscribe(response => {
-            if (!response['approved'] && this._cookie.getValue() != null) {
-                this._cookie.destroy();
+            if (response['approved'] == false) {
+                if (this._cookie.getValue() != null)
+                    this._cookie.destroy();
                 this._router.navigate(['/login']);
             }
         });

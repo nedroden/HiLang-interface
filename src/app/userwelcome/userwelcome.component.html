@@ -8,7 +8,7 @@
 
     <div class="col-sm-7 pull-left">
         <div class="row">
-            <div id='myCourses'>
+            <div *ngIf="lastAccessed.length > 0" id='myCourses'>
 				<h4>Continue where you left off!</h4>
 				<hr />
 

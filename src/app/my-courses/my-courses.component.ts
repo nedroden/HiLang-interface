@@ -34,13 +34,13 @@ export class MyCoursesComponent implements OnInit {
     private loadingCounter: number;
     private loadingScreen: LoadingScreen;
     constructor(private _courses: CourseService,
-                private _cookies: CookieService,
+                private _cookie: CookieService,
                 private _api: HilangApiService,
                 private _router: Router) {}
 
     getMyCourses(callback: (u_id: number) => any) {
         let courses = [];
-        callback(this._cookies.getValue()['user_id']).subscribe(
+        callback(this._cookie.getValue()['user_id']).subscribe(
             data => {
                 for(let course of <Object[]>data) {
                     console.log(course);

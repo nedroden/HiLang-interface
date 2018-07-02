@@ -87,69 +87,71 @@
         </div>
 
         <div *ngIf="courses.searchResults.courses.length == 0" id='content'>
-            <h4>Most popular courses</h4>
-            <hr />
-            <div class="scrolling-wrapper">
-                <div *ngFor="let course of courses.subscribers.active" routerLink="/user/course-details/{{course.id}}" class="course-card">
-                    <div class="course-card-body">
-                        <p class="course-card-title">
-                            {{ course.name }}
-                        </p>
-                        <hr style="margin-bottom: 0px;">
-                        <div class="course-card-image">
-                            <div class="course-card-image-overlay"></div>
-                            <img class="course-card-image" src="{{(course.image != null && course.image != '') ? course.image : 'assets/images/courses/null.jpeg' }}" />
-                        </div>
-                        <hr style="margin-top: 0px;">
-                        <div class="course-card-desc">
-                            <p class="course-card-text">{{ (course.description) ? course.description : "No description" }}</p>
-                        </div>
-                        <hr style="margin-bottom: 0px;">
-                        <div class="course-card-footer">
-                            <div>Taught by <br><b>{{ course.author }}</b></div>
-                            <br />
-                            <div class="pull-left">
-                                <i class="fa fa-users"></i> {{ course.subscribers }}
+            <div *ngIf="courses.subscribers.courses.length > 0">
+                <h4>Most popular courses</h4>
+                <hr />
+                <div class="scrolling-wrapper">
+                    <div *ngFor="let course of courses.subscribers.active" routerLink="/user/course-details/{{course.id}}" class="course-card">
+                        <div class="course-card-body">
+                            <p class="course-card-title">
+                                {{ course.name }}
+                            </p>
+                            <hr style="margin-bottom: 0px;">
+                            <div class="course-card-image">
+                                <div class="course-card-image-overlay"></div>
+                                <img class="course-card-image" src="{{(course.image != null && course.image != '') ? course.image : 'assets/images/courses/null.jpeg' }}" />
                             </div>
-                            <div class="pull-right">
+                            <hr style="margin-top: 0px;">
+                            <div class="course-card-desc">
+                                <p class="course-card-text">{{ (course.description) ? course.description : "No description" }}</p>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h4>Newest courses</h4>
-            <hr />
-
-            <div class="scrolling-wrapper">
-                <div *ngFor="let course of courses.newest.active" routerLink="/user/course-details/{{course.id}}" class="course-card">
-                    <div class="course-card-body">
-                        <p class="course-card-title">
-                            {{ course.name }}
-                        </p>
-                        <hr style="margin-bottom: 0px;">
-                        <div class="course-card-image">
-                            <div class="course-card-image-overlay"></div>
-                            <img class="course-card-image" src="{{(course.image != null && course.image != '') ? course.image : 'assets/images/courses/null.jpeg' }}" />
-                        </div>
-                        <hr style="margin-top: 0px;">
-                        <div class="course-card-desc">
-                            <p class="course-card-text">{{ (course.description) ? course.description : "No description" }}</p>
-                        </div>
-                        <hr style="margin-bottom: 0px;">
-                        <div class="course-card-footer">
-                            <div>Taught by <br><b>{{ course.author }}</b></div>
-                            <br />
-                            <div class="pull-left">
-                                <i class="fa fa-users"></i> {{ course.subscribers }}
-                            </div>
-                            <div class="pull-right">
+                            <hr style="margin-bottom: 0px;">
+                            <div class="course-card-footer">
+                                <div>Taught by <br><b>{{ course.author }}</b></div>
+                                <br />
+                                <div class="pull-left">
+                                    <i class="fa fa-users"></i> {{ course.subscribers }}
+                                </div>
+                                <div class="pull-right">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <div *ngIf="courses.newest.courses.length > 0">
+                <h4>Newest courses</h4>
+                <hr />
+                <div class="scrolling-wrapper">
+                    <div *ngFor="let course of courses.newest.active" routerLink="/user/course-details/{{course.id}}" class="course-card">
+                        <div class="course-card-body">
+                            <p class="course-card-title">
+                                {{ course.name }}
+                            </p>
+                            <hr style="margin-bottom: 0px;">
+                            <div class="course-card-image">
+                                <div class="course-card-image-overlay"></div>
+                                <img class="course-card-image" src="{{(course.image != null && course.image != '') ? course.image : 'assets/images/courses/null.jpeg' }}" />
+                            </div>
+                            <hr style="margin-top: 0px;">
+                            <div class="course-card-desc">
+                                <p class="course-card-text">{{ (course.description) ? course.description : "No description" }}</p>
+                            </div>
+                            <hr style="margin-bottom: 0px;">
+                            <div class="course-card-footer">
+                                <div>Taught by <br><b>{{ course.author }}</b></div>
+                                <br />
+                                <div class="pull-left">
+                                    <i class="fa fa-users"></i> {{ course.subscribers }}
+                                </div>
+                                <div class="pull-right">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
