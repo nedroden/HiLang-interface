@@ -40,6 +40,7 @@ export class DictationComponent extends Exercise implements OnInit {
         this.lesson = lesson;
         this.exerciseService.setVocabulary(this.lesson.vocabulary);
         this.initialize(lesson);
+        console.log(this.lesson);
       });
    		document.getElementById('enterAnswer').addEventListener('click', e => this.handleInput(e, this));
     }
@@ -115,7 +116,7 @@ export class DictationComponent extends Exercise implements OnInit {
 
     private repeat(){
     	var msg = new SpeechSynthesisUtterance(this.message);
-    	msg.lang = 'es';
+    	msg.lang = this.lesson['short_name'];
 		window.speechSynthesis.speak(msg);
     }
 }
