@@ -33,6 +33,7 @@ export abstract class Exercise {
                 protected router: Router,
                 private _api: HilangApiService,
                 private _cookie: CookieService) {
+        console.log('1');
         this.exerciseService.setVocabulary([]);
         this.exerciseService.clearResults();
 
@@ -52,26 +53,27 @@ export abstract class Exercise {
         this.initQueue();
         this.allWords = this.queue.slice(0);
         this.setCurrentWord();
-        this.addOptions(this.currentWord);
+        //this.addOptions(this.currentWord);
         this.startTimer();
         this.exerciseService.setLesson(lesson);
         this._api.call('/update_activity/', {course_id : lesson['course_id']}).subscribe();
     }
 
     protected initQueue(){
+        console.log('3');
         //Punctuation unchecked, capital unchecked
-        this.exerciseService.switchVocabulary();
+        this.switchVocabulary();
         if(!this.exerciseService.getPunctuation() && !this.exerciseService.getCapital()){
             if(this.exerciseService.getRandom()){
                 for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random())){
-                    word.question = this.removeAccents(word.question).toLowerCase();
-                    word.answer = this.removeAccents(word.answer).toLowerCase();
+                    word.native = this.removeAccents(word.native).toLowerCase();
+                    word.translation = this.removeAccents(word.translation).toLowerCase();
                     this.queue.push(word);
                 }
             } else {
                 for (let word of this.exerciseService.getVocabulary()){
-                    word.question = this.removeAccents(word.question).toLowerCase();
-                    word.answer = this.removeAccents(word.answer).toLowerCase();
+                    word.native = this.removeAccents(word.native).toLowerCase();
+                    word.translation = this.removeAccents(word.translation).toLowerCase();
                     this.queue.push(word);
                 }
             }
@@ -80,14 +82,14 @@ export abstract class Exercise {
         else if(!this.exerciseService.getPunctuation() && this.exerciseService.getCapital()){
             if(this.exerciseService.getRandom()){
                 for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random())){
-                    word.question = this.removeAccents(word.question);
-                    word.answer = this.removeAccents(word.answer);
+                    word.native = this.removeAccents(word.native);
+                    word.translation = this.removeAccents(word.translation);
                     this.queue.push(word);
                 }
             } else {
                 for (let word of this.exerciseService.getVocabulary()){
-                    word.question = this.removeAccents(word.question);
-                    word.answer = this.removeAccents(word.answer);
+                    word.native = this.removeAccents(word.native);
+                    word.translation = this.removeAccents(word.translation);
                     this.queue.push(word);
                 }
             }
@@ -96,14 +98,14 @@ export abstract class Exercise {
         else if(this.exerciseService.getPunctuation() && !this.exerciseService.getCapital()){
             if(this.exerciseService.getRandom()){
                 for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random())){
-                    word.question = word.question.toLowerCase();
-                    word.answer = word.answer.toLowerCase();
+                    word.native = word.native.toLowerCase();
+                    word.translation = word.translation.toLowerCase();
                     this.queue.push(word);
                 }
             } else {
                 for (let word of this.exerciseService.getVocabulary()){
-                    word.question = word.question.toLowerCase();
-                    word.answer = word.answer.toLowerCase();
+                    word.native = word.native.toLowerCase();
+                    word.translation = word.translation.toLowerCase();
                     this.queue.push(word);
                 }
             }
@@ -121,8 +123,16 @@ export abstract class Exercise {
 
             }
         }
-        if(true) {
-            //this.exerciseService.switchVocabulary();
+        if(this.exerciseService.getSwitch()) {
+            this.switchVocabulary();
+        }
+    }
+
+    switchVocabulary() {
+        for(let word of this.queue) {
+            let holder = word.native;
+            word.native = word.translation;
+            word.translation = holder;
         }
     }
 
@@ -136,19 +146,15 @@ export abstract class Exercise {
 
     protected next(): void {
         if (this.hasNext()){
-            console.log('1')
             this.setCurrentWord();
-            this.addOptions(this.currentWord)
+            //this.addOptions(this.currentWord)
         }
         else if (this.incorrectWords.length > 0){
-            console.log('2')
             this.nextRound();
         }
         else{
-            console.log('3')
             this.exit();
         }
-        console.log(this.queue)
     }
 
     private updateProgress(): void {
@@ -156,11 +162,11 @@ export abstract class Exercise {
     }
 
     protected isCorrect(input: string): boolean {
-        return input === this.queue[0].answer;
+        return input === this.queue[0].translation;
     }
 
     protected getCorrectValue(){
-        return this.currentWord.answer;
+        return this.currentWord.translation;
     }
 
     protected clear(isCorrect: boolean, input: HTMLInputElement): boolean {
@@ -234,12 +240,12 @@ export abstract class Exercise {
     }
 
     protected addOptions(word: Flashcard){
-        var options = [this.queue[0].answer,];
+        var options = [this.queue[0].translation,];
 
         for(let i = 0; i < 3; i++){
-            var rand = this.allWords[Math.floor(Math.random() * this.allWords.length)].answer;
+            var rand = this.allWords[Math.floor(Math.random() * this.allWords.length)].translation;
             while(options.includes(rand)){
-                rand = this.allWords[Math.floor(Math.random() * this.allWords.length)].answer;
+                rand = this.allWords[Math.floor(Math.random() * this.allWords.length)].translation;
             }
             options.push(rand);
         }

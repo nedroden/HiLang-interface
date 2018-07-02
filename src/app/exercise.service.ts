@@ -14,6 +14,7 @@ export class ExerciseService {
     private _capital: boolean;
     private _punctuation: boolean;
     private _tillend: boolean;
+    private _switch: boolean;
 
 
     constructor() {
@@ -26,14 +27,6 @@ export class ExerciseService {
 
     public getVocabulary(): Flashcard[] {
         return this._vocabulary;
-    }
-
-    public switchVocabulary() {
-        for(let word of this._vocabulary) {
-            let holder = word.question;
-            word.question = word.answer;
-            word.answer = holder;
-        }
     }
 
     public getResults(): ExerciseResult {
@@ -68,6 +61,10 @@ export class ExerciseService {
         this._random = bool;
     }
 
+    public setSwitch(bool: boolean) {
+        this._switch = bool;
+    }
+
     public setCapital(bool: boolean){
         this._capital = bool;
     }
@@ -86,5 +83,9 @@ export class ExerciseService {
 
     public getPunctuation(){
         return this._punctuation;
+    }
+
+    public getSwitch() {
+        return this._switch;
     }
 }
