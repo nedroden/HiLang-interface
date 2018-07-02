@@ -1,7 +1,7 @@
 export class Flashcard {
     id: number = 0;
-    native: string = '';
-    translation: string = '';
+    question: string = '';
+    answer: string = '';
     exercise: string = '';
     roundCorrect: number = 0;
     options = [];

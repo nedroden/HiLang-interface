@@ -28,6 +28,6 @@ export class HilangApiService {
   }
 
   login(params: object) {
-      return this._http.post(environment.api_url + '/login', params, {headers: new HttpHeaders({ 'Content-Type': 'application/json'})});
+      return this._http.post(environment.api_url + 'login', params, {headers: new HttpHeaders({ 'Content-Type': 'application/json'})});
   }
 }

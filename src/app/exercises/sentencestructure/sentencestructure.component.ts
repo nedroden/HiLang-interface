@@ -51,14 +51,14 @@ export class SentenceStructureComponent extends Exercise implements OnInit {
           for (let x = 0; x < data['length']; x++) {
               let question = data[x];
               let newQuestion = <Flashcard>{ id: question.pk,
-                                             native: question.fields.native,
-                                             translation: question.fields.translation, };
+                                             question: question.fields.question,
+                                             answer: question.fields.answer, };
               this.queue.push(newQuestion);
           }
           this.queue = this.queue.sort((a, b) => 0.5 - Math.random());
           this.currentWord = this.queue[0];
           this.placedAnswers = [];
-          this.availableAnswers = this.currentWord.translation.split(' ').sort((a, b) => 0.5 - Math.random());
+          this.availableAnswers = this.currentWord.answer.split(' ').sort((a, b) => 0.5 - Math.random());
           this.startTimer();
       });
 
@@ -69,14 +69,14 @@ export class SentenceStructureComponent extends Exercise implements OnInit {
   private handleInput(event, exercise): void {
       event.preventDefault();
       let isCorrect = false;
-      if (this.currentWord.translation == this.placedAnswers.join(' '))
+      if (this.currentWord.answer == this.placedAnswers.join(' '))
            isCorrect = true;
 
       exercise.clear(isCorrect, null);
       exercise.next();
       console.log(this.currentWord);
       this.placedAnswers = [];
-      this.availableAnswers = this.currentWord.translation.split(' ').sort((a, b) => 0.5 - Math.random());
+      this.availableAnswers = this.currentWord.answer.split(' ').sort((a, b) => 0.5 - Math.random());
   }
 
   toPlaced(index: number): void {

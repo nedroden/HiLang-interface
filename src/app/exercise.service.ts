@@ -28,6 +28,14 @@ export class ExerciseService {
         return this._vocabulary;
     }
 
+    public switchVocabulary() {
+        for(let word of this._vocabulary) {
+            let holder = word.question;
+            word.question = word.answer;
+            word.answer = holder;
+        }
+    }
+
     public getResults(): ExerciseResult {
         return this._exerciseResult;
     }
