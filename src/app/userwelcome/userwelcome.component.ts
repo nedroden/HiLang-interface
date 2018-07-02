@@ -36,7 +36,6 @@ export class UserwelcomeComponent implements OnInit {
     ngOnInit() {
         this._api.call('/user/' + this._cookie.getValue()['user_id'] + "/", {}).subscribe(data => {
             this.user = data;
-            console.log(this.user);
         });
         this._api.call('/last_accessed/', {}).subscribe(data => {
             this.lastAccessed = <any[]>data;

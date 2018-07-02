@@ -43,7 +43,6 @@ export class MyCoursesComponent implements OnInit {
         callback(this._cookie.getValue()['user_id']).subscribe(
             data => {
                 for(let course of <Object[]>data) {
-                    console.log(course);
                     this._courses.getUser(course['fields']['user']).subscribe(userName => {
                         this.knownUsers[course['fields']['user']] = (userName['name']);
                         courses.push({
@@ -59,9 +58,9 @@ export class MyCoursesComponent implements OnInit {
                         });
                     });
                 }
-                this.loadingCounter += 1;
-                if (this.loadingCounter < 3)
-                    this.loadingScreen.disable();
+                // this.loadingCounter += 1;
+                // if (this.loadingCounter < 3)
+                //     this.loadingScreen.disable();
             },
             err => console.log(err)
         );
@@ -69,9 +68,9 @@ export class MyCoursesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadingCounter = 0;
-        this.loadingScreen = new LoadingScreen();
-        this.loadingScreen.render(document.body);
+        // this.loadingCounter = 0;
+        // this.loadingScreen = new LoadingScreen();
+        // this.loadingScreen.render(document.body);
         this._api.call('/languages/', {}).subscribe(data => {
             this.languages = <Object[]>data;
             for (let flag of <Object[]>data) {

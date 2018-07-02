@@ -25,7 +25,6 @@ export class UserinfoblockComponent implements OnInit {
 
     ngOnInit() {
         this._account.getAccountSettings().subscribe(data => {
-            console.log(data)
             this.user['name'] = data['name'];
             this.user['email'] = data['email'];
             this.user['type'] = (data['distributor'] == 0) ? 'Normal user':'Distributor';

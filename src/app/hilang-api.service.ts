@@ -15,7 +15,6 @@ export class HilangApiService {
           token: this._cookie.getValue()['token'],
           params: params,
       }
-      console.log(environment.api_url + url)
       return this._http.post(environment.api_url + url, data, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 

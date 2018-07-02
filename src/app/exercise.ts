@@ -49,16 +49,13 @@ export abstract class Exercise {
     }
 
     protected initialize(lesson: Lesson): void {
-        console.log(lesson);
         this.initQueue();
         this.allWords = this.queue.slice(0);
         this.setCurrentWord();
         this.addOptions(this.currentWord);
         this.startTimer();
         this.exerciseService.setLesson(lesson);
-        this._api.call('/update_activity/', {course_id : lesson['course_id']}).subscribe(data => {
-            console.log(data);
-        });
+        this._api.call('/update_activity/', {course_id : lesson['course_id']}).subscribe();
     }
 
     protected initQueue(){
@@ -135,19 +132,12 @@ export abstract class Exercise {
 
     protected next(): void {
         if (this.hasNext()){
-            console.log('1')
             this.setCurrentWord();
             this.addOptions(this.currentWord)
-        }
-        else if (this.incorrectWords.length > 0){
-            console.log('2')
+        } else if (this.incorrectWords.length > 0)
             this.nextRound();
-        }
-        else{
-            console.log('3')
+        else
             this.exit();
-        }
-        console.log(this.queue)
     }
 
     private updateProgress(): void {
@@ -233,14 +223,14 @@ export abstract class Exercise {
     }
 
     protected addOptions(word: Flashcard){
-        var options = [this.queue[0].translation,];
-
-        for(let i = 0; i < 3; i++){
-            var rand = this.allWords[Math.floor(Math.random() * this.allWords.length)].translation;
-            while(options.includes(rand)){
-                rand = this.allWords[Math.floor(Math.random() * this.allWords.length)].translation;
-            }
-            options.push(rand);
+        var options = [this.queue[0]];
+        let rand = this.allWords.slice(0).sort((a, b) => 0.5 - Math.random());
+        let index = rand.indexOf(this.queue[0]);
+        if (index !== -1) rand.splice(index, 1);
+        if (rand.length > 3) rand.splice(3, rand.length - 3);
+        options = options.concat(rand);
+        for (let i in options) {
+            options[i] = options[i].translation;
         }
         word.options = options.sort((a, b) => 0.5 - Math.random());
     }

@@ -31,25 +31,21 @@ export class PreExerciseComponent implements OnInit {
 	createExercise() {
 		var options = <NodeListOf<HTMLInputElement>>document.getElementsByName("option");
 		var exercises = <NodeListOf<HTMLInputElement>>document.getElementsByName("exercise");
-		var selectedExercise;		
+		var selectedExercise;
 
 		for(var i = 0; i < options.length; i++){
-			if(options[i].checked){
-				console.log(options[i].value)
+			if(options[i].checked)
 				this.selectedOptions[options[i].value] = true;
-			} 
 		}
 
 		for(var i = 0; i < exercises.length; i++){
-			if(exercises[i].checked){
+			if(exercises[i].checked)
 				selectedExercise = exercises[i].value;
-			}
 		}
 		this.exerciseService.setRandom(this.selectedOptions.random);
 		this.exerciseService.setCapital(this.selectedOptions.capital);
 		this.exerciseService.setPunctuation(this.selectedOptions.punctuation);
 
 		this.router.navigate(["/user/lesson/" + this.lesson_id + "/" + selectedExercise]);
-		console.log(this.selectedOptions);
 	}
 }
