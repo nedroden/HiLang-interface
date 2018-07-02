@@ -33,6 +33,7 @@ export abstract class Exercise {
                 protected router: Router,
                 private _api: HilangApiService,
                 private _cookie: CookieService) {
+        console.log('1');
         this.exerciseService.setVocabulary([]);
         this.exerciseService.clearResults();
 
@@ -49,20 +50,19 @@ export abstract class Exercise {
     }
 
     protected initialize(lesson: Lesson): void {
-        console.log(lesson);
         this.initQueue();
         this.allWords = this.queue.slice(0);
         this.setCurrentWord();
-        this.addOptions(this.currentWord);
+        //this.addOptions(this.currentWord);
         this.startTimer();
         this.exerciseService.setLesson(lesson);
-        this._api.call('/update_activity/', {course_id : lesson['course_id']}).subscribe(data => {
-            console.log(data);
-        });
+        this._api.call('/update_activity/', {course_id : lesson['course_id']}).subscribe();
     }
 
     protected initQueue(){
+        console.log('3');
         //Punctuation unchecked, capital unchecked
+        this.switchVocabulary();
         if(!this.exerciseService.getPunctuation() && !this.exerciseService.getCapital()){
             if(this.exerciseService.getRandom()){
                 for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random())){
@@ -123,6 +123,17 @@ export abstract class Exercise {
 
             }
         }
+        if(this.exerciseService.getSwitch()) {
+            this.switchVocabulary();
+        }
+    }
+
+    switchVocabulary() {
+        for(let word of this.queue) {
+            let holder = word.native;
+            word.native = word.translation;
+            word.translation = holder;
+        }
     }
 
     protected setCurrentWord(){
@@ -135,19 +146,15 @@ export abstract class Exercise {
 
     protected next(): void {
         if (this.hasNext()){
-            console.log('1')
             this.setCurrentWord();
-            this.addOptions(this.currentWord)
+            //this.addOptions(this.currentWord)
         }
         else if (this.incorrectWords.length > 0){
-            console.log('2')
             this.nextRound();
         }
         else{
-            console.log('3')
             this.exit();
         }
-        console.log(this.queue)
     }
 
     private updateProgress(): void {
@@ -245,8 +252,8 @@ export abstract class Exercise {
         word.options = options.sort((a, b) => 0.5 - Math.random());
     }
 
-    protected removeAccents(strAccents): string {
-        var strAccents = strAccents.split('');
+    protected removeAccents(input): string {
+        var strAccents = input.split('');
         var strAccentsOut = new Array();
         var strAccentsLen = strAccents.length;
         var accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
