@@ -15,7 +15,7 @@ export class PreExerciseComponent implements OnInit {
 			random: false,
 			capital: false,
 			punctuation: false,
-			tillend: false
+			switch: false
 		};
 
 	constructor(private _activatedRoute: ActivatedRoute, private router: Router, private exerciseService: ExerciseService) { }
@@ -35,8 +35,9 @@ export class PreExerciseComponent implements OnInit {
 
 		for(var i = 0; i < options.length; i++){
 			if(options[i].checked)
-				this.selectedOptions[options[i].value] = true;
+                this.selectedOptions[options[i].value] = true;
 		}
+
 
 		for(var i = 0; i < exercises.length; i++){
 			if(exercises[i].checked)
@@ -45,6 +46,7 @@ export class PreExerciseComponent implements OnInit {
 		this.exerciseService.setRandom(this.selectedOptions.random);
 		this.exerciseService.setCapital(this.selectedOptions.capital);
 		this.exerciseService.setPunctuation(this.selectedOptions.punctuation);
+		this.exerciseService.setSwitch(this.selectedOptions.switch);
 
 		this.router.navigate(["/user/lesson/" + this.lesson_id + "/" + selectedExercise]);
 	}
