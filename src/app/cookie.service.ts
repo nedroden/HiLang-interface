@@ -53,8 +53,10 @@ export class CookieService {
   }
 
   destroy() {
-      this._http.post(environment.api_url + '/destroyToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).subscribe();
-      document.cookie = "hl_cred=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      this.value = null;
+      if (this.value != null) {
+          this._http.post(environment.api_url + '/destroyToken', this.value, {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).subscribe();
+          document.cookie = "hl_cred=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          this.value = null;
+      }
   }
 }

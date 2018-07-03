@@ -45,17 +45,23 @@ export class LessonviewComponent implements OnInit {
         this.authorId = parseInt(ulrParts[ulrParts.length - 3]);
         this.lesson['counter'] = parseInt(ulrParts[ulrParts.length - 4]);
         this.courseService.getLessonDet(this.id).subscribe(response => {
+            console.log(response);
             if (!response){
-                this.router.navigate(['user/'])
+                this.router.navigate(['user/']);
             } else {
-                this.lesson['id'] = response['id'];
-                this.lesson['name'] = response['name'];
-                this.lesson['desc'] = response['desc'];
-                this.lesson['cat'] = response['cat'];
-                this.lesson['grammar'] = response['grammar'];
-                this.lesson['source_language'] = response['native'];
-                this.lesson['target_language'] = response['trans'];
-                this.lesson['language_short'] = response['language_short'];
+                if (response == false)
+                    this.router.navigate(['user/'])
+                else {
+                    this.lesson['id'] = response['id'];
+                    this.lesson['subscribed'] = response['subscription'];
+                    this.lesson['name'] = response['name'];
+                    this.lesson['desc'] = response['desc'];
+                    this.lesson['cat'] = response['cat'];
+                    this.lesson['grammar'] = response['grammar'];
+                    this.lesson['source_language'] = response['native'];
+                    this.lesson['target_language'] = response['trans'];
+                    this.lesson['language_short'] = response['language_short'];
+                }
             }
         });
         this.courseService.getLesson(this.id).subscribe(response => {
@@ -71,22 +77,17 @@ export class LessonviewComponent implements OnInit {
             }
             this.lesson['vocabulary'] = subVoc;
         });
-
-        console.log(this.lesson);
-
-        if(this.authorId === this._cookie.getValue()['user_id']) {
+        if(this.authorId === this._cookie.getValue()['user_id'])
             this.editable = true;
-        }
     }
 
     getLanguage(id:number, type: number) {
         this.courseService.getLangDetails(id).subscribe(response => {
-                    if(type === 0) {
-                        this.lesson['source_language'] = response[0]['fields']['name'];
-                    } else if(type === 1) {
-                        this.lesson['target_language'] = response[0]['fields']['name'];
-                    }
-                });
+            if(type === 0)
+                this.lesson['source_language'] = response[0]['fields']['name'];
+            else if(type === 1)
+                this.lesson['target_language'] = response[0]['fields']['name'];
+        });
     }
 
     edit() {

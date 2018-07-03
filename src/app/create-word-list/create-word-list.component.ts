@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+    import { Component, OnInit } from '@angular/core';
 import { LessonService } from '../lesson.service';
 import { HilangApiService } from '../hilang-api.service';
 import { LessonDetailsService } from '../lesson-details.service';
@@ -44,9 +44,7 @@ export class CreateWordListComponent implements OnInit {
     		if((<HTMLInputElement>document.getElementById('inputGrammar')).value == undefined){
                 (<HTMLInputElement>document.getElementById('inputGrammar')).value = details['grammar'];
             }
-            console.log(details);
     		let vocabulary = details['vocabulary'];
-    		console.log(vocabulary);
     		for(let i=5; i<vocabulary.length; i+=5) {
     			this.createRows();
     		}

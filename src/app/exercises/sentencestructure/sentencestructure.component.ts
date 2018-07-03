@@ -34,8 +34,8 @@ export class SentenceStructureComponent extends Exercise implements OnInit {
   ngOnInit() {
     this.lesson = new Lesson;
     this._activatedRoute.params.subscribe(params => this.id = params.id);
-    this.id = 34;
     this._lessonService.getLesson(this.id).subscribe(lesson => {
+        console.log(lesson);
         this.lesson = lesson;
         this.exerciseService.setVocabulary(this.lesson.vocabulary);
         this.initialize();
@@ -44,9 +44,15 @@ export class SentenceStructureComponent extends Exercise implements OnInit {
   }
 
   protected initialize(): void {
-      this.id = 34;
+      this.currentWord = new Flashcard();
+      this.exerciseService.setLesson(this.lesson);
+
       this._lessonService.getSentenceLesson(this.id).subscribe(data => {
-          this.exerciseService.setVocabulary(this.lesson.vocabulary);
+          let questions = [];
+          for (let item of this.lesson.vocabulary) {
+              if (item['sentenceStructure']) questions.push(item);
+          }
+          this.exerciseService.setVocabulary(questions);
 
           for (let x = 0; x < data['length']; x++) {
               let question = data[x];
@@ -61,9 +67,6 @@ export class SentenceStructureComponent extends Exercise implements OnInit {
           this.availableAnswers = this.currentWord.translation.split(' ').sort((a, b) => 0.5 - Math.random());
           this.startTimer();
       });
-
-      this.currentWord = new Flashcard();
-      this.exerciseService.setLesson(this.lesson);
   }
 
   private handleInput(event, exercise): void {
@@ -74,7 +77,6 @@ export class SentenceStructureComponent extends Exercise implements OnInit {
 
       exercise.clear(isCorrect, null);
       exercise.next();
-      console.log(this.currentWord);
       this.placedAnswers = [];
       this.availableAnswers = this.currentWord.translation.split(' ').sort((a, b) => 0.5 - Math.random());
   }
