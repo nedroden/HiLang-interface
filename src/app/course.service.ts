@@ -31,6 +31,8 @@ export class CourseService {
   	return this._api.call('/course/' + c_id + '/lessons', {});
   }
 
+  
+
   getLessonDet(l_id: number) {
   	return this._api.call('/lesson/' + l_id + '/details', {});
   }
