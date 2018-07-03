@@ -53,7 +53,7 @@ export abstract class Exercise {
         this.initQueue();
         this.allWords = this.queue.slice(0);
         this.setCurrentWord();
-        //this.addOptions(this.currentWord);
+        this.addOptions(this.currentWord);
         this.startTimer();
         this.exerciseService.setLesson(lesson);
         this._api.call('/update_activity/', {course_id : lesson['course_id']}).subscribe();
@@ -66,13 +66,11 @@ export abstract class Exercise {
         if(!this.exerciseService.getPunctuation() && !this.exerciseService.getCapital()){
             if(this.exerciseService.getRandom()){
                 for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random())){
-                    word.native = this.removeAccents(word.native).toLowerCase();
                     word.translation = this.removeAccents(word.translation).toLowerCase();
                     this.queue.push(word);
                 }
             } else {
                 for (let word of this.exerciseService.getVocabulary()){
-                    word.native = this.removeAccents(word.native).toLowerCase();
                     word.translation = this.removeAccents(word.translation).toLowerCase();
                     this.queue.push(word);
                 }
@@ -82,13 +80,11 @@ export abstract class Exercise {
         else if(!this.exerciseService.getPunctuation() && this.exerciseService.getCapital()){
             if(this.exerciseService.getRandom()){
                 for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random())){
-                    word.native = this.removeAccents(word.native);
                     word.translation = this.removeAccents(word.translation);
                     this.queue.push(word);
                 }
             } else {
                 for (let word of this.exerciseService.getVocabulary()){
-                    word.native = this.removeAccents(word.native);
                     word.translation = this.removeAccents(word.translation);
                     this.queue.push(word);
                 }
@@ -98,13 +94,11 @@ export abstract class Exercise {
         else if(this.exerciseService.getPunctuation() && !this.exerciseService.getCapital()){
             if(this.exerciseService.getRandom()){
                 for (let word of this.exerciseService.getVocabulary().sort((a, b) => 0.5 - Math.random())){
-                    word.native = word.native.toLowerCase();
                     word.translation = word.translation.toLowerCase();
                     this.queue.push(word);
                 }
             } else {
                 for (let word of this.exerciseService.getVocabulary()){
-                    word.native = word.native.toLowerCase();
                     word.translation = word.translation.toLowerCase();
                     this.queue.push(word);
                 }
@@ -250,6 +244,7 @@ export abstract class Exercise {
             options.push(rand[i].translation)
         }
         word.options = options.sort((a, b) => 0.5 - Math.random());
+        console.log(word.options)
     }
 
     protected removeAccents(input): string {
