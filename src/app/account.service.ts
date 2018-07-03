@@ -19,7 +19,6 @@ export class AccountService {
 	}
 
 	postAccountSettings(params: object){
-		console.log('hij komt hier')
 		let user_id = this._cookie.getValue()['user_id'];
 		return this._api.call('/user/' + user_id + '/edituser/', params);
 	}

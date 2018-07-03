@@ -29,7 +29,6 @@ export class ExerciseResultComponent implements OnInit {
         lesson_id: this.result.lesson['id'],
         grade: this.result.grade
       }
-      console.log(this.result.grade);
-      this._lessonService.setLessonCompleted(sendData).subscribe(response => console.log(response));
+      this._lessonService.setLessonCompleted(sendData).subscribe();
     }
 }
