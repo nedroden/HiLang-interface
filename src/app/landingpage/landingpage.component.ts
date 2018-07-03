@@ -46,7 +46,7 @@ export class LandingpageComponent implements OnInit {
             errorNotification.render();
             return
         }
-        else if(name['value'].length >= 30) {
+        else if(name['value'].length > 30) {
             let errornotification = new ErrorNotification('Please shorten your user name to 30 characters or less', 'registerError', 'danger');
             errornotification.setTimeout(3000);
             errornotification.render();

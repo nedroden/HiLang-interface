@@ -44,13 +44,17 @@ export class CompletionComponent extends Exercise implements OnInit {
     }
 
     makeIncomplete(currentWord) {
-      let question = ""
+      let question = "";
       for(let index = 0; index < currentWord.translation.length; index++) {
         if(currentWord.translation[index] == ' '){
           question += " ";
           continue;
         }
-        if(index != 0 && index != currentWord.translation.length -1 && index != Math.floor(currentWord.translation.length / 2)) {
+        if(currentWord.translation.length < 3) {
+            if(index == 0 || index == currentWord.translation.length - 1) {
+                question += '.';
+            }
+        } else if(index != 0 && index != currentWord.translation.length -1 && index != Math.floor(currentWord.translation.length / 2)) {
           question += ".";
 
         } else {
