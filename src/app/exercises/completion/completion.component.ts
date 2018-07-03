@@ -50,9 +50,11 @@ export class CompletionComponent extends Exercise implements OnInit {
           question += " ";
           continue;
         }
-        if(currentWord.translation.length < 3) {
+        if(currentWord.translation.length <= 3) {
             if(index == 0 || index == currentWord.translation.length - 1) {
                 question += '.';
+            }else {
+                question += currentWord.translation[index];
             }
         } else if(index != 0 && index != currentWord.translation.length -1 && index != Math.floor(currentWord.translation.length / 2)) {
           question += ".";

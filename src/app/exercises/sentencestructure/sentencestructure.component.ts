@@ -74,7 +74,6 @@ export class SentenceStructureComponent extends Exercise implements OnInit {
 
       exercise.clear(isCorrect, null);
       exercise.next();
-      console.log(this.currentWord);
       this.placedAnswers = [];
       this.availableAnswers = this.currentWord.translation.split(' ').sort((a, b) => 0.5 - Math.random());
   }
