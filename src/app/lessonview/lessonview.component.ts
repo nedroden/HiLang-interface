@@ -47,13 +47,13 @@ export class LessonviewComponent implements OnInit {
         this.courseService.getLessonDet(this.id).subscribe(response => {
             console.log(response);
             if (!response){
-                console.log('test');
                 this.router.navigate(['user/']);
             } else {
                 if (response == false)
                     this.router.navigate(['user/'])
                 else {
                     this.lesson['id'] = response['id'];
+                    this.lesson['subscribed'] = response['subscription'];
                     this.lesson['name'] = response['name'];
                     this.lesson['desc'] = response['desc'];
                     this.lesson['cat'] = response['cat'];
