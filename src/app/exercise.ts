@@ -237,14 +237,17 @@ export abstract class Exercise {
     }
 
     protected addOptions(word: Flashcard){
-        var options = [this.queue[0]];
+        var options = [this.queue[0].translation];
         let rand = this.allWords.slice(0).sort((a, b) => 0.5 - Math.random());
         let index = rand.indexOf(this.queue[0]);
-        if (index !== -1) rand.splice(index, 1);
-        if (rand.length > 3) rand.splice(3, rand.length - 3);
-        options = options.concat(rand);
-        for (let i in options) {
-            options[i] = options[i].translation;
+        if (index !== -1){
+            rand.splice(index, 1);
+        }
+        if (rand.length > 3){
+            rand.splice(3, rand.length - 3);
+        }
+        for(let i in rand){
+            options.push(rand[i].translation)
         }
         word.options = options.sort((a, b) => 0.5 - Math.random());
     }

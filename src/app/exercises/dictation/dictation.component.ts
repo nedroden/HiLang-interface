@@ -77,8 +77,10 @@ export class DictationComponent extends Exercise implements OnInit {
 
             exercise.clear(isCorrect, input);
             exercise.next();
-            this.updateMessage();
-            this.repeat();
+            if(exercise.hasNext()){
+                this.updateMessage();
+                this.repeat();
+            }
 
             if (correct_answer !== null)
                 correct_answer.innerHTML = '';
