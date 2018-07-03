@@ -87,7 +87,6 @@ export class MultipleChoiceComponent extends Exercise implements OnInit {
         }
 
         btn.classList.add(className);
-        console.log(isCorrect);
 
         let timeout: Function = () => {
             btn.classList.remove(className);

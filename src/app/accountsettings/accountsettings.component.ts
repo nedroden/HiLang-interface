@@ -9,7 +9,7 @@ import { AccountService } from '../account.service';
   styleUrls: ['./accountsettings.component.css']
 })
 export class AccountsettingsComponent implements OnInit {
-	
+
 	userData = {
         avatar: "",
         name: "",
@@ -28,7 +28,7 @@ export class AccountsettingsComponent implements OnInit {
 		this.showUserSettings()
 	}
 
-	
+
 	showUserSettings() {
 		this._account.getAccountSettings().subscribe(data => {
 				this.userData['name'] = data['name'];
@@ -36,8 +36,7 @@ export class AccountsettingsComponent implements OnInit {
 	            this.userData['type'] = (data['distributor'] == 0) ? 'Normal user':'Distributor';
 	            this.userData['memberSince'] = data['created_at'];
                 this.userData['bio'] = data['bio'];
-	            this.userData['avatar'] = data['avatar'];  
-	            console.log(this.userData);
+	            this.userData['avatar'] = data['avatar'];
 			}, err => console.error(err),
             () => console.log('Done loading user data')
         )

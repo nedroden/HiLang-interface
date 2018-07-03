@@ -40,7 +40,6 @@ export class DictationComponent extends Exercise implements OnInit {
         this.lesson = lesson;
         this.exerciseService.setVocabulary(this.lesson.vocabulary);
         this.initialize(lesson);
-        console.log(this.lesson);
       });
    		document.getElementById('enterAnswer').addEventListener('click', e => this.handleInput(e, this));
     }

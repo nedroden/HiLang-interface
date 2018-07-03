@@ -43,7 +43,6 @@ export class MyCoursesComponent implements OnInit {
         callback(this._cookie.getValue()['user_id']).subscribe(
             data => {
                 for(let course of <Object[]>data) {
-                    console.log(course);
                     this._courses.getUser(course['fields']['user']).subscribe(userName => {
                         this.knownUsers[course['fields']['user']] = (userName['name']);
                         courses.push({

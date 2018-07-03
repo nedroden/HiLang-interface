@@ -169,7 +169,6 @@ export class CourseDetailsComponent implements OnInit {
                     is_public: is_public,
                 }).subscribe(response => {
                     if (response) {
-                        console.log(response);
                         this.courseName = name;
                         this.courseDesc = description;
                         this.courseImg = image;
