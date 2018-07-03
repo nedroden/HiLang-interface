@@ -36,6 +36,7 @@ export class MultipleChoiceComponent extends Exercise implements OnInit {
             this.exerciseService.setVocabulary(this.lesson.vocabulary);
             this.initialize(lesson);
             this.setOptions();
+            console.log(this.currentWord)
         });
     }
 
