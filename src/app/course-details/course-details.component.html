@@ -3,6 +3,7 @@
 <div class="container-fluid">
 	<div class="col-sm-5 pull-left">
 		<div class="card">
+			<img class="card-img-top" id="courseImage" src="{{ (courseImg == '' || courseImg == null) ? 'assets/no-avatar.png' : courseImg }}" alt="No image available">
 			<div class="card-body" *ngIf="!editing">
 				<div class="col-12">
 					<h2 class="display-5">{{ courseName }}</h2>
