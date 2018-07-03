@@ -40,11 +40,16 @@ export class LandingpageComponent implements OnInit {
         var lowerCaseLetters = /[A-Z]/g;
         var numbers = /[0-9]/g;
 
-
         if (email['value'] == '' || name['value'] == '' || password['value'] == '' ) {
             let errorNotification = new ErrorNotification("Please fill in all fields", 'registerError', 'danger');
             errorNotification.setTimeout(3000);
             errorNotification.render();
+            return
+        }
+        else if(name['value'].length > 30) {
+            let errornotification = new ErrorNotification('Please shorten your user name to 30 characters or less', 'registerError', 'danger');
+            errornotification.setTimeout(3000);
+            errornotification.render();
             return
         }
         else if(email['value'] != '' && !email['value'].includes('@')){
@@ -52,15 +57,13 @@ export class LandingpageComponent implements OnInit {
             errorNotification.setTimeout(3000);
             errorNotification.render();
             return
-        }   
-
+        }
         else if(password['value'] != confirmPassword['value']){
             let errorNotification = new ErrorNotification("Paswords don't match", 'registerError', 'danger');
             errorNotification.setTimeout(3000);
             errorNotification.render();
             return
         }
-
         else if(!password['value'].match(upperCaseLetters)|| !password['value'].match(lowerCaseLetters) || !password['value'].match(numbers) || password['value'].length < 8) {
             let errorNotification = new ErrorNotification("Your password must contain atleast one capital letter and number", 'registerError', 'danger');
             errorNotification.setTimeout(3000);
